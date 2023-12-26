@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>Your App Name</title>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <h3>DocStatus</h3>
+      </div>
+      <nav>
+        <ul id="navList" class="navList">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Doctors</a></li>
+          <li><a href="#">Clinics</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="dropDownButton" onclick="openMenu()">
+        <img src="./menu.png" alt="" />
+      </button>
+    </header>
+
+    <div class="loginForm">
+      <h3 class="loginHeader">Login</h3>
+      <hr />
+      <form action="">
+        <input class="usernameInputLogin" type="text" placeholder="Username" />
+        <input
+          class="passwordInputLogin"
+          type="password"
+          placeholder="Password"
+        />
+        <button class="submitButtonLogin" onclick="login()">Log In</button>
+      </form>
+    </div>
+    <script>
+      const users = { Name: "MuhammadHaseeb", Password: "haseeb123" };
+
+      function openMenu() {
+        const navList = document.getElementById("navList");
+        navList.classList.toggle("show");
+      }
+
+      function login() {
+        event.preventDefault();
+        const usernameInputValue =
+          document.getElementsByClassName("usernameInputLogin")[0].value; // Assuming there's only one element with the class
+        const passwordInputValue =
+          document.getElementsByClassName("passwordInputLogin")[0].value; // Assuming there's only one element with the class
+
+        if (
+          users.Name === usernameInputValue &&
+          users.Password === passwordInputValue
+        ) {
+          console.log("Login successful");
+        } else {
+          console.log("Login failed");
+        }
+      }
+    </script>
+  </body>
+</html>

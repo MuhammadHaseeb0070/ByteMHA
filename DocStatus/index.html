@@ -12,16 +12,19 @@
     />
     <title>DocStatus</title>
   </head>
-  <body>
-    <header>
+  <body class="body" >
+    <!--NAVBAR-->
+    <header class="Navbar">
       <div class="logo">
         <h3>DocStatus</h3>
       </div>
       <nav>
         <ul id="navList" class="navList">
           <li><a class="navLink" href="#">Home</a></li>
-          <li><a class="navLink" href="#">Doctos</a></li>
-          <li><a class="navLink" href="#">Clinics</a></li>
+          <li><a class="navLink" href="#">Doctors</a></li>
+          <li>
+            <a class="navLink" href="#" onclick="showOnlySelectedClass('hospitalsBoard')">Hospitals</a>
+          </li>
           <li><a class="navLink" href="#">Contact</a></li>
         </ul>
       </nav>
@@ -29,8 +32,8 @@
         <img src="./menu.png" alt="" />
       </button>
     </header>
-
-    <div class="loginForm" style="display: none;">
+    <!--Login Form-->
+    <div class="loginForm" style="display: none">
       <h3 class="loginHeader">Log in</h3>
       <hr />
       <form action="">
@@ -48,6 +51,7 @@
         </p>
       </form>
     </div>
+    <!--SignUp Form-->
     <div class="signUpForm">
       <h3 class="signUpHeader">Sign up</h3>
       <hr />
@@ -71,6 +75,36 @@
           >
         </p>
       </form>
+    </div>
+
+    <div class="hospitalsBoard">
+      <h2 class="cityHospitalHeading">Hospitals in Sukkur</h2>
+      <hr style="width: 100%; background-color: aquamarine" />
+      <div class="hospital">
+        <div class="hospitalintro">
+          <img
+            class="hospitalLogo"
+            src="./Elegant and Minimalist Medical Logo.png"
+            alt=""
+          />
+          <div class="hospitalInfo">
+            <h3 class="hospitalName">Borcelle Health Service</h3>
+            <hr style="width: 100%; border: 1px solid aquamarine" />
+            <p class="hospitalDescription">
+              Borcelle Health Service Hospital is a state-of-the-art healthcare
+              facility committed to providing compassionate and comprehensive
+              medical services.
+            </p>
+          </div>
+        </div>
+        <hr style="border: 0.1px solid rgb(255, 255, 255); width: 100%" />
+        <div class="hospitalOptions">
+          <button class="hospitalOptionButtons">Doctors</button>
+          <button class="hospitalOptionButtons">Images</button>
+          <button class="hospitalOptionButtons">Contacts</button>
+          <button class="hospitalOptionButtons">Direction</button>
+        </div>
+      </div>
     </div>
     <script>
       const users = { Name: "MuhammadHaseeb", Password: "haseeb123" };
@@ -96,6 +130,9 @@
           console.log("Login failed");
         }
       }
+      function showHospitals() {
+        docum;
+      }
 
       function openLogin() {
         document.getElementsByClassName("signUpForm")[0].style.display = "none";
@@ -105,6 +142,28 @@
         document.getElementsByClassName("signUpForm")[0].style.display = "flex";
         document.getElementsByClassName("loginForm")[0].style.display = "none";
       }
+
+      function showOnlySelectedClass(className) {
+    // Get all direct children of the body
+    var bodyChildren = document.body.children;
+
+    // Loop through each child element of the body
+    for (var i = 0; i < bodyChildren.length; i++) {
+        var currentElement = bodyChildren[i];
+
+        // Check if the current element has the specified class or additional classes
+        if (
+            currentElement.classList.contains(className) ||
+            currentElement.classList.contains("Navbar") ||
+            currentElement.classList.contains("body")
+        ) {
+            currentElement.style.display = "flex";
+        } else {
+            currentElement.style.display = "none";
+        }
+    }
+}
+
     </script>
   </body>
 </html>

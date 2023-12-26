@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>ClimaCheck</h1>
+      </div>
+      <div class="card">
+        <div class="search">
+          <input class="inputCity" type="text" placeholder="Enter city name.." />
+          <button class="searchButton" onclick="searchWeather()">
+            <img src="/images/search.png" alt="Search" />
+          </button>
+        </div>
+  
+        <p class="error">Invalid Name. Try again</p>
+  
+        <div class="weather">
+          <img class="weatherIcon" src="/images/cloudy-day.png" alt="" />
+          <h1 class="tempratureValue"></h1>
+          <p class="weatherDescription"></p>
+          <p class="cityName"></p>
+        </div>
+        <div class="otherStatus">
+          <div class="humidity">
+            <div class="humidityIcon">
+              <img src="/images/humidity.png" alt="" />
+              <p class="humidityValue"></p>
+            </div>
+            <p class="humidityTag">Humidity</p>
+          </div>
+          <div class="windStatus">
+            <div class="humidityIcon">
+              <img src="/images/wind.png" alt="" />
+              <p class="windValue"></p>
+            </div>
+            <p class="windTag">Humidity</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      const apiKey = "fba374ebba5c24895ed7bb0ee921009d";
+      const apiLink =
+        "https://api.openweathermap.org/data/2.5/weather?units=metric&limit=1&appid=fba374ebba5c24895ed7bb0ee921009d&q=";
+      let inputValue = document.querySelector(".inputCity");
+      let temp = document.querySelector(".tempratureValue");
+      let city = document.querySelector(".cityName");
+      let weatherIcon = document.querySelector(".weatherIcon");
+      let humidityValue = document.querySelector(".humidityValue");
+      let windValue = document.querySelector(".windValue");
+      let weatherDescription = document.querySelector(".weatherDescription");
+      let error = document.querySelector(".error");
+      let weatherCard = document.querySelector(".weather");
+      let otherCard = document.querySelector(".otherStatus");
+      async function searchWeather() {
+        const response = await fetch(apiLink + inputValue.value.toLowerCase());
+        if (response.status === 404) {
+          error.style.display = 'block';
+          weatherCard.style.display = 'none';
+          otherCard.style.display = 'none';
+        } else {
+          const data = await response.json();
+
+          city.innerText = data.name;
+          temp.innerText = Math.round(data.main.temp) + "ºC";
+          humidityValue.innerText = data.main.humidity+'%';
+          windValue.innerText = data.wind.speed + " km/h";
+          weatherDescription.innerText = data.weather[0].main;
+          console.log(data);
+          switch (data.weather[0].main) {
+            case "Rain":
+              weatherIcon.src = "/images/rain.png";
+              break;
+            case "Thunderstorm":
+              weatherIcon.src = "/images/storm.png";
+              break;
+            case "Drizzle":
+              weatherIcon.src = "/images/drizzling.png";
+              break;
+            case "Snow":
+              weatherIcon.src = "/images/snow.png";
+              break;
+            case "Clear":
+              weatherIcon.src = "/images/clear.png";
+              break;
+            case "Clouds":
+              weatherIcon.src = "/images/cloudy.png";
+              break;
+            case "Dust":
+              weatherIcon.src = "/images/dust.png";
+              break;
+            case "Fog":
+              weatherIcon.src = "/images/fog.png";
+              break;
+            case "Smoke":
+              weatherIcon.src = "/images/smoke.png";
+              break;
+            case "Tornado":
+              weatherIcon.src = "/images/tornado.png";
+              break;
+            case "Haze":
+              weatherIcon.src = "/images/haze.png";
+              break;
+            case "Mist":
+              weatherIcon.src = "/images/foggy.png";
+              break;
+          }
+          error.style.display='none';
+          weatherCard.style.display='flex';
+          otherCard.style.display='flex';
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="containerlarge">
+        <div class="h2">QrCode Generator</div>
+      <div class="card">
+        <div class="search">
+          <h3>Enter your text or url</h3>
+          <input class="inputValue" type="text " placeholder="text or url" />
+          <img class="qrCode"  src="/images/qrcode.png" alt="">
+          <button onclick="generateQrCode()">Generate QR Code</button>
+        </div>
+      </div>
+    </div>
+    <script>
+        let inputValue = document.querySelector('.inputValue');
+        const apilink = "https://api.qrserver.com/v1/create-qr-code/?size= 9x1&data="
+        let qrCode = document.querySelector('.qrCode');
+        async function generateQrCode(){
+            let response = await fetch(apilink+inputValue.value);
+           
+            if(response.status === 404){
+                console.log("not found");
+                qrCode.style.display='none';
+            }
+            else{
+                qrCode.style.display='block';
+                qrCode.src=apilink+inputValue.value;
+            }
+        }
+
+    </script>
+  </body>
+</html>

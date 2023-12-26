@@ -63,17 +63,30 @@ ul li {
     margin-right: 20px;
 }
 
-a {
+.navLink {
     text-decoration: none;
     color: #ffffff;
     font-weight: bold;
+    position: relative;
+    padding-bottom: 5px;   
 }
-
+.navLink::after{
+    background-color: aquamarine;
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    border-radius: 5px;
+    height: 3px;
+    transform: translateX(-50%);
+    transition: width 0.5s ease;
+}
+.navLink:hover::after{
+    width: 100%;
+}
 /* Add a hover effect for the links */
-a:hover {
-    color: #7fffd4;
-    /* Set your desired hover color */
-}
+
 
 .loginForm  , .signUpForm{
     background-color: rgba(255, 255, 255, 0.289);
@@ -91,9 +104,6 @@ a:hover {
     margin-top: 150px;
 }
 
-.signUpForm{
-    display: none;
-}
 .loginForm>form  , .signUpForm >form{
     width: 100%;
     padding: 10px 0px;

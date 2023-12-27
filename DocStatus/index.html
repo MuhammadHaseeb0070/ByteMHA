@@ -20,8 +20,22 @@
       </div>
       <nav>
         <ul id="navList" class="navList">
-          <li><a class="navLink" href="#">Home</a></li>
-          <li><a class="navLink" href="#">Doctors</a></li>
+          <li>
+            <a
+              class="navLink"
+              href="#"
+              onclick="showOnlySelectedClass('homeContainer')"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              class="navLink"
+              href="#"
+              onclick="showOnlySelectedClass('loginForm')"
+              >Log in</a
+            >
+          </li>
           <li>
             <a
               class="navLink"
@@ -37,6 +51,31 @@
         <img src="./menu.png" alt="" />
       </button>
     </header>
+    <!--HOME PAGE CONTENT-->
+    <div class="homeContainer">
+      <div class="homeIntro">
+        <h2>Welcome to <br /><span>DocStatus</span></h2>
+        <hr style="width: 100%" />
+        <p>
+          Your Instant Connection to Sukkur's Health Pulse! Discover clinics,
+          hospitals, and doctor availability in real-time. Because in health,
+          timing is everything. Your well-being, our priority!
+        </p>
+      </div>
+
+      <!-- <div class="featuresContainer">
+        <div class="featureHome">
+          <img src="" alt="" />
+          <div class="featureInfo">
+            <h3>Filtering</h3>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            </p>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
     <!--Login Form-->
     <div class="loginForm" style="display: none">
       <h3 class="loginHeader">Log in</h3>
@@ -57,7 +96,7 @@
       </form>
     </div>
     <!--SignUp Form-->
-    <div class="signUpForm" style="display: flex">
+    <div class="signUpForm" style="display: none">
       <h3 class="signUpHeader">Sign up</h3>
       <hr />
       <form action="">
@@ -84,7 +123,9 @@
 
     <div class="hospitalsBoard">
       <h2 class="cityHospitalHeading">Hospitals in Sukkur</h2>
-      <hr style="width: 100%; background-color: aquamarine ; margin-bottom:30px ;" />
+      <hr
+        style="width: 100%; background-color: aquamarine; margin-bottom: 30px"
+      />
       <div class="hospital">
         <div class="hospitalintro">
           <img
@@ -110,7 +151,6 @@
           <button class="hospitalOptionButtons">Direction</button>
         </div>
       </div>
-      
       <div class="hospital">
         <div class="hospitalintro">
           <img
@@ -162,6 +202,8 @@
         </div>
       </div>
     </div>
+
+    <!-- JAVASCRIPT CODE-->
     <script>
       const users = { Name: "MuhammadHaseeb", Password: "haseeb123" };
 

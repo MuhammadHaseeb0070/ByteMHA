@@ -12,7 +12,7 @@
     />
     <title>DocStatus</title>
   </head>
-  <body class="body" >
+  <body class="body">
     <!--NAVBAR-->
     <header class="Navbar">
       <div class="logo">
@@ -23,7 +23,12 @@
           <li><a class="navLink" href="#">Home</a></li>
           <li><a class="navLink" href="#">Doctors</a></li>
           <li>
-            <a class="navLink" href="#" onclick="showOnlySelectedClass('hospitalsBoard')">Hospitals</a>
+            <a
+              class="navLink"
+              href="#"
+              onclick="showOnlySelectedClass('hospitalsBoard')"
+              >Hospitals</a
+            >
           </li>
           <li><a class="navLink" href="#">Contact</a></li>
         </ul>
@@ -52,7 +57,7 @@
       </form>
     </div>
     <!--SignUp Form-->
-    <div class="signUpForm">
+    <div class="signUpForm" style="display: flex">
       <h3 class="signUpHeader">Sign up</h3>
       <hr />
       <form action="">
@@ -79,7 +84,58 @@
 
     <div class="hospitalsBoard">
       <h2 class="cityHospitalHeading">Hospitals in Sukkur</h2>
-      <hr style="width: 100%; background-color: aquamarine" />
+      <hr style="width: 100%; background-color: aquamarine ; margin-bottom:30px ;" />
+      <div class="hospital">
+        <div class="hospitalintro">
+          <img
+            class="hospitalLogo"
+            src="./Elegant and Minimalist Medical Logo.png"
+            alt=""
+          />
+          <div class="hospitalInfo">
+            <h3 class="hospitalName">Borcelle Health Service</h3>
+            <hr style="width: 100%; border: 1px solid aquamarine" />
+            <p class="hospitalDescription">
+              Borcelle Health Service Hospital is a state-of-the-art healthcare
+              facility committed to providing compassionate and comprehensive
+              medical services.
+            </p>
+          </div>
+        </div>
+        <hr style="border: 0.1px solid rgb(255, 255, 255); width: 100%" />
+        <div class="hospitalOptions">
+          <button class="hospitalOptionButtons">Doctors</button>
+          <button class="hospitalOptionButtons">Images</button>
+          <button class="hospitalOptionButtons">Contacts</button>
+          <button class="hospitalOptionButtons">Direction</button>
+        </div>
+      </div>
+      
+      <div class="hospital">
+        <div class="hospitalintro">
+          <img
+            class="hospitalLogo"
+            src="./Elegant and Minimalist Medical Logo.png"
+            alt=""
+          />
+          <div class="hospitalInfo">
+            <h3 class="hospitalName">Borcelle Health Service</h3>
+            <hr style="width: 100%; border: 1px solid aquamarine" />
+            <p class="hospitalDescription">
+              Borcelle Health Service Hospital is a state-of-the-art healthcare
+              facility committed to providing compassionate and comprehensive
+              medical services.
+            </p>
+          </div>
+        </div>
+        <hr style="border: 0.1px solid rgb(255, 255, 255); width: 100%" />
+        <div class="hospitalOptions">
+          <button class="hospitalOptionButtons">Doctors</button>
+          <button class="hospitalOptionButtons">Images</button>
+          <button class="hospitalOptionButtons">Contacts</button>
+          <button class="hospitalOptionButtons">Direction</button>
+        </div>
+      </div>
       <div class="hospital">
         <div class="hospitalintro">
           <img
@@ -144,26 +200,25 @@
       }
 
       function showOnlySelectedClass(className) {
-    // Get all direct children of the body
-    var bodyChildren = document.body.children;
+        // Get all direct children of the body
+        var bodyChildren = document.body.children;
 
-    // Loop through each child element of the body
-    for (var i = 0; i < bodyChildren.length; i++) {
-        var currentElement = bodyChildren[i];
+        // Loop through each child element of the body
+        for (var i = 0; i < bodyChildren.length; i++) {
+          var currentElement = bodyChildren[i];
 
-        // Check if the current element has the specified class or additional classes
-        if (
+          // Check if the current element has the specified class or additional classes
+          if (
             currentElement.classList.contains(className) ||
             currentElement.classList.contains("Navbar") ||
             currentElement.classList.contains("body")
-        ) {
+          ) {
             currentElement.style.display = "flex";
-        } else {
+          } else {
             currentElement.style.display = "none";
+          }
         }
-    }
-}
-
+      }
     </script>
   </body>
 </html>

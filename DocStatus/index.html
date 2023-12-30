@@ -95,7 +95,7 @@
     </div>
 
     <!--Login Form-->
-    <div class="loginForm" style="display: flex">
+    <div class="loginForm" style="display: none">
       <h3 class="loginHeader">Log in</h3>
       <hr />
       <form action="">
@@ -105,7 +105,7 @@
           type="password"
           placeholder="Password"
         />
-        <button class="submitButtonLogin" onclick="login()">Log In</button>
+        <button class="submitButtonLogin" onclick="showOnlySelectedClass('doctorProfilePage')">Log In</button>
         <p class="alreadyAccount">
           Dont have an Account ?<a onclick="openSignup()">
             <strong style="color: aquamarine">Sign up</strong></a
@@ -139,7 +139,7 @@
       </form>
     </div>
     <!--HOSPITAL BOARD-->
-    <div class="hospitalsBoard" style="display: none;">
+    <div class="hospitalsBoard" style="display: none">
       <h2 class="cityHospitalHeading">Hospitals in Sukkur</h2>
       <hr
         style="width: 100%; background-color: aquamarine; margin-bottom: 30px"
@@ -163,10 +163,30 @@
         </div>
         <hr style="border: 0.1px solid rgb(255, 255, 255); width: 100%" />
         <div class="hospitalOptions">
-          <button class="hospitalOptionButtons" onclick="showOnlySelectedClass('doctorStatusBoard')">Doctors</button>
-          <button class="hospitalOptionButtons" onclick="showOnlySelectedClass('doctorStatusBoard')">Images</button>
-          <button class="hospitalOptionButtons" onclick="showOnlySelectedClass('doctorStatusBoard')">Contacts</button>
-          <button class="hospitalOptionButtons" onclick="showOnlySelectedClass('doctorStatusBoard')">Direction</button>
+          <button
+            class="hospitalOptionButtons"
+            onclick="showOnlySelectedClass('doctorStatusBoard')"
+          >
+            Doctors
+          </button>
+          <button
+            class="hospitalOptionButtons"
+            onclick="showOnlySelectedClass('doctorStatusBoard')"
+          >
+            Images
+          </button>
+          <button
+            class="hospitalOptionButtons"
+            onclick="showOnlySelectedClass('doctorStatusBoard')"
+          >
+            Contacts
+          </button>
+          <button
+            class="hospitalOptionButtons"
+            onclick="showOnlySelectedClass('doctorStatusBoard')"
+          >
+            Direction
+          </button>
         </div>
       </div>
       <div class="hospital">
@@ -223,14 +243,14 @@
 
     <!--Doctor Status of HOSPITALS-->
 
-    <div class="doctorStatusBoard"  style="display: none">
+    <div class="doctorStatusBoard" style="display: none">
       <h3>Doctors in Hira Hospital</h3>
       <hr style="width: 100%" />
       <div class="doctor">
         <img src="./DoctorPortrait.jpg" alt="" class="doctorProfileImage" />
         <div class="doctorIntro">
-          <h4 >Doctor Sohail Jokhio</h4>
-          <hr style="width: 100% ; margin-bottom: 5px;" />
+          <h4>Doctor Sohail Jokhio</h4>
+          <hr style="width: 100%; margin-bottom: 5px" />
           <p>Field : <span>Orthopedic Surgeon</span></p>
           <p>Timing : <span>10:30 AM to 09:00 PM</span></p>
           <div class="availability">
@@ -242,8 +262,8 @@
       <div class="doctor">
         <img src="./DoctorPortrait.jpg" alt="" class="doctorProfileImage" />
         <div class="doctorIntro">
-          <h4 >Doctor Sohail Jokhio</h4>
-          <hr style="width: 100% ; margin-bottom: 5px;" />
+          <h4>Doctor Sohail Jokhio</h4>
+          <hr style="width: 100%; margin-bottom: 5px" />
           <p>Field : <span>Orthopedic Surgeon</span></p>
           <p>Timing : <span>10:30 AM to 09:00 PM</span></p>
           <div class="availability">
@@ -255,8 +275,8 @@
       <div class="doctor">
         <img src="./DoctorPortrait.jpg" alt="" class="doctorProfileImage" />
         <div class="doctorIntro">
-          <h4 >Doctor Sohail Jokhio</h4>
-          <hr style="width: 100% ; margin-bottom: 5px;" />
+          <h4>Doctor Sohail Jokhio</h4>
+          <hr style="width: 100%; margin-bottom: 5px" />
           <p>Field : <span>Orthopedic Surgeon</span></p>
           <p>Timing : <span>10:30 AM to 09:00 PM</span></p>
           <div class="availability">
@@ -268,8 +288,8 @@
       <div class="doctor">
         <img src="./DoctorPortrait.jpg" alt="" class="doctorProfileImage" />
         <div class="doctorIntro">
-          <h4 >Doctor Sohail Jokhio</h4>
-          <hr style="width: 100% ; margin-bottom: 5px;" />
+          <h4>Doctor Sohail Jokhio</h4>
+          <hr style="width: 100%; margin-bottom: 5px" />
           <p>Field : <span>Orthopedic Surgeon</span></p>
           <p>Timing : <span>10:30 AM to 09:00 PM</span></p>
           <div class="availability">
@@ -279,14 +299,56 @@
         </div>
       </div>
     </div>
+
+    <div class="doctorProfilePage">
+      <div class="doctorProfileHeader">
+        <h4 class="doctorProfileName">
+          Welcome <br />
+          <span>Dr.Sohail Jokhio</span>
+        </h4>
+        <div>
+          <span id="statusText" class="statusTextClass">You are Offline</span>
+          <div id="statusLight" class="status"></div>
+        </div>
+      </div>
+      <hr style="width: 100%; margin: 10px 0px" />
+      <div class="doctorProfileBody">
+        <div class="statusofDoctor">
+          <p>Your status :</p>
+          <div class="statusButton">
+            <input type="checkbox" class="toggleStatus" id="toggle" />
+            <label for="toggle" class="toggle-label">
+              <div class="toggle-handle"></div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- JAVASCRIPT CODE-->
     <script>
       const users = { Name: "MuhammadHaseeb", Password: "haseeb123" };
+      const checkbox = document.getElementById("toggle");
 
       function openMenu() {
         const navList = document.getElementById("navList");
         navList.classList.toggle("show");
       }
+
+      checkbox.addEventListener("change", function () {
+        const statusText = document.getElementById("statusText");
+        const statusLight = document.getElementById("statusLight");
+
+        statusText.classList.toggle("onlineStatus");
+        statusLight.classList.toggle("statusOn");
+
+      
+
+        if (checkbox.checked) {
+          statusText.textContent = "You are now Online";
+        } else {
+          statusText.textContent = "You are now Offline";
+        }
+      });
 
       function login() {
         event.preventDefault();
@@ -303,9 +365,6 @@
         } else {
           console.log("Login failed");
         }
-      }
-      function showHospitals() {
-        docum;
       }
 
       function openLogin() {

@@ -21,10 +21,7 @@
       <nav>
         <ul id="navList" class="navList">
           <li>
-            <a
-              class="navLink"
-              href="#"
-              onclick="showOnlySelectedClass('home')"
+            <a class="navLink" href="#" onclick="showOnlySelectedClass('home')"
               >Home</a
             >
           </li>
@@ -52,7 +49,7 @@
       </button>
     </header>
     <!--HOME PAGE CONTENT-->
-    <div class="homeContainer home">
+    <div class="homeContainer home" style="display: none">
       <div class="homeIntro">
         <h2>Welcome to <br /><span>DocStatus</span></h2>
         <hr style="width: 100%" />
@@ -63,7 +60,7 @@
         </p>
       </div>
     </div>
-    <div class="featuresContainer home">
+    <div class="featuresContainer home" style="display: none">
       <h2>Our Features</h2>
       <div class="feature">
         <div class="featureHome">
@@ -141,7 +138,7 @@
         </p>
       </form>
     </div>
-
+    <!--HOSPITAL BOARD-->
     <div class="hospitalsBoard">
       <h2 class="cityHospitalHeading">Hospitals in Sukkur</h2>
       <hr
@@ -166,10 +163,10 @@
         </div>
         <hr style="border: 0.1px solid rgb(255, 255, 255); width: 100%" />
         <div class="hospitalOptions">
-          <button class="hospitalOptionButtons">Doctors</button>
-          <button class="hospitalOptionButtons">Images</button>
-          <button class="hospitalOptionButtons">Contacts</button>
-          <button class="hospitalOptionButtons">Direction</button>
+          <button class="hospitalOptionButtons" onclick="showOnlySelectedClass('doctorStatusBoard')">Doctors</button>
+          <button class="hospitalOptionButtons" onclick="showOnlySelectedClass('doctorStatusBoard')">Images</button>
+          <button class="hospitalOptionButtons" onclick="showOnlySelectedClass('doctorStatusBoard')">Contacts</button>
+          <button class="hospitalOptionButtons" onclick="showOnlySelectedClass('doctorStatusBoard')">Direction</button>
         </div>
       </div>
       <div class="hospital">
@@ -224,6 +221,64 @@
       </div>
     </div>
 
+    <!--Doctor Status of HOSPITALS-->
+
+    <div class="doctorStatusBoard">
+      <h3>Doctors in Hira Hospital</h3>
+      <hr style="width: 100%" />
+      <div class="doctor">
+        <img src="./DoctorPortrait.jpg" alt="" class="doctorProfileImage" />
+        <div class="doctorIntro">
+          <h4 >Doctor Sohail Jokhio</h4>
+          <hr style="width: 100% ; margin-bottom: 5px;" />
+          <p>Field : <span>Orthopedic Surgeon</span></p>
+          <p>Timing : <span>10:30 AM to 09:00 PM</span></p>
+          <div class="availability">
+            <div class="availabilityIndicator"></div>
+            <p>Available</p>
+          </div>
+        </div>
+      </div>
+      <div class="doctor">
+        <img src="./DoctorPortrait.jpg" alt="" class="doctorProfileImage" />
+        <div class="doctorIntro">
+          <h4 >Doctor Sohail Jokhio</h4>
+          <hr style="width: 100% ; margin-bottom: 5px;" />
+          <p>Field : <span>Orthopedic Surgeon</span></p>
+          <p>Timing : <span>10:30 AM to 09:00 PM</span></p>
+          <div class="availability">
+            <div class="availabilityIndicator"></div>
+            <p>Available</p>
+          </div>
+        </div>
+      </div>
+      <div class="doctor">
+        <img src="./DoctorPortrait.jpg" alt="" class="doctorProfileImage" />
+        <div class="doctorIntro">
+          <h4 >Doctor Sohail Jokhio</h4>
+          <hr style="width: 100% ; margin-bottom: 5px;" />
+          <p>Field : <span>Orthopedic Surgeon</span></p>
+          <p>Timing : <span>10:30 AM to 09:00 PM</span></p>
+          <div class="availability">
+            <div class="availabilityIndicator"></div>
+            <p>Available</p>
+          </div>
+        </div>
+      </div>
+      <div class="doctor">
+        <img src="./DoctorPortrait.jpg" alt="" class="doctorProfileImage" />
+        <div class="doctorIntro">
+          <h4 >Doctor Sohail Jokhio</h4>
+          <hr style="width: 100% ; margin-bottom: 5px;" />
+          <p>Field : <span>Orthopedic Surgeon</span></p>
+          <p>Timing : <span>10:30 AM to 09:00 PM</span></p>
+          <div class="availability">
+            <div class="availabilityIndicator"></div>
+            <p>Available</p>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- JAVASCRIPT CODE-->
     <script>
       const users = { Name: "MuhammadHaseeb", Password: "haseeb123" };

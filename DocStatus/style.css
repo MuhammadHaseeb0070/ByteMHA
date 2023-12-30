@@ -9,7 +9,6 @@
 body {
     margin: 0;
     padding: 0;
-
     background-color: #002a26db;
     background-image: url('./backgroundlandscape.jpg');
     background-size: cover;
@@ -147,13 +146,15 @@ ul li {
     text-shadow: 0px 0px 10px aquamarine;
     ;
 }
-.feature{
+
+.feature {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
+
 .featureHome {
     display: flex;
     padding: 10px 10px;
@@ -395,6 +396,99 @@ ul li {
     color: aquamarine;
 }
 
+
+.doctorStatusBoard {
+    width: 80%;
+    padding: 20px 10px;
+    border-radius: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    backdrop-filter: blur(10px) saturate(100%);
+    
+}
+
+.doctorStatusBoard>h3 {
+    margin-bottom: 10px;
+    background-color: #0106058f;
+    backdrop-filter: blur(8px) saturate(90%);
+    width: 100%;
+    text-align: center;
+    padding: 15px 0px;
+    border-radius: 2%;
+    text-shadow: 0px 0px 10px #7fffd4;
+    font-size: 20px;
+}
+
+.doctor {
+    margin: 20px 0px;
+    width: 100%;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #0106058f;
+    backdrop-filter: blur(8px) saturate(90%);
+    border-radius: 2%;
+}
+
+.doctor>img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.doctorIntro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.doctorIntro>h4 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.doctorIntro>p {
+    font-size: 15px;
+    color: #7fffd4;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.doctorIntro>p>span {
+    font-size: 15px;
+}
+
+.availability {
+    margin-top: 10px;
+    padding: 10px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.availability>p {
+    color: #7fffd4;
+}
+
+.availabilityIndicator {
+    width: 14px;
+    height: 14px;
+    background-color: rgb(0, 255, 0);
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px 2px rgb(0, 255, 0);
+    margin-right: 10px;
+}
+
+
 @media (max-width: 600px) {
     body {
         background-image: url('./backgroundportrait.jpg');
@@ -429,7 +523,8 @@ ul li {
     ul li {
         margin: 10px 20px;
     }
-    .featureHome{
+
+    .featureHome {
         width: 100%;
     }
 }

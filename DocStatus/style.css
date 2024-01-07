@@ -492,47 +492,58 @@ ul li {
 DOCTOR PROFILE CSS
 */
 
-.doctorProfilePage{
+.doctorProfilePage {
+    margin-top: 70px;
     width: 80%;
     padding: 20px;
     background-color: #1f201fb4;
     border-radius: 7px;
     backdrop-filter: blur(10px) saturate(150%);
 }
-.doctorProfileHeader{
+
+.doctorProfileHeader {
     width: 100%;
     padding: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.doctorProfileHeader > h4{
+
+.doctorProfileHeader>h4 {
     width: 40%;
+    line-height: 30px;
 }
-.doctorProfileHeader  > h4 > span{
-    font-size: 20px;
+
+.doctorProfileHeader>h4>span {
+    font-size: 30px;
+    text-shadow: 0px 0px 5px #7fffd4;
 }
-.doctorProfileHeader > div > span {
+
+.doctorProfileHeader>div>span {
     align-self: center;
 
 }
-.doctorProfileHeader> div{
+
+.doctorProfileHeader>div {
     display: flex;
-    width: 70%;
+    width: 40%;
     justify-content: flex-end;
     align-items: center;
 }
-.statusTextClass{
-    margin-right: 20px;
+
+.statusTextClass {
+    margin-right: 5px;
     color: red;
     text-shadow: 0px 0px 10px red;
 }
-.onlineStatus{
-    margin-right: 20px;
+
+.onlineStatus {
+    margin-right: 00px;
     color: #00ff00;
     text-shadow: 0px 0px 10px #00ff00;
 }
-.status{
+
+.status {
     align-self: center;
     width: 10px;
     height: 10px;
@@ -540,7 +551,8 @@ DOCTOR PROFILE CSS
     border-radius: 50%;
     box-shadow: 0px 0px 10px red;
 }
-.statusOn{
+
+.statusOn {
     align-self: center;
     width: 10px;
     height: 10px;
@@ -549,7 +561,7 @@ DOCTOR PROFILE CSS
     box-shadow: 0px 0px 10px #00ff00;
 }
 
-.doctorProfileBody{
+.doctorProfileBody {
     width: 100%;
     padding: 8px;
     display: flex;
@@ -557,10 +569,11 @@ DOCTOR PROFILE CSS
     align-items: center;
     justify-content: cnetr;
 }
-.statusofDoctor{
+
+.statusofDoctor {
     display: flex;
     justify-content: space-between;
-    padding:4px 10px;
+    padding: 4px 10px;
     width: 100%;
 }
 
@@ -618,6 +631,76 @@ DOCTOR PROFILE CSS
     transition: background-color 0.5s ease;
 }
 
+
+/* NUMBERING SYSTEM CSS */
+
+.doctorProfileTokenPage {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 0px;
+}
+
+.currentNumberHeading {
+    font-size: 20px;
+}
+.numberScrolling {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px 0px;
+    margin-top: 20px;
+}
+
+.tokenNumber {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid aquamarine;
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    transition: all 0.5s ease-in-out; /* Add transition property for transform */
+}
+
+.previousNumber {
+    transform: translateX(-20%);
+    text-shadow: 0px 0px 2px  aquamarine;
+}
+
+.nextNumber {
+    transform: translateX(20%);
+    text-shadow: 0px 0px 2px  aquamarine;
+}
+
+.currentNumber {
+    scale: 1.5;
+    transform: translateX(0);
+    text-shadow: 0px 0px 5px  aquamarine;
+    box-shadow: 0px 0px 8px  aquamarine;
+}
+
+
+
+.numberScrolling>button {
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.nextNumberButton>img {
+    rotate: 180deg;
+}
+
+.numberScrolling>button>img {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    filter: drop-shadow(0px 0px 5px aquamarine) ;
+}
 
 @media (max-width: 600px) {
     body {

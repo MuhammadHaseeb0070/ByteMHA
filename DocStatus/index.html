@@ -105,7 +105,12 @@
           type="password"
           placeholder="Password"
         />
-        <button class="submitButtonLogin" onclick="showOnlySelectedClass('doctorProfilePage')">Log In</button>
+        <button
+          class="submitButtonLogin"
+          onclick="showOnlySelectedClass('doctorProfilePage')"
+        >
+          Log In
+        </button>
         <p class="alreadyAccount">
           Dont have an Account ?<a onclick="openSignup()">
             <strong style="color: aquamarine">Sign up</strong></a
@@ -322,6 +327,21 @@
             </label>
           </div>
         </div>
+
+        <div class="doctorProfileTokenPage">
+          <h6 class="currentNumberHeading">Current Number</h6>
+          <div class="numberScrolling">
+            <button class="backNumber" onclick="changeNumber(0)">
+              <img src="./back.png" alt="" />
+            </button>
+            <div class="previousNumber tokenNumber" id="previousNumber">3</div>
+            <div class="currentNumber tokenNumber" id="currentNumber">4</div>
+            <div class="nextNumber tokenNumber" id="nextNumber">5</div>
+            <button class="nextNumberButton" onclick="changeNumber(1)">
+              <img src="./back.png" alt="" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <!-- JAVASCRIPT CODE-->
@@ -334,14 +354,72 @@
         navList.classList.toggle("show");
       }
 
+      function changeNumber(direction) {
+        if (direction == 1) {
+          let curNumber = document.getElementById("currentNumber");
+          let prevNumber = document.getElementById("previousNumber");
+          let nextNumber = document.getElementById("nextNumber");
+          let newDiv = document.createElement("div");
+          let nextNumberValue = parseInt(nextNumber.innerHTML) + 1;
+
+          prevNumber.remove();
+
+          curNumber.className = "";
+          curNumber.classList.add("tokenNumber");
+          curNumber.classList.add("previousNumber");
+          curNumber.id = "previousNumber";
+
+          nextNumber.className = "";
+          nextNumber.classList.add("currentNumber");
+          nextNumber.classList.add("tokenNumber");
+          nextNumber.id = "currentNumber";
+
+          newDiv.offsetHeight;
+          newDiv.className = "tokenNumber";
+          newDiv.classList.add("nextNumber");
+          newDiv.id = "nextNumber";
+          newDiv.innerHTML = nextNumberValue;
+          curNumber.parentElement.insertBefore(
+            newDiv,
+            curNumber.parentElement.children[3]
+          );
+        } else {
+          let curNumber = document.getElementById("currentNumber");
+          let prevNumber = document.getElementById("previousNumber");
+          let nextNumber = document.getElementById("nextNumber");
+          let newDiv = document.createElement("div");
+          let nextNumberValue = parseInt(prevNumber.innerHTML) - 1;
+
+          nextNumber.remove();
+
+          curNumber.className = "";
+          curNumber.classList.add("tokenNumber");
+          curNumber.classList.add("nextNumber");
+          curNumber.id = "nextNumber";
+
+          prevNumber.className = "";
+          prevNumber.classList.add("currentNumber");
+          prevNumber.classList.add("tokenNumber");
+          prevNumber.id = "currentNumber";
+
+          newDiv.offsetHeight;
+          newDiv.className = "tokenNumber";
+          newDiv.classList.add("previousNumber");
+          newDiv.id = "previousNumber";
+          newDiv.innerHTML = nextNumberValue;
+          curNumber.parentElement.insertBefore(
+            newDiv,
+            curNumber.parentElement.children[1]
+          );
+        }
+      }
+
       checkbox.addEventListener("change", function () {
         const statusText = document.getElementById("statusText");
         const statusLight = document.getElementById("statusLight");
 
         statusText.classList.toggle("onlineStatus");
         statusLight.classList.toggle("statusOn");
-
-      
 
         if (checkbox.checked) {
           statusText.textContent = "You are now Online";

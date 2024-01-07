@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <!--Login Form-->
+     <div class="loginForm" style="display: none">
+        <h3 class="loginHeader">Log in</h3>
+        <hr />
+        <form action="">
+          <input class="usernameInputLogin" type="text" placeholder="Username" />
+          <input
+            class="passwordInputLogin"
+            type="password"
+            placeholder="Password"
+          />
+          <button class="submitButtonLogin" onclick="showOnlySelectedClass('doctorProfilePage')">Log In</button>
+          <p class="alreadyAccount">
+            Dont have an Account ?<a onclick="openSignup()">
+              <strong style="color: aquamarine">Sign up</strong></a
+            >
+          </p>
+        </form>
+      </div>
+      <!--SignUp Form-->
+      <div class="signUpForm" style="display: none">
+        <h3 class="signUpHeader">Sign up</h3>
+        <hr />
+        <form action="">
+          <input class="usernameInputsignUp" type="text" placeholder="Username" />
+          <input class="emailInputsignUp" type="email" placeholder="Email" />
+          <input
+            class="passwordInputsignUp"
+            type="password"
+            placeholder="Password"
+          />
+          <input
+            class="passwordInputsignUp"
+            type="password"
+            placeholder="Confirm Password"
+          />
+          <button class="submitButtonsignUp" onclick="signUp()">Sign up</button>
+          <p class="alreadyAccount">
+            Already have an Account ?<a onclick="openLogin()">
+              <strong style="color: aquamarine">log in</strong></a
+            >
+          </p>
+        </form>
+      </div>
+</body>
+</html>

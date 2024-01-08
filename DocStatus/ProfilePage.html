@@ -21,13 +21,18 @@
       <nav>
         <ul id="navList" class="navList">
           <li>
-            <a class="navLink" href="#" onclick="showOnlySelectedClass('home')"
+            <a
+              class="navLink"
+              id="home"
+              href="#"
+              onclick="showOnlySelectedClasses('editProfile')"
               >Home</a
             >
           </li>
           <li>
             <a
               class="navLink"
+              id="logIn"
               href="#"
               onclick="showOnlySelectedClass('loginForm')"
               >Log in</a
@@ -36,16 +41,34 @@
           <li>
             <a
               class="navLink"
+              id="hospital"
               href="#"
               onclick="showOnlySelectedClass('hospitalsBoard')"
               >Hospitals</a
             >
           </li>
-          <li><a class="navLink" href="#">Contact</a></li>
+          <li>
+            <a
+              class="navLink"
+              id="dashboard"
+              href="#"
+              onclick="showOnlySelectedClass('doctorProfilePage')"
+              >Dashboard</a
+            >
+          </li>
+          <li>
+            <a
+              class="navLink"
+              id="profile"
+              href="#"
+              onclick="showOnlySelectedClass('doctorProfilePage')"
+              >Profile</a
+            >
+          </li>
         </ul>
       </nav>
-      <button class="dropDownButton" onclick="openMenu()">
-        <img src="./menu.png" alt="" />
+      <button class="dropDownButton" id="dropDownButton" onclick="showMenu()">
+        <img src="./images/menu.png" alt="" />
       </button>
     </header>
     <!--HOME PAGE CONTENT-->
@@ -71,21 +94,21 @@
           </div>
         </div>
         <div class="featureHome">
-          <img src="./time.png" alt="" />
+          <img src="./images/time.png" alt="" />
           <div class="featureInfo">
             <h3>Real Time Info</h3>
             <p>We Provide Real-time Info of Doctors and Hospitals</p>
           </div>
         </div>
         <div class="featureHome">
-          <img src="./doctor.png" alt="" />
+          <img src="./images/doctor.png" alt="" />
           <div class="featureInfo">
             <h3>Doctors profile</h3>
             <p>Doctors profile to help you know about your doctor</p>
           </div>
         </div>
         <div class="featureHome">
-          <img src="./location.png" alt="" />
+          <img src="./images/location.png" alt="" />
           <div class="featureInfo">
             <h3>Navigator</h3>
             <p>Helps to find the Location of local Clinics and Hospitals</p>
@@ -94,55 +117,6 @@
       </div>
     </div>
 
-    <!--Login Form-->
-    <div class="loginForm" style="display: none">
-      <h3 class="loginHeader">Log in</h3>
-      <hr />
-      <form action="">
-        <input class="usernameInputLogin" type="text" placeholder="Username" />
-        <input
-          class="passwordInputLogin"
-          type="password"
-          placeholder="Password"
-        />
-        <button
-          class="submitButtonLogin"
-          onclick="showOnlySelectedClass('doctorProfilePage')"
-        >
-          Log In
-        </button>
-        <p class="alreadyAccount">
-          Dont have an Account ?<a onclick="openSignup()">
-            <strong style="color: aquamarine">Sign up</strong></a
-          >
-        </p>
-      </form>
-    </div>
-    <!--SignUp Form-->
-    <div class="signUpForm" style="display: none">
-      <h3 class="signUpHeader">Sign up</h3>
-      <hr />
-      <form action="">
-        <input class="usernameInputsignUp" type="text" placeholder="Username" />
-        <input class="emailInputsignUp" type="email" placeholder="Email" />
-        <input
-          class="passwordInputsignUp"
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          class="passwordInputsignUp"
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <button class="submitButtonsignUp" onclick="signUp()">Sign up</button>
-        <p class="alreadyAccount">
-          Already have an Account ?<a onclick="openLogin()">
-            <strong style="color: aquamarine">log in</strong></a
-          >
-        </p>
-      </form>
-    </div>
     <!--HOSPITAL BOARD-->
     <div class="hospitalsBoard" style="display: none">
       <h2 class="cityHospitalHeading">Hospitals in Sukkur</h2>
@@ -153,7 +127,7 @@
         <div class="hospitalintro">
           <img
             class="hospitalLogo"
-            src="./Elegant and Minimalist Medical Logo.png"
+            src="./images/Elegant and Minimalist Medical Logo.png"
             alt=""
           />
           <div class="hospitalInfo">
@@ -198,7 +172,7 @@
         <div class="hospitalintro">
           <img
             class="hospitalLogo"
-            src="./Elegant and Minimalist Medical Logo.png"
+            src="./images/Elegant and Minimalist Medical Logo.png"
             alt=""
           />
           <div class="hospitalInfo">
@@ -223,7 +197,7 @@
         <div class="hospitalintro">
           <img
             class="hospitalLogo"
-            src="./Elegant and Minimalist Medical Logo.png"
+            src="./images/Elegant and Minimalist Medical Logo.png"
             alt=""
           />
           <div class="hospitalInfo">
@@ -252,7 +226,11 @@
       <h3>Doctors in Hira Hospital</h3>
       <hr style="width: 100%" />
       <div class="doctor">
-        <img src="./DoctorPortrait.jpg" alt="" class="doctorProfileImage" />
+        <img
+          src="./images/DoctorPortrait.jpg"
+          alt=""
+          class="doctorProfileImage"
+        />
         <div class="doctorIntro">
           <h4>Doctor Sohail Jokhio</h4>
           <hr style="width: 100%; margin-bottom: 5px" />
@@ -265,33 +243,11 @@
         </div>
       </div>
       <div class="doctor">
-        <img src="./DoctorPortrait.jpg" alt="" class="doctorProfileImage" />
-        <div class="doctorIntro">
-          <h4>Doctor Sohail Jokhio</h4>
-          <hr style="width: 100%; margin-bottom: 5px" />
-          <p>Field : <span>Orthopedic Surgeon</span></p>
-          <p>Timing : <span>10:30 AM to 09:00 PM</span></p>
-          <div class="availability">
-            <div class="availabilityIndicator"></div>
-            <p>Available</p>
-          </div>
-        </div>
-      </div>
-      <div class="doctor">
-        <img src="./DoctorPortrait.jpg" alt="" class="doctorProfileImage" />
-        <div class="doctorIntro">
-          <h4>Doctor Sohail Jokhio</h4>
-          <hr style="width: 100%; margin-bottom: 5px" />
-          <p>Field : <span>Orthopedic Surgeon</span></p>
-          <p>Timing : <span>10:30 AM to 09:00 PM</span></p>
-          <div class="availability">
-            <div class="availabilityIndicator"></div>
-            <p>Available</p>
-          </div>
-        </div>
-      </div>
-      <div class="doctor">
-        <img src="./DoctorPortrait.jpg" alt="" class="doctorProfileImage" />
+        <img
+          src="./images/DoctorPortrait.jpg"
+          alt=""
+          class="doctorProfileImage"
+        />
         <div class="doctorIntro">
           <h4>Doctor Sohail Jokhio</h4>
           <hr style="width: 100%; margin-bottom: 5px" />
@@ -305,51 +261,133 @@
       </div>
     </div>
 
-    <div class="doctorProfilePage">
-      <div class="doctorProfileHeader">
-        <h4 class="doctorProfileName">
-          Welcome <br />
-          <span>Dr.Sohail Jokhio</span>
-        </h4>
-        <div>
-          <span id="statusText" class="statusTextClass">You are Offline</span>
-          <div id="statusLight" class="status"></div>
-        </div>
-      </div>
-      <hr style="width: 100%; margin: 10px 0px" />
-      <div class="doctorProfileBody">
-        <div class="statusofDoctor">
-          <p>Your status :</p>
-          <div class="statusButton">
-            <input type="checkbox" class="toggleStatus" id="toggle" />
-            <label for="toggle" class="toggle-label">
-              <div class="toggle-handle"></div>
-            </label>
-          </div>
-        </div>
+    <!--DOCTOR_PROFILE_PAGE-->
 
-        <div class="doctorProfileTokenPage">
-          <h6 class="currentNumberHeading">Current Number</h6>
-          <div class="numberScrolling">
-            <button class="backNumber" onclick="changeNumber(0)">
-              <img src="./back.png" alt="" />
-            </button>
-            <div class="previousNumber tokenNumber" id="previousNumber">3</div>
-            <div class="currentNumber tokenNumber" id="currentNumber">4</div>
-            <div class="nextNumber tokenNumber" id="nextNumber">5</div>
-            <button class="nextNumberButton" onclick="changeNumber(1)">
-              <img src="./back.png" alt="" />
-            </button>
-          </div>
+    <div class="doctorProfileHeader" style="display: flex">
+      <div class="doctorProfileInfo">
+        <img src="./images/DoctorPortrait.jpg" alt="" />
+        <p>Welcome <br /><span>Dr. Sohail Jokhio</span></p>
+      </div>
+      <div class="doctorProfileOptions">
+       <img src="./images/edit.png" onclick="showOnlySelectedClasses('editProfile')" alt=""  />
+      </div>
+    </div>
+    <div class="controlBoard" style="display: flex">
+      <div class="doctorStatus">
+        <input type="checkbox" class="statusButton" id="statusButton" />
+        <p id="statusText">You are now Offline</p>
+      </div>
+      <hr />
+      <div class="numberingSystem">
+        <p>Current Token Number</p>
+        <div class="numberContainer">
+          <button
+            id="previousNumberButton"
+            onclick="changeNumber(0)"
+            class="previousNumberButton"
+          >
+            <img src="./images/back.png" alt="" />
+          </button>
+          <div id="previousNumber" class="previousNumber tokenNumber">1</div>
+          <div id="currentNumber" class="currentNumber tokenNumber">2</div>
+          <div id="nextNumber" class="nextNumber tokenNumber">3</div>
+          <button
+            id="nextNumberButton"
+            onclick="changeNumber(1)"
+            class="nextNumberButton"
+          >
+            <img src="./images/back.png" alt="" />
+          </button>
         </div>
       </div>
     </div>
+    <div class="editProfile" style="display: none">
+      <div class="headEditProfile">
+        <h3>Edit Profile</h3>
+        <div class="uploader">
+          <div class="image-preview" id="imagePreview"></div>
+          <label for="imageUpload" class="upload-button">Choose Image</label>
+          <input
+            type="file"
+            id="imageUpload"
+            class="image-upload"
+            accept="image/*"
+          />
+        </div>
+      </div>
+      <hr style="width: 100%; margin: 20px 0px 10px 0px" />
+      <div class="inputFieldforEditingProfile">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstname" />
+      </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastname" />
+      </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="fieldName">Field</label>
+        <input type="text" id="fieldName" name="fieldName" />
+      </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="contactNumber">Contact Number</label>
+        <input type="text" id="contactNumber" name="contactNumber" />
+      </div>
+      <div class="editingButtons">
+        <button class="resetButton profileEditingButton">Reset</button>
+        <button class="saveButton profileEditingButton">Save</button>
+      </div>
+    </div>
+
     <!-- JAVASCRIPT CODE-->
+
     <script>
       const users = { Name: "MuhammadHaseeb", Password: "haseeb123" };
-      const checkbox = document.getElementById("toggle");
+      const checkbox = document.getElementById("statusButton");
+      const menuButton = document.getElementById("DropDownButton");
+      const tokenInc = document.getElementById("nextNumberButton");
+      const tokenDec = document.getElementById("previousNumberButton");
+      const homePage = document.getElementById("home");
+      const logInPage = document.getElementById("logIn");
+      const signUpPage = document.getElementById("signUp");
+      const hospitals = document.getElementById("hospital");
+      const profilePage = document.getElementById("profile");
 
-      function openMenu() {
+      document
+        .getElementById("imageUpload")
+        .addEventListener("change", (event) => {
+          const file = event.target.files[0];
+          if (file) {
+            if (isImage(file)) {
+              if (file.size <= 2 * 1024 * 1024) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                  document.getElementById(
+                    "imagePreview"
+                  ).style.backgroundImage = `url(${e.target.result})`;
+                };
+
+                reader.readAsDataURL(file);
+              } else {
+                alert("Image size exceeds 2MB. Please choose a smaller image.");
+
+                document.getElementById("imageUpload").value = "";
+              }
+            } else {
+              alert(
+                "Selected file is not an image. Please choose an image file."
+              );
+
+              document.getElementById("imageUpload").value = "";
+            }
+          }
+        });
+
+      function isImage(file) {
+        return file.type.startsWith("image/");
+      }
+
+      function showMenu() {
         const navList = document.getElementById("navList");
         navList.classList.toggle("show");
       }
@@ -384,77 +422,60 @@
             curNumber.parentElement.children[3]
           );
         } else {
-          let curNumber = document.getElementById("currentNumber");
-          let prevNumber = document.getElementById("previousNumber");
-          let nextNumber = document.getElementById("nextNumber");
-          let newDiv = document.createElement("div");
-          let nextNumberValue = parseInt(prevNumber.innerHTML) - 1;
+          if (
+            parseInt(document.getElementById("previousNumber").innerHTML) != 0
+          ) {
+            let curNumber = document.getElementById("currentNumber");
+            let prevNumber = document.getElementById("previousNumber");
+            let nextNumber = document.getElementById("nextNumber");
+            let newDiv = document.createElement("div");
+            let nextNumberValue = parseInt(prevNumber.innerHTML) - 1;
 
-          nextNumber.remove();
+            nextNumber.remove();
 
-          curNumber.className = "";
-          curNumber.classList.add("tokenNumber");
-          curNumber.classList.add("nextNumber");
-          curNumber.id = "nextNumber";
+            curNumber.className = "";
+            curNumber.classList.add("tokenNumber");
+            curNumber.classList.add("nextNumber");
+            curNumber.id = "nextNumber";
 
-          prevNumber.className = "";
-          prevNumber.classList.add("currentNumber");
-          prevNumber.classList.add("tokenNumber");
-          prevNumber.id = "currentNumber";
+            prevNumber.className = "";
+            prevNumber.classList.add("currentNumber");
+            prevNumber.classList.add("tokenNumber");
+            prevNumber.id = "currentNumber";
 
-          newDiv.offsetHeight;
-          newDiv.className = "tokenNumber";
-          newDiv.classList.add("previousNumber");
-          newDiv.id = "previousNumber";
-          newDiv.innerHTML = nextNumberValue;
-          curNumber.parentElement.insertBefore(
-            newDiv,
-            curNumber.parentElement.children[1]
-          );
+            newDiv.offsetHeight;
+            newDiv.className = "tokenNumber";
+            newDiv.classList.add("previousNumber");
+            newDiv.id = "previousNumber";
+            newDiv.innerHTML = nextNumberValue;
+            curNumber.parentElement.insertBefore(
+              newDiv,
+              curNumber.parentElement.children[1]
+            );
+          }
         }
       }
 
       checkbox.addEventListener("change", function () {
-        const statusText = document.getElementById("statusText");
-        const statusLight = document.getElementById("statusLight");
-
-        statusText.classList.toggle("onlineStatus");
-        statusLight.classList.toggle("statusOn");
+        let statusText = document.getElementById("statusText");
+        //  const statusLight = document.getElementById("statusLight");
+        console.log("Entered checked");
 
         if (checkbox.checked) {
           statusText.textContent = "You are now Online";
+          console.log("checked");
         } else {
           statusText.textContent = "You are now Offline";
+          console.log("unchecked");
         }
       });
 
-      function login() {
-        event.preventDefault();
-        const usernameInputValue =
-          document.getElementsByClassName("usernameInputLogin")[0].value; // Assuming there's only one element with the class
-        const passwordInputValue =
-          document.getElementsByClassName("passwordInputLogin")[0].value; // Assuming there's only one element with the class
-
-        if (
-          users.Name === usernameInputValue &&
-          users.Password === passwordInputValue
-        ) {
-          console.log("Login successful");
-        } else {
-          console.log("Login failed");
+      function showOnlySelectedClasses(...classNames) {
+        // Include the default class "Navbar" if not already present
+        if (!classNames.includes("Navbar")) {
+          classNames.push("Navbar");
         }
-      }
 
-      function openLogin() {
-        document.getElementsByClassName("signUpForm")[0].style.display = "none";
-        document.getElementsByClassName("loginForm")[0].style.display = "flex";
-      }
-      function openSignup() {
-        document.getElementsByClassName("signUpForm")[0].style.display = "flex";
-        document.getElementsByClassName("loginForm")[0].style.display = "none";
-      }
-
-      function showOnlySelectedClass(className) {
         // Get all direct children of the body
         var bodyChildren = document.body.children;
 
@@ -462,11 +483,11 @@
         for (var i = 0; i < bodyChildren.length; i++) {
           var currentElement = bodyChildren[i];
 
-          // Check if the current element has the specified class or additional classes
+          // Check if the current element has any of the specified classes
           if (
-            currentElement.classList.contains(className) ||
-            currentElement.classList.contains("Navbar") ||
-            currentElement.classList.contains("body")
+            classNames.some((className) =>
+              currentElement.classList.contains(className)
+            )
           ) {
             currentElement.style.display = "flex";
           } else {

@@ -10,7 +10,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #002a26db;
-    background-image: url('./backgroundlandscape.jpg');
+    background-image: url('./images/backgroundlandscape.jpg');
     background-size: cover;
     background-position: 0px 0px;
     background-repeat: no-repeat;
@@ -492,224 +492,339 @@ ul li {
 DOCTOR PROFILE CSS
 */
 
-.doctorProfilePage {
-    margin-top: 70px;
-    width: 80%;
-    padding: 20px;
-    background-color: #1f201fb4;
-    border-radius: 7px;
-    backdrop-filter: blur(10px) saturate(150%);
-}
-
 .doctorProfileHeader {
     width: 100%;
-    padding: 8px;
+    margin-top: 10px;
+    padding: 10px 7px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
+    background-color: #ffffff71;
+    backdrop-filter: blur(8px) saturate(200%);
+    height: 170px;
 }
 
-.doctorProfileHeader>h4 {
-    width: 40%;
-    line-height: 30px;
-}
-
-.doctorProfileHeader>h4>span {
-    font-size: 30px;
-    text-shadow: 0px 0px 5px #7fffd4;
-}
-
-.doctorProfileHeader>div>span {
-    align-self: center;
-
-}
-
-.doctorProfileHeader>div {
+.doctorProfileInfo {
+    width: 60%;
     display: flex;
-    width: 40%;
-    justify-content: flex-end;
     align-items: center;
+    justify-content: flex-start;
 }
 
-.statusTextClass {
-    margin-right: 5px;
-    color: red;
-    text-shadow: 0px 0px 10px red;
+.doctorProfileInfo>img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
 }
 
-.onlineStatus {
-    margin-right: 00px;
-    color: #00ff00;
-    text-shadow: 0px 0px 10px #00ff00;
+.doctorProfileInfo>p {
+    font-size: 18px;
+    margin-left: 20px;
 }
 
-.status {
-    align-self: center;
-    width: 10px;
-    height: 10px;
-    background-color: red;
-    border-radius: 50%;
+.doctorProfileInfo>p>span {
+    font-size: 25px;
+    text-shadow: 0px 0px 10px aqua;
+}
+
+.doctorProfileOptions {
+    padding: 50px 0px;
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.doctorProfileOptions>img{
+    cursor: pointer;
+    align-self: flex-start;
+    width: 50px;
+    height: 50px;
+    filter: drop-shadow(0px 0px 5px aquamarine);
+    border-radius: 100%;
+    padding: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.doctorProfileOptions>img:hover {
+   transform: scale(1.2);
+}
+.doctorProfileOptions >img:active{
+    transform: scale(1.5);
+}
+
+
+.controlBoard {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #ffffff71;
+    backdrop-filter: blur(8px) saturate(200%);
+    display: flex;
+    flex-direction: column;
+}
+
+.doctorStatus {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+
+.doctorStatus>input[type="checkbox"] {
+    width: 50px;
+    height: 20px;
+    border-radius: 20px;
+    position: relative;
+    background-color: #ff0000;
     box-shadow: 0px 0px 10px red;
+    appearance: none;
+    transition: all 0.5s ease-in-out;
 }
 
-.statusOn {
-    align-self: center;
-    width: 10px;
-    height: 10px;
+.statusButton:checked[type="checkbox"] {
     background-color: #00ff00;
-    border-radius: 50%;
     box-shadow: 0px 0px 10px #00ff00;
 }
 
-.doctorProfileBody {
-    width: 100%;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: cnetr;
-}
-
-.statusofDoctor {
-    display: flex;
-    justify-content: space-between;
-    padding: 4px 10px;
-    width: 100%;
-}
-
-.statusButton {
-    width: 40px;
+.statusButton:before {
+    content: '';
+    border-radius: 50px;
+    width: 20px;
     height: 20px;
-}
-
-.toggleStatus {
-    display: none;
-}
-
-.toggle-label {
-    display: block;
-    width: 50px;
-    height: 20px;
-    background-color: #7fffd4;
-    border-radius: 15px;
-    /* Adjust the border-radius for rounded corners */
-    position: relative;
-}
-
-.toggle-handle {
-    width: 15px;
-    height: 15px;
-    background-color: #fff;
-    border-radius: 50%;
     position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translate(0, -50%);
-    transition: transform 0.3s ease;
+    left: 0px;
+    top: 0;
+    transform: scale(1.2);
+    background-color: #e8e8e8;
+    transition: left 0.5s ease-in-out;
 }
 
-.toggleStatus:checked+.toggle-label .toggle-handle {
-    left: 30px;
-    transition: left 0.5s ease;
+.statusButton:checked[type="checkbox"]:before {
+    left: 32px;
 }
 
-.toggleStatus:not(:checked)+.toggle-label .toggle-handle {
-    left: 4px;
-    transition: left 0.5s ease;
+.doctorStatus>p {
+    margin-right: 20px;
 }
 
-.toggleStatus:checked+.toggle-label {
-    background-color: rgb(0, 255, 34);
-    box-shadow: 0px 0px 10px rgb(0, 255, 34);
-    transition: background-color 0.5s ease;
-
-}
-
-.toggleStatus:not(:checked)+.toggle-label {
-    background-color: red;
-    box-shadow: 0px 0px 10px red;
-    transition: background-color 0.5s ease;
-}
-
-
-/* NUMBERING SYSTEM CSS */
-
-.doctorProfileTokenPage {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 25px 0px;
-}
-
-.currentNumberHeading {
-    font-size: 20px;
-}
-.numberScrolling {
+.numberingSystem {
     width: 100%;
     display: flex;
     align-items: center;
+    padding: 20px 5px;
     justify-content: space-evenly;
-    padding: 10px 0px;
-    margin-top: 20px;
+    flex-direction: column;
 }
 
-.tokenNumber {
+.numberingSystem>p {
+    margin-bottom: 30px;
+    font-size: 20px;
+
+}
+
+.numberContainer {
+    display: flex;
+    width: 300px;
+    justify-content: space-evenly;
+}
+
+.numberContainer>button {
     background: none;
     display: flex;
-    align-items: center;
     justify-content: center;
-    border: 2px solid aquamarine;
-    height: 40px;
-    width: 40px;
-    border-radius: 100%;
-    transition: all 0.5s ease-in-out; /* Add transition property for transform */
-}
-
-.previousNumber {
-    transform: translateX(-20%);
-    text-shadow: 0px 0px 2px  aquamarine;
-}
-
-.nextNumber {
-    transform: translateX(20%);
-    text-shadow: 0px 0px 2px  aquamarine;
-}
-
-.currentNumber {
-    scale: 1.5;
-    transform: translateX(0);
-    text-shadow: 0px 0px 5px  aquamarine;
-    box-shadow: 0px 0px 8px  aquamarine;
-}
-
-
-
-.numberScrolling>button {
+    align-items: center;
     border: none;
-    padding: 0;
-    background: none;
-    cursor: pointer;
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
 }
-.numberScrolling>button:active {
-    background-color: transparent; /* Set the background color to transparent or any other color you prefer */
-    outline: none; /* Remove the default outline on click (optional) */
+
+.numberContainer>button>img {
+    width: 100%;
+    height: 100%;
+    transition: all 0.2s ease-in-out;
 }
 
 .nextNumberButton>img {
     rotate: 180deg;
 }
 
-.numberScrolling>button>img {
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    filter: drop-shadow(0px 0px 5px aquamarine) ;
+.numberContainer>button>img:hover {
+    filter: drop-shadow(0px 0px 3px rgb(255, 255, 255));
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.tokenNumber {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid aquamarine;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    transform: scale(0.8);
+    transition: all 0.5s ease-in-out;
+}
+
+.currentNumber {
+    transform: scale(1.8);
+    text-shadow: 0px 0px 10px aquamarine;
+    box-shadow: 0px 0px 10px aquamarine;
+    right: 200px;
+}
+
+/* FOR PROFILE EDITING */
+
+.editProfile {
+    margin-top: 15px;
+    width: 100%;
+    padding: 20px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 380px;
+    background-color: #353535c1;
+    backdrop-filter: blur(8px) saturate(200%);
+    border-radius: 8px;
+}
+
+.headEditProfile {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headEditProfile>h3 {
+    font-size: 20px;
+    padding-left: 20px;
+}
+
+.uploader {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 2px dashed #f7f7f7;
+    width: 150px;
+    height: 150px;
+}
+
+.image-preview {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+}
+
+.upload-button {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(249, 249, 249, 0.1);
+    color: #fefefe3c;
+    text-align: center;
+    line-height: 150px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.upload-button:hover {
+    background-color: rgba(240, 240, 240, 0.7);
+    color: #ffffff;
+}
+
+.image-upload {
+    display: none;
+}
+
+.inputFieldforEditingProfile {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.inputFieldforEditingProfile>label {
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.inputFieldforEditingProfile>input {
+    width: 100%;
+    border: none;
+    height: 30px;
+    padding: 10px;
+    border-radius: 4px;
+    color: #333;
+}
+
+.editingButtons {
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profileEditingButton {
+    font-size: 16px;
+    background-color: none;
+    background: none;
+    padding: 8px 20px;
+    border-radius: 100px;
+
+    transition: transform 0.1s ease-in-out, background-color 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.resetButton {
+    border: 2px solid #ff000094;
+}
+
+.resetButton:hover {
+    color: #ffffff;
+    background-color: #ff000094;
+}
+
+.resetButton:active {
+    transform: scale(1.3);
+}
+
+.saveButton {
+    border: 2px solid #00ff0094;
+    background: none;
+}
+
+.saveButton:hover {
+    background-color: #00ff0094;
+    color: #fff;
+}
+
+.saveButton:active {
+    transform: scale(1.3);
 }
 
 @media (max-width: 600px) {
     body {
-        background-image: url('./backgroundportrait.jpg');
+        background-image: url('./images/backgroundportrait.jpg');
         background-size: cover;
         background-position: 0px 0px;
         background-repeat: no-repeat;
@@ -718,10 +833,15 @@ DOCTOR PROFILE CSS
 
     .dropDownButton {
         display: inline-block;
+
+    }
+
+    .dropDownButton:hover {
+        cursor: pointer;
     }
 
     .navList {
-        width: 100px;
+        text-align: center;
         display: none;
         flex-direction: column;
         backdrop-filter: blur(14px) saturate(200%);
@@ -729,9 +849,10 @@ DOCTOR PROFILE CSS
         background-color: rgba(0, 0, 0, 0.289);
         border-radius: 10px 0px 10px 10px;
         position: absolute;
-        right: 50px;
-        top: 70px;
+        right: 40px;
+        top: 60px;
         z-index: 10;
+        padding: 2px;
     }
 
     .navList.show {

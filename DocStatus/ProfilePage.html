@@ -20,15 +20,7 @@
       </div>
       <nav>
         <ul id="navList" class="navList">
-          <li>
-            <a
-              class="navLink"
-              id="home"
-              href="#"
-              onclick="showOnlySelectedClasses('editProfile')"
-              >Home</a
-            >
-          </li>
+      
           <li>
             <a
               class="navLink"
@@ -71,6 +63,45 @@
         <img src="./images/menu.png" alt="" />
       </button>
     </header>
+    <ul id="navList1" class="navList1 navList">
+     
+      <li>
+        <a
+          class="navLink"
+          id="logIn"
+          href="#"
+          onclick="showOnlySelectedClass('loginForm')"
+          >Log in</a
+        >
+      </li>
+      <li>
+        <a
+          class="navLink"
+          id="hospital"
+          href="#"
+          onclick="showOnlySelectedClass('hospitalsBoard')"
+          >Hospitals</a
+        >
+      </li>
+      <li>
+        <a
+          class="navLink"
+          id="dashboard"
+          href="#"
+          onclick="showOnlySelectedClass('doctorProfilePage')"
+          >Dashboard</a
+        >
+      </li>
+      <li>
+        <a
+          class="navLink"
+          id="profile"
+          href="#"
+          onclick="showOnlySelectedClass('doctorProfilePage')"
+          >Profile</a
+        >
+      </li>
+    </ul>
     <!--HOME PAGE CONTENT-->
     <div class="homeContainer home" style="display: none">
       <div class="homeIntro">
@@ -288,9 +319,9 @@
           >
             <img src="./images/back.png" alt="" />
           </button>
-          <div id="previousNumber" class="previousNumber tokenNumber">1</div>
-          <div id="currentNumber" class="currentNumber tokenNumber">2</div>
-          <div id="nextNumber" class="nextNumber tokenNumber">3</div>
+          <div id="previousNumber" class="previousNumber tokenNumber">0</div>
+          <div id="currentNumber" class="currentNumber tokenNumber">1</div>
+          <div id="nextNumber" class="nextNumber tokenNumber">2</div>
           <button
             id="nextNumberButton"
             onclick="changeNumber(1)"
@@ -329,12 +360,28 @@
         <input type="text" id="fieldName" name="fieldName" />
       </div>
       <div class="inputFieldforEditingProfile">
+        <label for="degree">Degree and Qualification</label>
+        <input type="text" id="degree" name="degree" />
+      </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="speciality">Medical Speciality</label>
+        <input type="text" id="speciality" name="speciality" />
+      </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="subSpeciality">Subspecialization (Optional)</label>
+        <input type="text" id="subSpeciality" name="subSpeciality" />
+      </div>
+      <div class="inputFieldforEditingProfile">
         <label for="contactNumber">Contact Number</label>
         <input type="text" id="contactNumber" name="contactNumber" />
       </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="mail">Email</label>
+        <input type="text" id="mail" name="mail"/>
+      </div>
       <div class="editingButtons">
-        <button class="resetButton profileEditingButton">Reset</button>
-        <button class="saveButton profileEditingButton">Save</button>
+        <button class="resetButton profileEditingButton" onclick="showOnlySelectedClasses('doctorProfileHeader' , 'controlBoard')">Cancel</button>
+        <button class="saveButton profileEditingButton" onclick="showOnlySelectedClasses('doctorProfileHeader' , 'controlBoard')">Save</button>
       </div>
     </div>
 
@@ -388,7 +435,7 @@
       }
 
       function showMenu() {
-        const navList = document.getElementById("navList");
+        const navList = document.getElementById("navList1");
         navList.classList.toggle("show");
       }
 

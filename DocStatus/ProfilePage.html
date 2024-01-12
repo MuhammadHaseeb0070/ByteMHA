@@ -20,7 +20,6 @@
       </div>
       <nav>
         <ul id="navList" class="navList">
-      
           <li>
             <a
               class="navLink"
@@ -64,7 +63,6 @@
       </button>
     </header>
     <ul id="navList1" class="navList1 navList">
-     
       <li>
         <a
           class="navLink"
@@ -294,16 +292,20 @@
 
     <!--DOCTOR_PROFILE_PAGE-->
 
-    <div class="doctorProfileHeader" style="display: flex">
+    <div class="doctorProfileHeader" style="display: none">
       <div class="doctorProfileInfo">
         <img src="./images/DoctorPortrait.jpg" alt="" />
         <p>Welcome <br /><span>Dr. Sohail Jokhio</span></p>
       </div>
       <div class="doctorProfileOptions">
-       <img src="./images/edit.png" onclick="showOnlySelectedClasses('editProfile')" alt=""  />
+        <img
+          src="./images/edit.png"
+          onclick="showOnlySelectedClasses('editProfile')"
+          alt=""
+        />
       </div>
     </div>
-    <div class="controlBoard" style="display: flex">
+    <div class="controlBoard" style="display: none">
       <div class="doctorStatus">
         <input type="checkbox" class="statusButton" id="statusButton" />
         <p id="statusText">You are now Offline</p>
@@ -332,7 +334,7 @@
         </div>
       </div>
     </div>
-    <div class="editProfile" style="display: none">
+    <div class="editProfile" style="display: flex">
       <div class="headEditProfile">
         <h3>Edit Profile</h3>
         <div class="uploader">
@@ -377,27 +379,114 @@
       </div>
       <div class="inputFieldforEditingProfile">
         <label for="mail">Email</label>
-        <input type="text" id="mail" name="mail"/>
+        <input type="text" id="mail" name="mail" />
+      </div>
+      <div class="affiliatedHospitalsEdit">
+        <h2>Affiliated Hospitals</h2>
+        <div
+          class="affiliatedHospitalEntry addHospital"
+          onclick="addHospital()"
+        >
+          <h3>Add Hospital</h3>
+          <img
+            src="./images/plus-sign.png"
+            onclick="deleteHospital(this)"
+            alt=""
+          />
+        </div>
       </div>
       <div class="editingButtons">
-        <button class="resetButton profileEditingButton" onclick="showOnlySelectedClasses('doctorProfileHeader' , 'controlBoard')">Cancel</button>
-        <button class="saveButton profileEditingButton" onclick="showOnlySelectedClasses('doctorProfileHeader' , 'controlBoard')">Save</button>
+        <button
+          class="resetButton profileEditingButton"
+          onclick="showOnlySelectedClasses('doctorProfileHeader' , 'controlBoard')"
+        >
+          Cancel
+        </button>
+        <button
+          class="saveButton profileEditingButton"
+          onclick="showOnlySelectedClasses('doctorProfileHeader' , 'controlBoard')"
+        >
+          Save
+        </button>
       </div>
+    </div>
+    <div class="addingHospital">
+      <img src="./images/close.png" alt="" onclick="closeDialogue()" />
+      <label for="affiliatedHospitalInput">Affiliated Hospital Name</label>
+      <input
+        type="text"
+        id="affiliatedHospitalInput"
+        name="hospitalName"
+        placeholder="hospital name ..."
+      />
+      <button onclick="addAffiliatedHospital()">Add</button>
     </div>
 
     <!-- JAVASCRIPT CODE-->
 
     <script>
-      const users = { Name: "MuhammadHaseeb", Password: "haseeb123" };
+
+      var user={
+        type:"Doctor",
+        firstName:"Sohail",
+        lastName:"Jokhio",
+        gender:"Male",
+        age:30,
+        field:'Orthopedician',
+        degree:'PHD Medical Science',
+        subSpecialization:'General Physician',
+        contactNumber:"0313-3478691",
+        email:"muhammadhaseeb0070@gmail.com",
+        affiliatedHospitals:['Hira' , 'Civil' , 'Al-Khair']
+
+      }
       const checkbox = document.getElementById("statusButton");
-      const menuButton = document.getElementById("DropDownButton");
-      const tokenInc = document.getElementById("nextNumberButton");
-      const tokenDec = document.getElementById("previousNumberButton");
-      const homePage = document.getElementById("home");
-      const logInPage = document.getElementById("logIn");
-      const signUpPage = document.getElementById("signUp");
-      const hospitals = document.getElementById("hospital");
-      const profilePage = document.getElementById("profile");
+ 
+
+      function deleteHospital(element) {
+        let parent = element.parentNode;
+        parent.remove();
+      }
+      function addHospital() {
+        document.querySelector(".addingHospital").style.display = "flex";
+        document.querySelector(".editProfile").style.opacity = 0.5;
+        document.querySelector(".editProfile").style.filter = "blur(2px)";
+        document.querySelector(".editProfile").style.pointerEvents = "none";
+      }
+      function closeDialogue() {
+        document.querySelector(".addingHospital").style.display = "none";
+        document.querySelector(".editProfile").style.opacity = 1;
+        document.querySelector(".editProfile").style.filter = "blur(0px)";
+        document.querySelector(".editProfile").style.pointerEvents = "auto";
+      }
+      function addAffiliatedHospital() {
+        const hospitalName = document.getElementById("affiliatedHospitalInput").value;
+        addHospitalinList(hospitalName);
+        document.getElementById("affiliatedHospitalInput").value = "";
+        closeDialogue();
+      }
+      function addHospitalinList(hospitalName) {
+        if (hospitalName != "") {
+          var newDiv = document.createElement("div");
+          newDiv.className = "affiliatedHospitalEntry";
+
+          newDiv.innerHTML =
+            "<h3>" +
+            hospitalName +
+            '</h3><img src="./images/close.png" onclick="deleteHospital(this)" alt="">';
+
+          var targetDiv = document.querySelector(".affiliatedHospitalsEdit");
+
+          if (targetDiv) {
+            if (targetDiv.children.length > 1) {
+              targetDiv.insertBefore(newDiv, targetDiv.children[1]);
+            } else {
+              targetDiv.appendChild(newDiv);
+            }
+          } else {
+          }
+        }
+      }
 
       document
         .getElementById("imageUpload")

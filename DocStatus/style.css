@@ -887,7 +887,8 @@ DOCTOR PROFILE CSS
 }
 
 .addHospital {
-    box-shadow: 0px 0px 3px 0px aquamarine;
+    box-shadow: 0px 0px 5px 0px aquamarine;
+    opacity: 0.8;
     cursor: pointer;
 }
 
@@ -969,7 +970,37 @@ DOCTOR PROFILE CSS
     background-color: #80ffd419;
     scale: 1.05;
 }
+.currentHospital{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+}
+.currentHospital> select{
+    width: 250px;
+    padding: 5px 10px;
+    color: rgb(13, 95, 77);
+    border: none;
+    background-color: #7fffd477;
+    border-bottom: 4px solid aquamarine;
+    border-radius: 3px;
+    font-size: 14px;
+    transition: all 0.3s ease-in-out;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.currentHospital>select:focus{
+    background-color: #7fffd4b3;
 
+}
+.dropDownOption{
+    background-color: #7fffd44a !important;
+    color: rgb(13, 95, 77);
+    font-size: 14px;
+}
 @media (max-width: 600px) {
     body {
         background-image: url('./images/backgroundportrait.jpg');
@@ -1020,9 +1051,10 @@ DOCTOR PROFILE CSS
         width: 100%;
         text-align: center;
         font-size: 17px;
+        border: 2px solid rgba(255, 255, 255, 0.225);
     }
 
-    .navList.show {
+    .navList1.show {
         display: flex;
     }
 

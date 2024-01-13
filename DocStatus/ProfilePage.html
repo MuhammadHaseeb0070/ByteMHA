@@ -292,7 +292,7 @@
 
     <!--DOCTOR_PROFILE_PAGE-->
 
-    <div class="doctorProfileHeader" style="display: none">
+    <div class="doctorProfileHeader" style="display: flex">
       <div class="doctorProfileInfo">
         <img src="./images/DoctorPortrait.jpg" alt="" />
         <p>Welcome <br /><span>Dr. Sohail Jokhio</span></p>
@@ -305,10 +305,19 @@
         />
       </div>
     </div>
-    <div class="controlBoard" style="display: none">
+    <div class="controlBoard" style="display: flex">
       <div class="doctorStatus">
         <input type="checkbox" class="statusButton" id="statusButton" />
         <p id="statusText">You are now Offline</p>
+      </div>
+      <div class="currentHospital">
+        <select name="currentHospitalSelection" id="currentHospitalMenu">
+          <option class="dropDownOption" value="none" selected>--Select</option>
+          <option class="dropDownOption" value="Hira" >Hira Hospital</option>
+          <option class="dropDownOption" value="Civil">Civil Hospital</option>
+          <option class="dropDownOption" value="Al-Khair">Al-Khair Hospital</option>
+          <option class="dropDownOption" value="River-Side">River-Side Hospital</option>
+        </select>
       </div>
       <hr />
       <div class="numberingSystem">
@@ -334,7 +343,7 @@
         </div>
       </div>
     </div>
-    <div class="editProfile" style="display: flex">
+    <div class="editProfile" style="display: none">
       <div class="headEditProfile">
         <h3>Edit Profile</h3>
         <div class="uploader">
@@ -425,23 +434,20 @@
     <!-- JAVASCRIPT CODE-->
 
     <script>
-
-      var user={
-        type:"Doctor",
-        firstName:"Sohail",
-        lastName:"Jokhio",
-        gender:"Male",
-        age:30,
-        field:'Orthopedician',
-        degree:'PHD Medical Science',
-        subSpecialization:'General Physician',
-        contactNumber:"0313-3478691",
-        email:"muhammadhaseeb0070@gmail.com",
-        affiliatedHospitals:['Hira' , 'Civil' , 'Al-Khair']
-
-      }
+      var user = {
+        type: "Doctor",
+        firstName: "Sohail",
+        lastName: "Jokhio",
+        gender: "Male",
+        age: 30,
+        field: "Orthopedician",
+        degree: "PHD Medical Science",
+        subSpecialization: "General Physician",
+        contactNumber: "0313-3478691",
+        email: "muhammadhaseeb0070@gmail.com",
+        affiliatedHospitals: ["Hira", "Civil", "Al-Khair"],
+      };
       const checkbox = document.getElementById("statusButton");
- 
 
       function deleteHospital(element) {
         let parent = element.parentNode;
@@ -460,7 +466,9 @@
         document.querySelector(".editProfile").style.pointerEvents = "auto";
       }
       function addAffiliatedHospital() {
-        const hospitalName = document.getElementById("affiliatedHospitalInput").value;
+        const hospitalName = document.getElementById(
+          "affiliatedHospitalInput"
+        ).value;
         addHospitalinList(hospitalName);
         document.getElementById("affiliatedHospitalInput").value = "";
         closeDialogue();
@@ -524,8 +532,14 @@
       }
 
       function showMenu() {
-        const navList = document.getElementById("navList1");
-        navList.classList.toggle("show");
+        var navList = document.getElementById("navList1");
+        var computedStyle = window.getComputedStyle(navList);
+
+        if (computedStyle.display === "none") {
+          navList.style.display = "flex";
+        } else {
+          navList.style.display = "none";
+        }
       }
 
       function changeNumber(direction) {

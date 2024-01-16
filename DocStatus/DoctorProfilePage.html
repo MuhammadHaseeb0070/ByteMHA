@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Rubik&display=swap"
+      rel="stylesheet"
+    />
+    <title>DocStatus</title>
+  </head>
+  <body class="body">
+    <!--NAVBAR-->
+    <header class="Navbar">
+      <div class="logo">
+        <h3>DocStatus</h3>
+      </div>
+      <nav>
+        <ul id="navList" class="navList">
+          <li>
+            <a class="navLink" id="logIn" href="#" onclick="logOut()"
+              >Log Out</a
+            >
+          </li>
+          <li>
+            <a
+              class="navLink"
+              id="hospital"
+              href="#"
+              onclick="showOnlySelectedClass('hospitalsBoard')"
+              >Hospitals</a
+            >
+          </li>
+          <li>
+            <a
+              class="navLink"
+              id="dashboard"
+              href="#"
+              onclick="showOnlySelectedClass('doctorProfilePage')"
+              >Dashboard</a
+            >
+          </li>
+          <li>
+            <a
+              class="navLink"
+              id="profile"
+              href="#"
+              onclick="showOnlySelectedClass('doctorProfilePage')"
+              >Profile</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <button
+        class="dropDownButton"
+        id="dropDownButton"
+        onclick="showMenu(this)"
+      >
+        <img src="./images/menu.png" alt="" />
+      </button>
+    </header>
+    <ul id="navList1" class="navList1 navList">
+      <li>
+        <a
+          class="navLink"
+          id="dashboard"
+          href="#"
+          onclick="showOnlySelectedClasses('doctorProfileHeader', 'controlBoard')"
+          >Dashboard</a
+        >
+      </li>
+      <li>
+        <a class="navLink" id="logIn" href="#" onclick="logOut()">Log Out</a>
+      </li>
+    </ul>
+   
+    <!--DOCTOR_PROFILE_PAGE-->
+
+    <div class="doctorProfileHeader" style="display: flex">
+      <div class="doctorProfileInfo">
+        <img src="./images/DoctorPortrait.jpg" alt="" />
+        <p>Welcome <br /><span>Dr. Sohail Jokhio</span></p>
+      </div>
+      <div class="doctorProfileOptions">
+        <img
+          src="./images/edit.png"
+          onclick="showOnlySelectedClasses('editProfile')"
+          alt=""
+        />
+      </div>
+    </div>
+    <div class="controlBoard" style="display: flex">
+      <div class="doctorStatus">
+        <input type="checkbox" class="statusButton" id="statusButton" />
+        <p id="statusText">You are now Offline</p>
+      </div>
+      <div class="currentHospital">
+        <select name="currentHospitalSelection" id="currentHospitalMenu">
+          <option class="dropDownOption" value="none" selected>--Select</option>
+          <option class="dropDownOption" value="Hira">Hira Hospital</option>
+          <option class="dropDownOption" value="Civil">Civil Hospital</option>
+          <option class="dropDownOption" value="Al-Khair">
+            Al-Khair Hospital
+          </option>
+          <option class="dropDownOption" value="River-Side">
+            River-Side Hospital
+          </option>
+        </select>
+      </div>
+      <hr />
+      <div class="numberingSystem">
+        <p>Current Token Number</p>
+        <div class="numberContainer">
+          <button
+            id="previousNumberButton"
+            onclick="changeNumber(0)"
+            class="previousNumberButton"
+          >
+            <img src="./images/back.png" alt="" />
+          </button>
+          <div id="previousNumber" class="previousNumber tokenNumber">0</div>
+          <div id="currentNumber" class="currentNumber tokenNumber">1</div>
+          <div id="nextNumber" class="nextNumber tokenNumber">2</div>
+          <button
+            id="nextNumberButton"
+            onclick="changeNumber(1)"
+            class="nextNumberButton"
+          >
+            <img src="./images/back.png" alt="" />
+          </button>
+        </div>
+      </div>
+      <hr style="width: 100%; margin-top: 20px" />
+      <div class="lastToken">
+        <p>Last Token</p>
+
+        <div class="lastTokenNumbering">
+          <button class="previousButton" onclick="updateNumber(-1)">
+            <img src="./images/back.png" alt="Previous" />
+          </button>
+          <p id="numberDisplay">5</p>
+          <button class="nextButton" onclick="updateNumber(1)">
+            <img src="./images/back.png" alt="Next" />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="editProfile" style="display: none">
+      <div class="headEditProfile">
+        <h3>Edit Profile</h3>
+        <div class="uploader">
+          <div class="image-preview" id="imagePreview"></div>
+          <label for="imageUpload" class="upload-button">Choose Image</label>
+          <input
+            type="file"
+            id="imageUpload"
+            class="image-upload"
+            accept="image/*"
+          />
+        </div>
+      </div>
+      <hr style="width: 100%; margin: 20px 0px 10px 0px" />
+      <div class="inputFieldforEditingProfile">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstname" />
+      </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastname" />
+      </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="fieldName">Field</label>
+        <input type="text" id="fieldName" name="fieldName" />
+      </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="degree">Degree and Qualification</label>
+        <input type="text" id="degree" name="degree" />
+      </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="speciality">Medical Speciality</label>
+        <input type="text" id="speciality" name="speciality" />
+      </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="subSpeciality">Subspecialization (Optional)</label>
+        <input type="text" id="subSpeciality" name="subSpeciality" />
+      </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="contactNumber">Contact Number</label>
+        <input type="text" id="contactNumber" name="contactNumber" />
+      </div>
+      <div class="inputFieldforEditingProfile">
+        <label for="mail">Email</label>
+        <input type="text" id="mail" name="mail" />
+      </div>
+      <div class="affiliatedHospitalsEdit">
+        <h2>Affiliated Hospitals</h2>
+        <div
+          class="affiliatedHospitalEntry addHospital"
+          onclick="addHospital()"
+        >
+          <h3>Add Hospital</h3>
+          <img
+            src="./images/plus-sign.png"
+            onclick="deleteHospital(this)"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="editingButtons">
+        <button
+          class="resetButton profileEditingButton"
+          onclick="showOnlySelectedClasses('doctorProfileHeader' , 'controlBoard')"
+        >
+          Cancel
+        </button>
+        <button
+          class="saveButton profileEditingButton"
+          onclick="showOnlySelectedClasses('doctorProfileHeader' , 'controlBoard')"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+    <div class="addingHospital">
+      <img src="./images/close.png" alt="" onclick="closeDialogue()" />
+      <label for="affiliatedHospitalInput">Affiliated Hospital Name</label>
+      <input
+        type="text"
+        id="affiliatedHospitalInput"
+        name="hospitalName"
+        placeholder="hospital name ..."
+      />
+      <button onclick="addAffiliatedHospital()">Add</button>
+    </div>
+
+    <!-- JAVASCRIPT CODE-->
+
+    <script>
+      var user = {
+        type: "Doctor",
+        firstName: "Sohail",
+        lastName: "Jokhio",
+        gender: "Male",
+        age: 30,
+        field: "Orthopedician",
+        degree: "PHD Medical Science",
+        subSpecialization: "General Physician",
+        contactNumber: "0313-3478691",
+        email: "muhammadhaseeb0070@gmail.com",
+        affiliatedHospitals: ["Hira", "Civil", "Al-Khair"],
+      };
+      const checkbox = document.getElementById("statusButton");
+
+      function logOut() {
+        window.location.href = "login.html";
+      }
+
+      function updateNumber(change) {
+        var numberElement = document.getElementById("numberDisplay");
+        var currentNumber = parseInt(numberElement.innerText);
+        if (currentNumber == 1 && change == -1) {
+        } else {
+          var newNumber = currentNumber + change;
+          numberElement.innerText = newNumber;
+        }
+      }
+
+      function deleteHospital(element) {
+        let parent = element.parentNode;
+        parent.remove();
+      }
+      function addHospital() {
+        document.querySelector(".addingHospital").style.display = "flex";
+        document.querySelector(".editProfile").style.opacity = 0.5;
+        document.querySelector(".editProfile").style.filter = "blur(2px)";
+        document.querySelector(".editProfile").style.pointerEvents = "none";
+      }
+      function closeDialogue() {
+        document.querySelector(".addingHospital").style.display = "none";
+        document.querySelector(".editProfile").style.opacity = 1;
+        document.querySelector(".editProfile").style.filter = "blur(0px)";
+        document.querySelector(".editProfile").style.pointerEvents = "auto";
+      }
+      function addAffiliatedHospital() {
+        const hospitalName = document.getElementById(
+          "affiliatedHospitalInput"
+        ).value;
+        addHospitalinList(hospitalName);
+        document.getElementById("affiliatedHospitalInput").value = "";
+        closeDialogue();
+      }
+      function addHospitalinList(hospitalName) {
+        if (hospitalName != "") {
+          var newDiv = document.createElement("div");
+          newDiv.className = "affiliatedHospitalEntry";
+
+          newDiv.innerHTML =
+            "<h3>" +
+            hospitalName +
+            '</h3><img src="./images/close.png" onclick="deleteHospital(this)" alt="">';
+
+          var targetDiv = document.querySelector(".affiliatedHospitalsEdit");
+
+          if (targetDiv) {
+            if (targetDiv.children.length > 1) {
+              targetDiv.insertBefore(newDiv, targetDiv.children[1]);
+            } else {
+              targetDiv.appendChild(newDiv);
+            }
+          } else {
+          }
+        }
+      }
+
+      document
+        .getElementById("imageUpload")
+        .addEventListener("change", (event) => {
+          const file = event.target.files[0];
+          if (file) {
+            if (isImage(file)) {
+              if (file.size <= 2 * 1024 * 1024) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                  document.getElementById(
+                    "imagePreview"
+                  ).style.backgroundImage = `url(${e.target.result})`;
+                };
+
+                reader.readAsDataURL(file);
+              } else {
+                alert("Image size exceeds 2MB. Please choose a smaller image.");
+
+                document.getElementById("imageUpload").value = "";
+              }
+            } else {
+              alert(
+                "Selected file is not an image. Please choose an image file."
+              );
+
+              document.getElementById("imageUpload").value = "";
+            }
+          }
+        });
+
+      function isImage(file) {
+        return file.type.startsWith("image/");
+      }
+
+      function showMenu(element) {
+        var navList = document.getElementById("navList1");
+        var computedStyle = window.getComputedStyle(navList);
+
+        element.classList.toggle("rotate");
+        if (computedStyle.display === "none") {
+          navList.style.display = "flex";
+        } else {
+          navList.style.display = "none";
+        }
+      }
+
+      function changeNumber(direction) {
+        if (direction == 1) {
+          let curNumber = document.getElementById("currentNumber");
+          let prevNumber = document.getElementById("previousNumber");
+          let nextNumber = document.getElementById("nextNumber");
+          let newDiv = document.createElement("div");
+          let nextNumberValue = parseInt(nextNumber.innerHTML) + 1;
+
+          prevNumber.remove();
+
+          curNumber.className = "";
+          curNumber.classList.add("tokenNumber");
+          curNumber.classList.add("previousNumber");
+          curNumber.id = "previousNumber";
+
+          nextNumber.className = "";
+          nextNumber.classList.add("currentNumber");
+          nextNumber.classList.add("tokenNumber");
+          nextNumber.id = "currentNumber";
+
+          newDiv.offsetHeight;
+          newDiv.className = "tokenNumber";
+          newDiv.classList.add("nextNumber");
+          newDiv.id = "nextNumber";
+          newDiv.innerHTML = nextNumberValue;
+          curNumber.parentElement.insertBefore(
+            newDiv,
+            curNumber.parentElement.children[3]
+          );
+        } else {
+          if (
+            parseInt(document.getElementById("previousNumber").innerHTML) != 0
+          ) {
+            let curNumber = document.getElementById("currentNumber");
+            let prevNumber = document.getElementById("previousNumber");
+            let nextNumber = document.getElementById("nextNumber");
+            let newDiv = document.createElement("div");
+            let nextNumberValue = parseInt(prevNumber.innerHTML) - 1;
+
+            nextNumber.remove();
+
+            curNumber.className = "";
+            curNumber.classList.add("tokenNumber");
+            curNumber.classList.add("nextNumber");
+            curNumber.id = "nextNumber";
+
+            prevNumber.className = "";
+            prevNumber.classList.add("currentNumber");
+            prevNumber.classList.add("tokenNumber");
+            prevNumber.id = "currentNumber";
+
+            newDiv.offsetHeight;
+            newDiv.className = "tokenNumber";
+            newDiv.classList.add("previousNumber");
+            newDiv.id = "previousNumber";
+            newDiv.innerHTML = nextNumberValue;
+            curNumber.parentElement.insertBefore(
+              newDiv,
+              curNumber.parentElement.children[1]
+            );
+          }
+        }
+      }
+
+      checkbox.addEventListener("change", function () {
+        let statusText = document.getElementById("statusText");
+        //  const statusLight = document.getElementById("statusLight");
+        console.log("Entered checked");
+
+        if (checkbox.checked) {
+          statusText.textContent = "You are now Online";
+          console.log("checked");
+        } else {
+          statusText.textContent = "You are now Offline";
+          console.log("unchecked");
+        }
+      });
+
+      function showOnlySelectedClasses(...classNames) {
+        // Include the default class "Navbar" if not already present
+        if (!classNames.includes("Navbar")) {
+          classNames.push("Navbar");
+        }
+
+        // Get all direct children of the body
+        var bodyChildren = document.body.children;
+
+        // Loop through each child element of the body
+        for (var i = 0; i < bodyChildren.length; i++) {
+          var currentElement = bodyChildren[i];
+
+          // Check if the current element has any of the specified classes
+          if (
+            classNames.some((className) =>
+              currentElement.classList.contains(className)
+            )
+          ) {
+            currentElement.style.display = "flex";
+          } else {
+            currentElement.style.display = "none";
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

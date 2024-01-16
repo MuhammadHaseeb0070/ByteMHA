@@ -12,7 +12,7 @@
     />
     <title>DocStatus</title>
   </head>
-  <body class="body">
+  <body>
     <!--NAVBAR-->
     <header class="Navbar">
       <div class="logo">
@@ -21,12 +21,8 @@
       <nav>
         <ul id="navList" class="navList">
           <li>
-            <a
-              class="navLink"
-              id="logIn"
-              href="#"
-              onclick="showOnlySelectedClass('loginForm')"
-              >Log in</a
+            <a class="navLink" id="logIn" href="#" onclick="logOut()"
+              >Log Out</a
             >
           </li>
           <li>
@@ -34,7 +30,7 @@
               class="navLink"
               id="hospital"
               href="#"
-              onclick="showOnlySelectedClass('hospitalsBoard')"
+              onclick="showOnlySelectedClasses('hospitalsBoard')"
               >Hospitals</a
             >
           </li>
@@ -58,26 +54,24 @@
           </li>
         </ul>
       </nav>
-      <button class="dropDownButton" id="dropDownButton" onclick="showMenu()">
+      <button
+        class="dropDownButton"
+        id="dropDownButton"
+        onclick="showMenu(this)"
+      >
         <img src="./images/menu.png" alt="" />
       </button>
     </header>
     <ul id="navList1" class="navList1 navList">
       <li>
-        <a
-          class="navLink"
-          id="logIn"
-          href="#"
-          onclick="showOnlySelectedClass('loginForm')"
-          >Log in</a
-        >
+        <a class="navLink" id="logIn" href="#" onclick="logOut()">Log Out</a>
       </li>
       <li>
         <a
           class="navLink"
           id="hospital"
           href="#"
-          onclick="showOnlySelectedClass('hospitalsBoard')"
+          onclick="showOnlySelectedClasses('hospitalsBoard')"
           >Hospitals</a
         >
       </li>
@@ -86,8 +80,8 @@
           class="navLink"
           id="dashboard"
           href="#"
-          onclick="showOnlySelectedClass('doctorProfilePage')"
-          >Dashboard</a
+          onclick="showOnlySelectedClasses('home')"
+          >Home</a
         >
       </li>
       <li>
@@ -95,7 +89,7 @@
           class="navLink"
           id="profile"
           href="#"
-          onclick="showOnlySelectedClass('doctorProfilePage')"
+          onclick="showOnlySelectedClasses('userProfile')"
           >Profile</a
         >
       </li>
@@ -116,7 +110,7 @@
       <h2>Our Features</h2>
       <div class="feature">
         <div class="featureHome">
-          <img src="./filter.png" alt="" />
+          <img src="./images/filter.png" alt="" />
           <div class="featureInfo">
             <h3>Filtering</h3>
             <p>Helps to find the best doctor according to your requirement</p>
@@ -149,9 +143,11 @@
     <!--HOSPITAL BOARD-->
     <div class="hospitalsBoard" style="display: none">
       <h2 class="cityHospitalHeading">Hospitals in Sukkur</h2>
-      <hr
-        style="width: 100%; background-color: aquamarine; margin-bottom: 30px"
-      />
+      <hr style="width: 100%; margin-bottom: 30px" />
+      <div class="searchHospital">
+        <input type="text" placeholder="Search hospital" />
+        <button><img src="./images/search.png" alt="" /></button>
+      </div>
       <div class="hospital">
         <div class="hospitalintro">
           <img
@@ -173,78 +169,17 @@
         <div class="hospitalOptions">
           <button
             class="hospitalOptionButtons"
-            onclick="showOnlySelectedClass('doctorStatusBoard')"
+            onclick="showOnlySelectedClasses('doctorStatusBoard')"
           >
             Doctors
           </button>
+
           <button
-            class="hospitalOptionButtons"
-            onclick="showOnlySelectedClass('doctorStatusBoard')"
-          >
-            Images
-          </button>
-          <button
-            class="hospitalOptionButtons"
+            class="hospitalOptionButtons lastOption"
             onclick="showOnlySelectedClass('doctorStatusBoard')"
           >
             Contacts
           </button>
-          <button
-            class="hospitalOptionButtons"
-            onclick="showOnlySelectedClass('doctorStatusBoard')"
-          >
-            Direction
-          </button>
-        </div>
-      </div>
-      <div class="hospital">
-        <div class="hospitalintro">
-          <img
-            class="hospitalLogo"
-            src="./images/Elegant and Minimalist Medical Logo.png"
-            alt=""
-          />
-          <div class="hospitalInfo">
-            <h3 class="hospitalName">Borcelle Health Service</h3>
-            <hr style="width: 100%; border: 1px solid aquamarine" />
-            <p class="hospitalDescription">
-              Borcelle Health Service Hospital is a state-of-the-art healthcare
-              facility committed to providing compassionate and comprehensive
-              medical services.
-            </p>
-          </div>
-        </div>
-        <hr style="border: 0.1px solid rgb(255, 255, 255); width: 100%" />
-        <div class="hospitalOptions">
-          <button class="hospitalOptionButtons">Doctors</button>
-          <button class="hospitalOptionButtons">Images</button>
-          <button class="hospitalOptionButtons">Contacts</button>
-          <button class="hospitalOptionButtons">Direction</button>
-        </div>
-      </div>
-      <div class="hospital">
-        <div class="hospitalintro">
-          <img
-            class="hospitalLogo"
-            src="./images/Elegant and Minimalist Medical Logo.png"
-            alt=""
-          />
-          <div class="hospitalInfo">
-            <h3 class="hospitalName">Borcelle Health Service</h3>
-            <hr style="width: 100%; border: 1px solid aquamarine" />
-            <p class="hospitalDescription">
-              Borcelle Health Service Hospital is a state-of-the-art healthcare
-              facility committed to providing compassionate and comprehensive
-              medical services.
-            </p>
-          </div>
-        </div>
-        <hr style="border: 0.1px solid rgb(255, 255, 255); width: 100%" />
-        <div class="hospitalOptions">
-          <button class="hospitalOptionButtons">Doctors</button>
-          <button class="hospitalOptionButtons">Images</button>
-          <button class="hospitalOptionButtons">Contacts</button>
-          <button class="hospitalOptionButtons">Direction</button>
         </div>
       </div>
     </div>
@@ -271,76 +206,22 @@
           </div>
         </div>
       </div>
-      <div class="doctor">
-        <img
-          src="./images/DoctorPortrait.jpg"
-          alt=""
-          class="doctorProfileImage"
-        />
-        <div class="doctorIntro">
-          <h4>Doctor Sohail Jokhio</h4>
-          <hr style="width: 100%; margin-bottom: 5px" />
-          <p>Field : <span>Orthopedic Surgeon</span></p>
-          <p>Timing : <span>10:30 AM to 09:00 PM</span></p>
-          <div class="availability">
-            <div class="availabilityIndicator"></div>
-            <p>Available</p>
-          </div>
-        </div>
-      </div>
     </div>
-
-    <!--DOCTOR_PROFILE_PAGE-->
-
-    <div class="doctorProfileHeader" style="display: flex">
-      <div class="doctorProfileInfo">
+    <div class="userProfile" style="display: flex">
+      <img
+        src="./images/edit.png"
+        onclick="showOnlySelectedClasses('editProfile')"
+        alt="edit Profile"
+      />
+      <div class="userProfileHeader">
         <img src="./images/DoctorPortrait.jpg" alt="" />
-        <p>Welcome <br /><span>Dr. Sohail Jokhio</span></p>
+        <h3 class="userName">Afzal Chandio</h3>
       </div>
-      <div class="doctorProfileOptions">
-        <img
-          src="./images/edit.png"
-          onclick="showOnlySelectedClasses('editProfile')"
-          alt=""
-        />
-      </div>
-    </div>
-    <div class="controlBoard" style="display: flex">
-      <div class="doctorStatus">
-        <input type="checkbox" class="statusButton" id="statusButton" />
-        <p id="statusText">You are now Offline</p>
-      </div>
-      <div class="currentHospital">
-        <select name="currentHospitalSelection" id="currentHospitalMenu">
-          <option class="dropDownOption" value="none" selected>--Select</option>
-          <option class="dropDownOption" value="Hira" >Hira Hospital</option>
-          <option class="dropDownOption" value="Civil">Civil Hospital</option>
-          <option class="dropDownOption" value="Al-Khair">Al-Khair Hospital</option>
-          <option class="dropDownOption" value="River-Side">River-Side Hospital</option>
-        </select>
-      </div>
-      <hr />
-      <div class="numberingSystem">
-        <p>Current Token Number</p>
-        <div class="numberContainer">
-          <button
-            id="previousNumberButton"
-            onclick="changeNumber(0)"
-            class="previousNumberButton"
-          >
-            <img src="./images/back.png" alt="" />
-          </button>
-          <div id="previousNumber" class="previousNumber tokenNumber">0</div>
-          <div id="currentNumber" class="currentNumber tokenNumber">1</div>
-          <div id="nextNumber" class="nextNumber tokenNumber">2</div>
-          <button
-            id="nextNumberButton"
-            onclick="changeNumber(1)"
-            class="nextNumberButton"
-          >
-            <img src="./images/back.png" alt="" />
-          </button>
-        </div>
+      <div class="userData">
+        <p class="age">Age : <span>21</span></p>
+        <p class="gender">Gender : <span>Male</span></p>
+        <p class="contactNumber">Contact : <span>0313-3478691</span></p>
+        <p class="email">Email : <span>MuhammadHaseeb0070@gmail.com</span></p>
       </div>
     </div>
     <div class="editProfile" style="display: none">
@@ -367,20 +248,12 @@
         <input type="text" id="lastName" name="lastname" />
       </div>
       <div class="inputFieldforEditingProfile">
-        <label for="fieldName">Field</label>
-        <input type="text" id="fieldName" name="fieldName" />
+        <label for="age">Age</label>
+        <input type="text" id="age" name="age" />
       </div>
       <div class="inputFieldforEditingProfile">
-        <label for="degree">Degree and Qualification</label>
-        <input type="text" id="degree" name="degree" />
-      </div>
-      <div class="inputFieldforEditingProfile">
-        <label for="speciality">Medical Speciality</label>
-        <input type="text" id="speciality" name="speciality" />
-      </div>
-      <div class="inputFieldforEditingProfile">
-        <label for="subSpeciality">Subspecialization (Optional)</label>
-        <input type="text" id="subSpeciality" name="subSpeciality" />
+        <label for="gender">Gender</label>
+        <input type="text" id="gender" name="gender" />
       </div>
       <div class="inputFieldforEditingProfile">
         <label for="contactNumber">Contact Number</label>
@@ -390,49 +263,22 @@
         <label for="mail">Email</label>
         <input type="text" id="mail" name="mail" />
       </div>
-      <div class="affiliatedHospitalsEdit">
-        <h2>Affiliated Hospitals</h2>
-        <div
-          class="affiliatedHospitalEntry addHospital"
-          onclick="addHospital()"
-        >
-          <h3>Add Hospital</h3>
-          <img
-            src="./images/plus-sign.png"
-            onclick="deleteHospital(this)"
-            alt=""
-          />
-        </div>
-      </div>
+
       <div class="editingButtons">
         <button
           class="resetButton profileEditingButton"
-          onclick="showOnlySelectedClasses('doctorProfileHeader' , 'controlBoard')"
+          onclick="showOnlySelectedClasses('userProfile')"
         >
           Cancel
         </button>
         <button
           class="saveButton profileEditingButton"
-          onclick="showOnlySelectedClasses('doctorProfileHeader' , 'controlBoard')"
+          onclick="showOnlySelectedClasses('userProfile')"
         >
           Save
         </button>
       </div>
     </div>
-    <div class="addingHospital">
-      <img src="./images/close.png" alt="" onclick="closeDialogue()" />
-      <label for="affiliatedHospitalInput">Affiliated Hospital Name</label>
-      <input
-        type="text"
-        id="affiliatedHospitalInput"
-        name="hospitalName"
-        placeholder="hospital name ..."
-      />
-      <button onclick="addAffiliatedHospital()">Add</button>
-    </div>
-
-    <!-- JAVASCRIPT CODE-->
-
     <script>
       var user = {
         type: "Doctor",
@@ -448,6 +294,20 @@
         affiliatedHospitals: ["Hira", "Civil", "Al-Khair"],
       };
       const checkbox = document.getElementById("statusButton");
+
+      function logOut() {
+        window.location.href = "login.html";
+      }
+
+      function updateNumber(change) {
+        var numberElement = document.getElementById("numberDisplay");
+        var currentNumber = parseInt(numberElement.innerText);
+        if (currentNumber == 1 && change == -1) {
+        } else {
+          var newNumber = currentNumber + change;
+          numberElement.innerText = newNumber;
+        }
+      }
 
       function deleteHospital(element) {
         let parent = element.parentNode;
@@ -530,11 +390,27 @@
       function isImage(file) {
         return file.type.startsWith("image/");
       }
+      var dropdownButton = document.getElementById("dropDownButton");
+      var navListDropDown = document.getElementById("navList1");
 
-      function showMenu() {
+      document.addEventListener("click", function (event) {
+        // Check if the clicked element is outside the button and menu
+        if (
+          !dropdownButton.contains(event.target) &&
+          !navListDropDown.contains(event.target)
+        ) {
+          hideMenu();
+        }
+      });
+      function hideMenu() {
+        dropdownButton.classList.remove("rotate"); // Use remove instead of toggle
+        navListDropDown.style.display = "none";
+      }
+      function showMenu(element) {
         var navList = document.getElementById("navList1");
         var computedStyle = window.getComputedStyle(navList);
 
+        element.classList.toggle("rotate");
         if (computedStyle.display === "none") {
           navList.style.display = "flex";
         } else {

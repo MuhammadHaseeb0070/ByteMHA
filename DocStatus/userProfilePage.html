@@ -21,8 +21,12 @@
       <nav>
         <ul id="navList" class="navList">
           <li>
-            <a class="navLink" id="logIn" href="#" onclick="logOut()"
-              >Log Out</a
+            <a
+              class="navLink"
+              id="dashboard"
+              href="#"
+              onclick="showOnlySelectedClasses('home')"
+              >Home</a
             >
           </li>
           <li>
@@ -37,10 +41,10 @@
           <li>
             <a
               class="navLink"
-              id="dashboard"
+              id="doctors"
               href="#"
-              onclick="showOnlySelectedClass('doctorProfilePage')"
-              >Dashboard</a
+              onclick="showOnlySelectedClasses('allDoctors')"
+              >Doctors</a
             >
           </li>
           <li>
@@ -48,8 +52,13 @@
               class="navLink"
               id="profile"
               href="#"
-              onclick="showOnlySelectedClass('doctorProfilePage')"
+              onclick="showOnlySelectedClasses('userProfile')"
               >Profile</a
+            >
+          </li>
+          <li>
+            <a class="navLink" id="logIn" href="#" onclick="logOut()"
+              >Log Out</a
             >
           </li>
         </ul>
@@ -62,9 +71,16 @@
         <img src="./images/menu.png" alt="" />
       </button>
     </header>
+
     <ul id="navList1" class="navList1 navList">
       <li>
-        <a class="navLink" id="logIn" href="#" onclick="logOut()">Log Out</a>
+        <a
+          class="navLink"
+          id="dashboard"
+          href="#"
+          onclick="showOnlySelectedClasses('home')"
+          >Home</a
+        >
       </li>
       <li>
         <a
@@ -78,12 +94,13 @@
       <li>
         <a
           class="navLink"
-          id="dashboard"
+          id="doctors"
           href="#"
-          onclick="showOnlySelectedClasses('home')"
-          >Home</a
+          onclick="showOnlySelectedClasses('allDoctors')"
+          >Doctors</a
         >
       </li>
+
       <li>
         <a
           class="navLink"
@@ -93,7 +110,11 @@
           >Profile</a
         >
       </li>
+      <li>
+        <a class="navLink" id="logIn" href="#" onclick="logOut()">Log Out</a>
+      </li>
     </ul>
+
     <!--HOME PAGE CONTENT-->
     <div class="homeContainer home" style="display: none">
       <div class="homeIntro">
@@ -128,13 +149,6 @@
           <div class="featureInfo">
             <h3>Doctors profile</h3>
             <p>Doctors profile to help you know about your doctor</p>
-          </div>
-        </div>
-        <div class="featureHome">
-          <img src="./images/location.png" alt="" />
-          <div class="featureInfo">
-            <h3>Navigator</h3>
-            <p>Helps to find the Location of local Clinics and Hospitals</p>
           </div>
         </div>
       </div>
@@ -176,38 +190,65 @@
 
           <button
             class="hospitalOptionButtons lastOption"
-            onclick="showOnlySelectedClass('doctorStatusBoard')"
+            onclick="dialogueOpen(this)"
           >
             Contacts
           </button>
         </div>
       </div>
     </div>
-
+    <div class="hospitalContact" style="display: none">
+      <img src="./images/close.png" onclick="closeDialogue()" alt="close" />
+      <p>Contact Info</p>
+      <div class="contactInfo">
+        <p class="contactNumber">
+          <img src="./images/phone.png" alt="" /> 0313-3478691
+        </p>
+        <p class="email">
+          <img src="./images/mail.png" alt="" />MuhammadHaseeb0070@gmail.com
+        </p>
+      </div>
+    </div>
     <!--Doctor Status of HOSPITALS-->
 
     <div class="doctorStatusBoard" style="display: none">
       <h3>Doctors in Hira Hospital</h3>
       <hr style="width: 100%" />
+    </div>
+
+    <div class="allDoctors">
+      <h3>All Doctors in City</h3>
       <div class="doctor">
-        <img
-          src="./images/DoctorPortrait.jpg"
-          alt=""
-          class="doctorProfileImage"
-        />
-        <div class="doctorIntro">
-          <h4>Doctor Sohail Jokhio</h4>
-          <hr style="width: 100%; margin-bottom: 5px" />
-          <p>Field : <span>Orthopedic Surgeon</span></p>
-          <p>Timing : <span>10:30 AM to 09:00 PM</span></p>
-          <div class="availability">
-            <div class="availabilityIndicator"></div>
+        <img src="./images/DoctorPortrait.jpg" alt="" />
+        <div class="doctorIntro" onclick="toggleElementDisplay('docStatus')">
+          <h5>Dr. Ahmed Jamali</h5>
+          <p>Field : <span>Orthopedician</span></p>
+          <p>Timing : <span>09:00 am to 05:00 pm</span></p>
+          <p>Current Hospital : <span>Hira Hospital</span></p>
+          <div class="status">
+            <div class="indicator"></div>
             <p>Available</p>
           </div>
+          <p>Hospitals : <span>Hira hospital , Al-Khair hospital</span></p>
+        </div>
+      </div>
+      <div class="doctor">
+        <img src="./images/DoctorPortrait.jpg" alt="" />
+        <div class="doctorIntro" onclick="toggleElementDisplay('docStatus')">
+          <h5>Dr. Ahmed Jamali</h5>
+          <p>Field : <span>Orthopedician</span></p>
+          <p>Timing : <span>09:00 am to 05:00 pm</span></p>
+          <p>Current Hospital : <span>Hira Hospital</span></p>
+          <div class="status">
+            <div class="indicator"></div>
+            <p>Available</p>
+          </div>
+          <p>Hospitals : <span>Hira hospital , Al-Khair hospital</span></p>
         </div>
       </div>
     </div>
-    <div class="userProfile" style="display: flex">
+
+    <div class="userProfile" style="display: none">
       <img
         src="./images/edit.png"
         onclick="showOnlySelectedClasses('editProfile')"
@@ -239,30 +280,25 @@
         </div>
       </div>
       <hr style="width: 100%; margin: 20px 0px 10px 0px" />
-      <div class="inputFieldforEditingProfile">
+      <form action="">
         <label for="firstName">First Name</label>
         <input type="text" id="firstName" name="firstname" />
-      </div>
-      <div class="inputFieldforEditingProfile">
+
         <label for="lastName">Last Name</label>
         <input type="text" id="lastName" name="lastname" />
-      </div>
-      <div class="inputFieldforEditingProfile">
+
         <label for="age">Age</label>
         <input type="text" id="age" name="age" />
-      </div>
-      <div class="inputFieldforEditingProfile">
+
         <label for="gender">Gender</label>
         <input type="text" id="gender" name="gender" />
-      </div>
-      <div class="inputFieldforEditingProfile">
+
         <label for="contactNumber">Contact Number</label>
         <input type="text" id="contactNumber" name="contactNumber" />
-      </div>
-      <div class="inputFieldforEditingProfile">
+
         <label for="mail">Email</label>
         <input type="text" id="mail" name="mail" />
-      </div>
+      </form>
 
       <div class="editingButtons">
         <button
@@ -279,20 +315,249 @@
         </button>
       </div>
     </div>
+    <div class="docStatus" style="display: none">
+      <img
+        src="./images/close.png"
+        onclick="revertChanges('docStatus')"
+        alt=""
+      />
+      <div class="head">
+        <img src="./images/DoctorPortrait.jpg" alt="" />
+        <h3>Dr Sohail Jokhio</h3>
+      </div>
+      <div class="body">
+        <p class="field">
+          <img src="./images/award.png" alt="" />Field : Orthopedician
+        </p>
+        <p class="currentLocation">
+          <img src="./images/placeholder.png" alt="" />Currently available in :
+          Hira Hospital
+        </p>
+        <p class="contact">
+          <img src="./images/phone.png" alt="" />Contact : 0313-3478691
+        </p>
+        <p class="availablity">
+          <img src="./images/check.png" alt="" />Status : Available
+        </p>
+
+        <p><img src="./images/token.png" alt="" />Current token Number : 5</p>
+        <p>
+          <img src="./images/token.png" alt="" />Last token number sold : 23
+        </p>
+      </div>
+    </div>
     <script>
+      let flexElements = [];
+
+      function toggleElementDisplay(className) {
+        storeFlexElements();
+        manipulateElements(className);
+      }
+      // Function to filter and store flex elements
+      function storeFlexElements() {
+        flexElements = Array.from(document.body.children).filter((element) => {
+          const styles = getComputedStyle(element);
+          return (
+            styles.display === "flex" && !element.classList.contains("navList")
+          );
+        });
+      }
+
+      // Function to manipulate flex elements
+      function manipulateElements(className) {
+        flexElements.forEach((element) => {
+          element.style.opacity = 0.5;
+          element.style.filter = "blur(5px)";
+          element.style.pointerEvents = "none";
+        });
+
+        const targetElement = document.querySelector(`.${className}`);
+        if (targetElement) {
+          targetElement.style.display = "flex";
+        }
+      }
+
+      // Function to revert changes
+      function revertChanges(className) {
+        document.querySelector(`.${className}`).style.display = "none";
+        flexElements.forEach((element) => {
+          element.style.opacity = 1;
+          element.style.filter = "blur(0px)";
+          element.style.pointerEvents = "auto";
+        });
+      }
+
       var user = {
-        type: "Doctor",
-        firstName: "Sohail",
-        lastName: "Jokhio",
+        profileImage: "./images/profilePic.png",
+        firstName: "Afzal",
+        lastName: "Chandio",
         gender: "Male",
-        age: 30,
-        field: "Orthopedician",
-        degree: "PHD Medical Science",
-        subSpecialization: "General Physician",
+        age: 21,
         contactNumber: "0313-3478691",
         email: "muhammadhaseeb0070@gmail.com",
-        affiliatedHospitals: ["Hira", "Civil", "Al-Khair"],
       };
+      // Sample object representing doctor data
+      const doctorData = {
+        name: "Doctor Sohail Jokhio",
+        imageSrc: "./images/DoctorPortrait.jpg",
+        field: "Orthopedic Surgeon",
+        timing: "10:30 AM to 09:00 PM",
+        availability: true, // true for available, false for unavailable
+      };
+
+      // Function to create and append a new doctor div
+
+      createDoctorDivForStatusBoard(doctorData);
+      createDoctorDivForStatusBoard(doctorData);
+      createDoctorDivForStatusBoard(doctorData);
+      createDoctorDivForStatusBoard(doctorData);
+      createDoctorDivForStatusBoard(doctorData);
+      function createDoctorDivForStatusBoard(data) {
+        // Create doctor div
+        const doctorDiv = document.createElement("div");
+        doctorDiv.className = "doctor";
+
+        // Create doctor profile image
+        const doctorProfileImage = document.createElement("img");
+        doctorProfileImage.src = data.imageSrc;
+        doctorProfileImage.alt = "";
+        doctorProfileImage.className = "doctorProfileImage";
+
+        // Create doctor intro div
+        const doctorIntroDiv = document.createElement("div");
+        doctorIntroDiv.className = "doctorIntro";
+        doctorIntroDiv.onclick = function () {
+          toggleElementDisplay("docStatus");
+        };
+
+        // Create doctor name
+        const doctorName = document.createElement("h4");
+        doctorName.textContent = data.name;
+
+        // Create hr element for doctor intro
+        const hrDoctorIntro = document.createElement("hr");
+        hrDoctorIntro.style = "width: 100%; margin-bottom: 1px";
+
+        // Create paragraphs for field and timing
+        const fieldParagraph = document.createElement("p");
+        fieldParagraph.innerHTML = "Field : <span>" + data.field + "</span>";
+
+        const timingParagraph = document.createElement("p");
+        timingParagraph.innerHTML = "Timing : <span>" + data.timing + "</span>";
+
+        // Create availability div
+        const availabilityDiv = document.createElement("div");
+        availabilityDiv.className = "availability";
+
+        // Create availability indicator
+        const availabilityIndicatorDiv = document.createElement("div");
+        availabilityIndicatorDiv.className = "availabilityIndicator";
+
+        // Create availability text
+        const availabilityText = document.createElement("p");
+        availabilityText.textContent = data.availability
+          ? "Available"
+          : "Unavailable";
+
+        // Append elements to their respective parent elements
+        availabilityDiv.appendChild(availabilityIndicatorDiv);
+        availabilityDiv.appendChild(availabilityText);
+
+        doctorIntroDiv.appendChild(doctorName);
+        doctorIntroDiv.appendChild(hrDoctorIntro);
+        doctorIntroDiv.appendChild(fieldParagraph);
+        doctorIntroDiv.appendChild(timingParagraph);
+        doctorIntroDiv.appendChild(availabilityDiv);
+
+        doctorDiv.appendChild(doctorProfileImage);
+        doctorDiv.appendChild(doctorIntroDiv);
+
+        // Append the new doctor div after the hr element in doctorStatusBoard div
+        const doctorStatusBoard = document.querySelector(".doctorStatusBoard");
+        const hrElement = doctorStatusBoard.querySelector("hr");
+        doctorStatusBoard.insertBefore(doctorDiv, hrElement.nextSibling);
+      }
+
+      // Sample object representing hospital data
+      const hospitalData = {
+        name: "New Hospital",
+        logoSrc: "./images/DoctorPortrait.jpg",
+        description: "This is a new hospital with state-of-the-art facilities.",
+        // Add more attributes as needed
+      };
+
+      // Function to create and append a new hospital div
+      function createHospitalDiv(data) {
+        const hospitalDiv = document.createElement("div");
+        hospitalDiv.className = "hospital";
+
+        const hospitalIntroDiv = document.createElement("div");
+        hospitalIntroDiv.className = "hospitalintro";
+
+        const hospitalLogo = document.createElement("img");
+        hospitalLogo.className = "hospitalLogo";
+        hospitalLogo.src = data.logoSrc;
+        hospitalLogo.alt = "";
+
+        const hospitalInfoDiv = document.createElement("div");
+        hospitalInfoDiv.className = "hospitalInfo";
+
+        const hospitalName = document.createElement("h3");
+        hospitalName.className = "hospitalName";
+        hospitalName.textContent = data.name;
+
+        const hrElement = document.createElement("hr");
+        hrElement.style = "width: 100%; border: 1px solid aquamarine";
+
+        const hospitalDescription = document.createElement("p");
+        hospitalDescription.className = "hospitalDescription";
+        hospitalDescription.textContent = data.description;
+
+        hospitalInfoDiv.appendChild(hospitalName);
+        hospitalInfoDiv.appendChild(hrElement);
+        hospitalInfoDiv.appendChild(hospitalDescription);
+
+        hospitalIntroDiv.appendChild(hospitalLogo);
+        hospitalIntroDiv.appendChild(hospitalInfoDiv);
+
+        hospitalDiv.appendChild(hospitalIntroDiv);
+
+        const hrOptions = document.createElement("hr");
+        hrOptions.style = "border: 0.1px solid rgb(255, 255, 255); width: 100%";
+
+        const hospitalOptionsDiv = document.createElement("div");
+        hospitalOptionsDiv.className = "hospitalOptions";
+
+        const doctorsButton = document.createElement("button");
+        doctorsButton.className = "hospitalOptionButtons";
+        doctorsButton.textContent = "Doctors";
+        doctorsButton.onclick = function () {
+          showOnlySelectedClasses("doctorStatusBoard");
+        };
+
+        const contactsButton = document.createElement("button");
+        contactsButton.className = "hospitalOptionButtons lastOption";
+        contactsButton.textContent = "Contacts";
+        contactsButton.onclick = function () {
+          dialogueOpen(this);
+        };
+
+        hospitalOptionsDiv.appendChild(doctorsButton);
+        hospitalOptionsDiv.appendChild(contactsButton);
+
+        hospitalDiv.appendChild(hrOptions);
+        hospitalDiv.appendChild(hospitalOptionsDiv);
+
+        const searchHospitalDiv = document.querySelector(".searchHospital");
+        searchHospitalDiv.parentNode.insertBefore(
+          hospitalDiv,
+          searchHospitalDiv.nextSibling
+        );
+      }
+
+      // Call the function with the provided hospitalData object
+      createHospitalDiv(hospitalData);
+
       const checkbox = document.getElementById("statusButton");
 
       function logOut() {
@@ -313,47 +578,19 @@
         let parent = element.parentNode;
         parent.remove();
       }
-      function addHospital() {
-        document.querySelector(".addingHospital").style.display = "flex";
-        document.querySelector(".editProfile").style.opacity = 0.5;
-        document.querySelector(".editProfile").style.filter = "blur(2px)";
-        document.querySelector(".editProfile").style.pointerEvents = "none";
+      function dialogueOpen(element) {
+        console.log("dialogueopen entered");
+        //    const hospitalName=element.parent.parentNode;
+        document.querySelector(".hospitalContact").style.display = "flex";
+        document.querySelector(".hospitalsBoard").style.opacity = 0.5;
+        document.querySelector(".hospitalsBoard").style.filter = "blur(2px)";
+        document.querySelector(".hospitalsBoard").style.pointerEvents = "none";
       }
       function closeDialogue() {
-        document.querySelector(".addingHospital").style.display = "none";
-        document.querySelector(".editProfile").style.opacity = 1;
-        document.querySelector(".editProfile").style.filter = "blur(0px)";
-        document.querySelector(".editProfile").style.pointerEvents = "auto";
-      }
-      function addAffiliatedHospital() {
-        const hospitalName = document.getElementById(
-          "affiliatedHospitalInput"
-        ).value;
-        addHospitalinList(hospitalName);
-        document.getElementById("affiliatedHospitalInput").value = "";
-        closeDialogue();
-      }
-      function addHospitalinList(hospitalName) {
-        if (hospitalName != "") {
-          var newDiv = document.createElement("div");
-          newDiv.className = "affiliatedHospitalEntry";
-
-          newDiv.innerHTML =
-            "<h3>" +
-            hospitalName +
-            '</h3><img src="./images/close.png" onclick="deleteHospital(this)" alt="">';
-
-          var targetDiv = document.querySelector(".affiliatedHospitalsEdit");
-
-          if (targetDiv) {
-            if (targetDiv.children.length > 1) {
-              targetDiv.insertBefore(newDiv, targetDiv.children[1]);
-            } else {
-              targetDiv.appendChild(newDiv);
-            }
-          } else {
-          }
-        }
+        document.querySelector(".hospitalContact").style.display = "none";
+        document.querySelector(".hospitalsBoard").style.opacity = 1;
+        document.querySelector(".hospitalsBoard").style.pointerEvents = "auto";
+        document.querySelector(".hospitalsBoard").style.filter = "blur(0px)";
       }
 
       document
@@ -390,6 +627,7 @@
       function isImage(file) {
         return file.type.startsWith("image/");
       }
+
       var dropdownButton = document.getElementById("dropDownButton");
       var navListDropDown = document.getElementById("navList1");
 

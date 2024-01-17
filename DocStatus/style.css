@@ -348,13 +348,13 @@ ul li {
     color: rgba(255, 255, 255, 0.556);
 }
 .searchHospital > button{
-    width: 35px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     background: none;
     border: none;
     display: flex;
     align-items: flex-end;
-    padding-bottom: 5px;
+    padding-bottom: 4px;
     margin-left: 20px;
     justify-content: center;
     border-bottom: 3px solid aquamarine;
@@ -381,7 +381,7 @@ ul li {
     padding: 10px;
     box-shadow: 1px 1px 20px 1px #7fffd484;
     border-radius: 8px ;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     background-color: rgba(0, 0, 0, 0.364);
 }
 
@@ -454,10 +454,67 @@ ul li {
     border-left: 1px solid rgb(255, 255, 255);
 }
 
+.hospitalContact{
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(0, 123, 255);
+    padding: 20px 10px;
+    border-radius: 5px;
+    background-color: #393939f7;
+}
+.hospitalContact> img{
+    width: 30px;
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    transition: all 0.3s ease-in-out;
+}
+.hospitalContact> img:hover{
+    transform: scale(1.1);
+    filter: drop-shadow(0px 0px 10px aquamarine);
+}
+.hospitalContact> p{
+    font-size: 25px;
+    width: 100%;
+    padding-bottom: 10px;
+    border-bottom: 3px solid aquamarine;
+}
+.contactInfo{
+    width: 100%;
+    margin: 10px 0px;
+    margin-bottom: 5px;
+}
+.contactInfo >p{
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 12px;
+}
+.contactInfo> p >img{
+    width: 20px;
+    margin-right: 10px;
+}
+.contactInfo > .email{
+    font-size: 12px;
+
+}
+
 
 .doctorStatusBoard {
-    width: 80%;
-    padding: 20px 10px;
+    width: 100%;
+    max-width: 500px;
+    padding: 20px 5px;
     border-radius: 2%;
     display: flex;
     flex-wrap: wrap;
@@ -470,35 +527,34 @@ ul li {
 
 .doctorStatusBoard>h3 {
     margin-bottom: 10px;
-    background-color:rgba(0, 0, 0, 0.364);
-    backdrop-filter: blur(8px) saturate(90%);
     width: auto;
     text-align: center;
     padding: 20px 20px;
     border-radius: 7px;
-    text-shadow: 0px 0px 10px #7fffd4;
+    text-shadow: 0px 0px 4px #7fffd4b4;
     font-size: 30px;
 }
 
 .doctor {
-    margin: 15px 15px;
-    width: auto;
-    padding: 20px 40px;
+    margin: 15px 0px;
+    width: 100%;
+    max-width: 450px;
+    padding: 8px 8px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.364);
+    background-color: #393939f7;
     backdrop-filter: blur(8px) saturate(90%);
     border-radius: 2%;
+ 
 }
 
 .doctor>img {
-    width: 140px;
-    height: 140px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     margin-right: 10px;
-    margin-bottom: 20px;
 }
 
 .doctorIntro {
@@ -506,27 +562,28 @@ ul li {
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-evenly;
+    
+    cursor: pointer;
 }
 
 .doctorIntro>h4 {
-    font-size: 18px;
-    margin-bottom: 5px;
+    font-size: 14px;
+    margin-bottom: 2px;
 }
 
 .doctorIntro>p {
-    font-size: 15px;
+    font-size: 12px;
     color: #7fffd4;
     margin-top: 3px;
-    margin-bottom: 3px;
 }
 
 .doctorIntro>p>span {
-    font-size: 15px;
+    font-size: 12px;
 }
 
 .availability {
-    margin-top: 10px;
-    padding: 10px 0px;
+    margin-top: 5px;
+    padding: 0px 0px;
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -535,15 +592,138 @@ ul li {
 
 .availability>p {
     color: #7fffd4;
+    font-size: 12px;
 }
 
 .availabilityIndicator {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
     background-color: rgb(0, 255, 0);
     border-radius: 50%;
-    box-shadow: 0px 0px 10px 2px rgb(0, 255, 0);
+    box-shadow: 0px 0px 10px  rgb(0, 255, 0);
     margin-right: 10px;
+}
+
+
+.docStatus{
+    width: 100%;
+    max-width: 320px;
+    background-color: #393939f7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 10px;
+    position: relative;
+    border-radius: 8px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.docStatus> img{
+    width: 25px;
+    position: absolute;
+    top:20px;
+    right: 10px;
+
+}
+.docStatus >img:hover{
+    transform: scale(1.2);
+    filter: drop-shadow(0px 0px 10px aqua);
+
+}
+.docStatus > .head{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid aquamarine;
+    margin-left: 10px;
+}
+.docStatus >.head > img{
+    width: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.docStatus >.body{
+    padding-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:flex-start ;
+}
+.docStatus > .body > p{
+    background-color: #00b07590;
+    padding:3px 5px;
+    margin: 5px 10px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+}
+.docStatus> .body > p > img{
+    width: 28px;
+    margin-right: 10px;
+    border-right: 1px solid aquamarine;
+    padding-right: 10px;
+}
+
+.allDoctors {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 5px;
+    background-color: #2f2f2f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 05px;
+}
+.allDoctors > h3{
+    font-size: 25px;
+    text-shadow: 0px 0px 5px  aquamarine;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 3px solid aquamarine;
+}
+.allDoctors >.doctor {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: none;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.333); 
+}
+.allDoctors> .doctor >.doctorIntro > h5{
+    font-size: 14px;
+    width: 100%;
+    border-bottom: 2px solid aquamarine;
+    padding-bottom: 4px;
+}
+.allDoctors > .doctor >.doctorIntro{
+    display: flex;
+    flex-direction: column;
+    margin-left: 4px;
+}
+.allDoctors > .doctor >.doctorIntro > .status{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 2px;
+}
+.allDoctors > .doctor > .doctorIntro > .status > .indicator{
+    
+    width: 10px;
+    height: 10px;
+    background-color: #00ff00;
+    margin-right: 10px;
+    box-shadow: 0px 0px 10px #00ff00;
+    border-radius: 50%;
+}
+.allDoctors > .doctor >.doctorIntro > .status > p{
+font-size: 12px;
 }
 
 /*
@@ -869,27 +1049,28 @@ DOCTOR PROFILE CSS
     display: none;
 }
 
-.inputFieldforEditingProfile {
-    width: 100%;
+ .editProfile>form{
+    width: 80%;
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    justify-content: center;
-    align-items: flex-start;
+    align-self: center;
 }
 
-.inputFieldforEditingProfile>label {
+.editProfile> form>label {
     font-size: 15px;
     margin-bottom: 3px;
 }
 
-.inputFieldforEditingProfile>input {
+.editProfile>form >input {
     width: 100%;
     border: none;
     height: 30px;
     padding: 10px;
     border-radius: 4px;
-    color: #333;
+    color: #333333d1;
+    margin-bottom: 10px;
+    background-color: #ffffffe8;
+    font-weight: 600;
 }
 
 .editingButtons {

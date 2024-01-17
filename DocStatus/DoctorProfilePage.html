@@ -19,38 +19,18 @@
         <h3>DocStatus</h3>
       </div>
       <nav>
-        <ul id="navList" class="navList">
-          <li>
-            <a class="navLink" id="logIn" href="#" onclick="logOut()"
-              >Log Out</a
-            >
-          </li>
-          <li>
-            <a
-              class="navLink"
-              id="hospital"
-              href="#"
-              onclick="showOnlySelectedClass('hospitalsBoard')"
-              >Hospitals</a
-            >
-          </li>
+        <ul id="navList" class=" navList">
           <li>
             <a
               class="navLink"
               id="dashboard"
               href="#"
-              onclick="showOnlySelectedClass('doctorProfilePage')"
+              onclick="showOnlySelectedClasses('doctorProfileHeader', 'controlBoard')"
               >Dashboard</a
             >
           </li>
           <li>
-            <a
-              class="navLink"
-              id="profile"
-              href="#"
-              onclick="showOnlySelectedClass('doctorProfilePage')"
-              >Profile</a
-            >
+            <a class="navLink" id="logIn" href="#" onclick="logOut()">Log Out</a>
           </li>
         </ul>
       </nav>
@@ -79,7 +59,7 @@
    
     <!--DOCTOR_PROFILE_PAGE-->
 
-    <div class="doctorProfileHeader" style="display: flex">
+    <div class="doctorProfileHeader" style="display: none">
       <div class="doctorProfileInfo">
         <img src="./images/DoctorPortrait.jpg" alt="" />
         <p>Welcome <br /><span>Dr. Sohail Jokhio</span></p>
@@ -92,7 +72,7 @@
         />
       </div>
     </div>
-    <div class="controlBoard" style="display: flex">
+    <div class="controlBoard" style="display: none">
       <div class="doctorStatus">
         <input type="checkbox" class="statusButton" id="statusButton" />
         <p id="statusText">You are now Offline</p>
@@ -148,7 +128,7 @@
         </div>
       </div>
     </div>
-    <div class="editProfile" style="display: none">
+    <div class="editProfile" style="display: flex">
       <div class="headEditProfile">
         <h3>Edit Profile</h3>
         <div class="uploader">
@@ -163,38 +143,39 @@
         </div>
       </div>
       <hr style="width: 100%; margin: 20px 0px 10px 0px" />
-      <div class="inputFieldforEditingProfile">
+
+       <form action="">
         <label for="firstName">First Name</label>
         <input type="text" id="firstName" name="firstname" />
-      </div>
-      <div class="inputFieldforEditingProfile">
+
+
         <label for="lastName">Last Name</label>
         <input type="text" id="lastName" name="lastname" />
-      </div>
-      <div class="inputFieldforEditingProfile">
+
+
         <label for="fieldName">Field</label>
         <input type="text" id="fieldName" name="fieldName" />
-      </div>
-      <div class="inputFieldforEditingProfile">
+
+
         <label for="degree">Degree and Qualification</label>
         <input type="text" id="degree" name="degree" />
-      </div>
-      <div class="inputFieldforEditingProfile">
+
+
         <label for="speciality">Medical Speciality</label>
         <input type="text" id="speciality" name="speciality" />
-      </div>
-      <div class="inputFieldforEditingProfile">
+
+
         <label for="subSpeciality">Subspecialization (Optional)</label>
         <input type="text" id="subSpeciality" name="subSpeciality" />
-      </div>
-      <div class="inputFieldforEditingProfile">
+
+
         <label for="contactNumber">Contact Number</label>
         <input type="text" id="contactNumber" name="contactNumber" />
-      </div>
-      <div class="inputFieldforEditingProfile">
+
+        
         <label for="mail">Email</label>
         <input type="text" id="mail" name="mail" />
-      </div>
+       </form>
       <div class="affiliatedHospitalsEdit">
         <h2>Affiliated Hospitals</h2>
         <div

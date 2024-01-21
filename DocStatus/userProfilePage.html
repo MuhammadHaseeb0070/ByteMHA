@@ -155,47 +155,14 @@
     </div>
 
     <!--HOSPITAL BOARD-->
-    <div class="hospitalsBoard" style="display: none">
+    <div class="hospitalsBoard" style="display: flex">
       <h2 class="cityHospitalHeading">Hospitals in Sukkur</h2>
       <hr style="width: 100%; margin-bottom: 30px" />
       <div class="searchHospital">
         <input type="text" placeholder="Search hospital" />
         <button><img src="./images/search.png" alt="" /></button>
       </div>
-      <div class="hospital">
-        <div class="hospitalintro">
-          <img
-            class="hospitalLogo"
-            src="./images/Elegant and Minimalist Medical Logo.png"
-            alt=""
-          />
-          <div class="hospitalInfo">
-            <h3 class="hospitalName">Borcelle Health Service</h3>
-            <hr style="width: 100%; border: 1px solid aquamarine" />
-            <p class="hospitalDescription">
-              Borcelle Health Service Hospital is a state-of-the-art healthcare
-              facility committed to providing compassionate and comprehensive
-              medical services.
-            </p>
-          </div>
-        </div>
-        <hr style="border: 0.1px solid rgb(255, 255, 255); width: 100%" />
-        <div class="hospitalOptions">
-          <button
-            class="hospitalOptionButtons"
-            onclick="showOnlySelectedClasses('doctorStatusBoard')"
-          >
-            Doctors
-          </button>
-
-          <button
-            class="hospitalOptionButtons lastOption"
-            onclick="dialogueOpen(this)"
-          >
-            Contacts
-          </button>
-        </div>
-      </div>
+     
     </div>
     <div class="hospitalContact" style="display: none">
       <img src="./images/close.png" onclick="closeDialogue()" alt="close" />
@@ -211,12 +178,12 @@
     </div>
     <!--Doctor Status of HOSPITALS-->
 
-    <div class="doctorStatusBoard" style="display: none">
+    <div class="doctorStatusBoard" style="display: flex">
       <h3>Doctors in Hira Hospital</h3>
       <hr style="width: 100%" />
     </div>
 
-    <div class="allDoctors">
+    <div class="allDoctors" style="display: none;">
       <h3>All Doctors in City</h3>
       <div class="doctor">
         <img src="./images/DoctorPortrait.jpg" alt="" />
@@ -426,6 +393,7 @@
         // Create doctor intro div
         const doctorIntroDiv = document.createElement("div");
         doctorIntroDiv.className = "doctorIntro";
+        doctorIntroDiv.name=data.name;
         doctorIntroDiv.onclick = function () {
           toggleElementDisplay("docStatus");
         };
@@ -486,6 +454,9 @@
         // Add more attributes as needed
       };
 
+      createHospitalDiv(hospitalData);
+      createHospitalDiv(hospitalData);
+      createHospitalDiv(hospitalData);
       // Function to create and append a new hospital div
       function createHospitalDiv(data) {
         const hospitalDiv = document.createElement("div");
@@ -531,6 +502,7 @@
         const doctorsButton = document.createElement("button");
         doctorsButton.className = "hospitalOptionButtons";
         doctorsButton.textContent = "Doctors";
+        doctorsButton.name=data.name;
         doctorsButton.onclick = function () {
           showOnlySelectedClasses("doctorStatusBoard");
         };
@@ -538,6 +510,7 @@
         const contactsButton = document.createElement("button");
         contactsButton.className = "hospitalOptionButtons lastOption";
         contactsButton.textContent = "Contacts";
+        contactsButton.name=data.name;
         contactsButton.onclick = function () {
           dialogueOpen(this);
         };
@@ -556,7 +529,7 @@
       }
 
       // Call the function with the provided hospitalData object
-      createHospitalDiv(hospitalData);
+      
 
       const checkbox = document.getElementById("statusButton");
 

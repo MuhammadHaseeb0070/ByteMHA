@@ -11,17 +11,17 @@
     <div class="loginForm" style="display: flex">
       <h3 class="loginHeader">Log in</h3>
       <hr />
-      <form action="">
-        <input class="usernameInputLogin" type="text" placeholder="username" />
+      <form action="/login" method="post">
+        <input name="usernameInputLogin" class="usernameInputLogin" type="text" placeholder="username" />
         <input
+        name="passwordInputLogin"
           class="passwordInputLogin"
           type="password"
           placeholder="Password"
         />
         <button
           class="submitButtonLogin"
-          onclick="login()"
-          href="./ProfilePage.html"
+          type="submit"
         >
           Log In
         </button>
@@ -36,20 +36,23 @@
     <div class="signUpForm" style="display: none">
       <h3 class="signUpHeader">Sign up</h3>
       <hr />
-      <form action="">
-        <input class="usernameInputsignUp" type="text" placeholder="Username" />
-        <input class="emailInputsignUp" type="email" placeholder="Email" />
+      <form action="/signup" method="post">
+        <input name="usernameInputSignup" id="usernameInputSignUp" class="usernameInputsignUp" type="text" placeholder="Username" />
+        <input name="emailInputSignup" class="emailInputsignUp" type="email" placeholder="Email" />
         <input
-          class="passwordInputsignUp"
+        name="passwordInputSignup"
+        id="passwordInputSignup"
+          class="passwordInputsiguUp"
           type="password"
           placeholder="Password"
         />
         <input
-          class="passwordInputsignUp"
+        name="confirmpasswordInputSignup"
+          class="passwordInputsignup"
           type="password"
           placeholder="Confirm Password"
         />
-        <button class="submitButtonsignUp" onclick="signUp()">Sign up</button>
+        <button  type="submit" class="submitButtonsignUp" >Sign up</button>
         <p class="alreadyAccount">
           Already have an Account ?<a onclick="openLogin()">
             <strong style="color: aquamarine">log in</strong></a
@@ -63,7 +66,6 @@
 
       function login() {
         event.preventDefault();
-        window.location.href = "DoctorProfilePage.html";
       }
       function openLogin() {
         document.getElementsByClassName("signUpForm")[0].style.display = "none";

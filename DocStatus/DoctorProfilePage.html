@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Rubik&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
     <title>DocStatus</title>
   </head>
   <body class="body">
@@ -19,7 +20,7 @@
         <h3>DocStatus</h3>
       </div>
       <nav>
-        <ul id="navList" class=" navList">
+        <ul id="navList" class="navList">
           <li>
             <a
               class="navLink"
@@ -30,7 +31,9 @@
             >
           </li>
           <li>
-            <a class="navLink" id="logIn" href="#" onclick="logOut()">Log Out</a>
+            <a class="navLink" id="logIn" href="#" onclick="logOut()"
+              >Log Out</a
+            >
           </li>
         </ul>
       </nav>
@@ -56,13 +59,17 @@
         <a class="navLink" id="logIn" href="#" onclick="logOut()">Log Out</a>
       </li>
     </ul>
-   
+
     <!--DOCTOR_PROFILE_PAGE-->
 
-    <div class="doctorProfileHeader" style="display: none">
+    <div class="doctorProfileHeader" style="display: flex">
       <div class="doctorProfileInfo">
-        <img src="./images/DoctorPortrait.jpg" alt="" />
-        <p>Welcome <br /><span>Dr. Sohail Jokhio</span></p>
+        <img
+          id="doctorProfilePic"
+          src="./images/defaultprofilepic.png"
+          alt=""
+        />
+        <p>Welcome <br /><span id="doctorNameDashboard"></span></p>
       </div>
       <div class="doctorProfileOptions">
         <img
@@ -72,23 +79,16 @@
         />
       </div>
     </div>
-    <div class="controlBoard" style="display: none">
+    <div class="controlBoard" style="display: flex">
       <div class="doctorStatus">
         <input type="checkbox" class="statusButton" id="statusButton" />
         <p id="statusText">You are now Offline</p>
       </div>
       <div class="currentHospital">
-        <select name="currentHospitalSelection" id="currentHospitalMenu">
-          <option class="dropDownOption" value="none" selected>--Select</option>
-          <option class="dropDownOption" value="Hira">Hira Hospital</option>
-          <option class="dropDownOption" value="Civil">Civil Hospital</option>
-          <option class="dropDownOption" value="Al-Khair">
-            Al-Khair Hospital
-          </option>
-          <option class="dropDownOption" value="River-Side">
-            River-Side Hospital
-          </option>
-        </select>
+        <select
+          name="currentHospitalSelection"
+          id="currentHospitalMenu"
+        ></select>
       </div>
       <hr />
       <div class="numberingSystem">
@@ -121,61 +121,78 @@
           <button class="previousButton" onclick="updateNumber(-1)">
             <img src="./images/back.png" alt="Previous" />
           </button>
-          <p id="numberDisplay">5</p>
+          <p id="numberDisplay">1</p>
           <button class="nextButton" onclick="updateNumber(1)">
             <img src="./images/back.png" alt="Next" />
           </button>
         </div>
       </div>
     </div>
-    <div class="editProfile" style="display: flex">
+    <div class="editProfile" style="display: none">
       <div class="headEditProfile">
         <h3>Edit Profile</h3>
         <div class="uploader">
           <div class="image-preview" id="imagePreview"></div>
           <label for="imageUpload" class="upload-button">Choose Image</label>
-          <input
-            type="file"
-            id="imageUpload"
-            class="image-upload"
-            accept="image/*"
-          />
+          <form
+            enctype="multipart/form-data"
+            action="/profilePicture"
+            id="imageUploadForm"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <input
+              type="hidden"
+              id="userTypeInput"
+              name="userType"
+              value="doctor"
+            />
+            <input
+              type="hidden"
+              id="usernameofdoctor1"
+              name="username"
+              value=""
+            />
+            <input
+              type="file"
+              name="profilePic"
+              id="imageUpload"
+              class="image-upload"
+              accept="image/*"
+              placeholder=""
+            />
+          </form>
         </div>
       </div>
       <hr style="width: 100%; margin: 20px 0px 10px 0px" />
 
-       <form action="">
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" name="firstname" />
-
-
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" name="lastname" />
-
+      <form action="/updateProfile" id="editProfileForm" method="post">
+        <input
+          type="hidden"
+          id="userTypeInput"
+          name="userType"
+          value="doctor"
+        />
+        <input type="hidden" id="usernameofdoctor" name="username" value="" />
 
         <label for="fieldName">Field</label>
         <input type="text" id="fieldName" name="fieldName" />
 
-
         <label for="degree">Degree and Qualification</label>
         <input type="text" id="degree" name="degree" />
-
 
         <label for="speciality">Medical Speciality</label>
         <input type="text" id="speciality" name="speciality" />
 
-
         <label for="subSpeciality">Subspecialization (Optional)</label>
         <input type="text" id="subSpeciality" name="subSpeciality" />
-
 
         <label for="contactNumber">Contact Number</label>
         <input type="text" id="contactNumber" name="contactNumber" />
 
-        
         <label for="mail">Email</label>
         <input type="text" id="mail" name="mail" />
-       </form>
+      </form>
       <div class="affiliatedHospitalsEdit">
         <h2>Affiliated Hospitals</h2>
         <div
@@ -199,7 +216,8 @@
         </button>
         <button
           class="saveButton profileEditingButton"
-          onclick="showOnlySelectedClasses('doctorProfileHeader' , 'controlBoard')"
+          type="button"
+          onclick="updateProfile()"
         >
           Save
         </button>
@@ -220,37 +238,231 @@
     <!-- JAVASCRIPT CODE-->
 
     <script>
-      var user = {
-        type: "Doctor",
-        firstName: "Sohail",
-        lastName: "Jokhio",
-        gender: "Male",
-        age: 30,
-        field: "Orthopedician",
-        degree: "PHD Medical Science",
-        subSpecialization: "General Physician",
-        contactNumber: "0313-3478691",
-        email: "muhammadhaseeb0070@gmail.com",
-        affiliatedHospitals: ["Hira", "Civil", "Al-Khair"],
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+
+      const doctorData = {
+        username: urlParams.get("name").trim(),
+        field: urlParams.get("field").trim(),
+        degree: urlParams.get("degree").trim(),
+        speciality: urlParams.get("speciality").trim(),
+        subspecialization: urlParams.get("subspecial").trim(),
+        contactNumber: urlParams.get("contact").trim(),
+        email: urlParams.get("email").trim(),
+        affiliatedHospitals: urlParams.get("affiliatedhospitals").trim(),
+        currentHospital: urlParams.get("currentHospital").trim(),
+        availability: urlParams.get("availibility").trim(),
+        currentToken: urlParams.get("currentToken").trim(),
+        lastToken: urlParams.get("lastToken").trim(),
+        profilePicture: urlParams.get("profilePic").trim(),
       };
+
+      const socket = io();
+
+      document
+        .getElementById("currentHospitalMenu")
+        .addEventListener("change", function () {
+
+          console.log("Sending cuurent hospital update");
+            socket.emit("currentHospital", {
+            username: doctorData.username,
+            fieldValue: document.getElementById('currentHospitalMenu').value,
+          });
+        });
+
+      let updatedDoctorData = deepCopy(doctorData);
+      // Function to extract data from the HTML form and update the doctorData object
+      function updateDoctorDataFromForm() {
+        const fieldNameInput = document.getElementById("fieldName");
+        const degreeInput = document.getElementById("degree");
+        const specialityInput = document.getElementById("speciality");
+        const subSpecialityInput = document.getElementById("subSpeciality");
+        const contactNumberInput = document.getElementById("contactNumber");
+        const mailInput = document.getElementById("mail");
+
+        updatedDoctorData.field = fieldNameInput.value;
+        updatedDoctorData.degree = degreeInput.value;
+        updatedDoctorData.speciality = specialityInput.value;
+        updatedDoctorData.subspecialization = subSpecialityInput.value;
+        updatedDoctorData.contactNumber = contactNumberInput.value;
+        updatedDoctorData.email = mailInput.value;
+      }
+
+      function compareAndSaveChanges() {
+        if (
+          doctorData.field.trim() !== updatedDoctorData.field.trim() ||
+          doctorData.degree.trim() !== updatedDoctorData.degree.trim() ||
+          doctorData.speciality.trim() !==
+            updatedDoctorData.speciality.trim() ||
+          doctorData.subspecialization.trim() !==
+            updatedDoctorData.subspecialization.trim() ||
+          doctorData.contactNumber.trim() !==
+            updatedDoctorData.contactNumber.trim() ||
+          doctorData.email.trim() !== updatedDoctorData.email.trim() ||
+          doctorData.affiliatedHospitals.trim() !==
+            updatedDoctorData.affiliatedHospitals.trim()
+        ) {
+          console.log("Changes detected. Updating data...");
+          const form = document.getElementById("editProfileForm");
+
+            const affiliatedHospitalData = document.createElement("input");
+            affiliatedHospitalData.type = "hidden";
+            affiliatedHospitalData.name = "affiliatedHospitals";
+            affiliatedHospitalData.value =
+              updatedDoctorData.affiliatedHospitals.trim();
+
+            form.appendChild(affiliatedHospitalData);
+            form.submit();
+          
+        } else {
+          console.log("No changes detected.");
+        }
+      }
+
+      function updateProfile() {
+        updateDoctorDataFromForm();
+
+        document.getElementById(
+          "usernameofdoctor"
+        ).value = `${doctorData.username}`;
+        document.getElementById(
+          "usernameofdoctor1"
+        ).value = `${doctorData.username}`;
+
+        const imageUpload = document.getElementById("imageUpload");
+        if (imageUpload.files.length > 0) {
+          compareAndSaveChanges();
+          document.getElementById("imageUploadForm").submit();
+        } else {
+          compareAndSaveChanges();
+        }
+      }
+      initializingData();
+      function initializingData() {
+        console.log(doctorData);
+        if (doctorData) {
+          if (doctorData.profilePicture) {
+            document.getElementById("doctorProfilePic").src =
+              "." + doctorData.profilePicture.slice(3).replace(/\\/g, "/");
+          } else {
+            document.getElementById("doctorProfilePic").src =
+              "./images/defaultprofilepic.png";
+          }
+
+          document.getElementById(
+            "doctorNameDashboard"
+          ).innerText = `Dr . ${doctorData.username}`;
+          updateHospitalDropdown(doctorData.affiliatedHospitals);
+          fillEditProfileForm(doctorData);
+        }
+      }
+
+      function fillEditProfileForm(doctordata) {
+        document.getElementById("fieldName").value = doctordata.field || "";
+        document.getElementById("degree").value = doctordata.degree || "";
+        document.getElementById("speciality").value =
+          doctordata.speciality || "";
+        document.getElementById("subSpeciality").value =
+          doctordata.subspecialization || "";
+        document.getElementById("contactNumber").value =
+          doctordata.contactNumber || "";
+        document.getElementById("mail").value = doctordata.email || "";
+      }
+
+      function updateHospitalDropdown(affiliatedHospitals) {
+        const selectElement = document.getElementById("currentHospitalMenu");
+        selectElement.innerHTML =
+          '<option class="dropDownOption" value="none" selected>--Select current hospital</option>';
+
+        const hospitals = affiliatedHospitals
+          .split(",")
+          .map((hospital) => hospital.trim());
+
+        hospitals.forEach((hospital) => {
+          if (hospital) {
+            const optionElement = document.createElement("option");
+            optionElement.value = hospital;
+            optionElement.className = "dropDownOption";
+            optionElement.textContent = hospital;
+
+            selectElement.appendChild(optionElement);
+            addHospitalinList(hospital);
+          }
+        });
+      }
+
+      console.log("Doctor Data:", doctorData);
+
+      function deepCopy(originalObject) {
+        let copiedObject = {};
+
+        for (let key in originalObject) {
+          if (
+            typeof originalObject[key] === "object" &&
+            originalObject[key] !== null
+          ) {
+            // Recursively copy nested objects
+            copiedObject[key] = deepCopy(originalObject[key]);
+          } else {
+            // Copy non-object properties
+            copiedObject[key] = originalObject[key];
+          }
+        }
+
+        return copiedObject;
+      }
       const checkbox = document.getElementById("statusButton");
 
       function logOut() {
+       
+
+        socket.emit('doctorlogOut', {
+          username:doctorData.username
+        });
         window.location.href = "login.html";
       }
 
       function updateNumber(change) {
         var numberElement = document.getElementById("numberDisplay");
         var currentNumber = parseInt(numberElement.innerText);
+
         if (currentNumber == 1 && change == -1) {
         } else {
+          if((currentNumber+change)>=parseInt(document.getElementById("currentNumber").innerHTML)){
+            socket.emit("updateToken", {
+            username: doctorData.username,
+            fieldName: "lasttoken",
+            fieldValue: parseInt(currentNumber + change),
+          });
+    
+
           var newNumber = currentNumber + change;
           numberElement.innerText = newNumber;
+          }
+         
         }
       }
 
       function deleteHospital(element) {
         let parent = element.parentNode;
+        let hospitalName = element.previousElementSibling;
+
+        let hospitalsArray = updatedDoctorData.affiliatedHospitals
+          .split(",")
+          .map((hospital) => hospital.trim());
+        let indexToRemove = hospitalsArray.indexOf(
+          hospitalName.textContent.trim()
+        );
+
+        console.log(hospitalName.textContent.trim());
+        console.log(hospitalsArray);
+
+        if (indexToRemove !== -1) {
+          hospitalsArray.splice(indexToRemove, 1);
+          updatedDoctorData.affiliatedHospitals = hospitalsArray.join(", ");
+        } else {
+          return;
+        }
         parent.remove();
       }
       function addHospital() {
@@ -269,12 +481,17 @@
         const hospitalName = document.getElementById(
           "affiliatedHospitalInput"
         ).value;
-        addHospitalinList(hospitalName);
+        addHospitalinList(hospitalName.trim());
         document.getElementById("affiliatedHospitalInput").value = "";
         closeDialogue();
       }
       function addHospitalinList(hospitalName) {
         if (hospitalName != "") {
+          if (
+            !updatedDoctorData.affiliatedHospitals.includes(hospitalName.trim())
+          ) {
+            updatedDoctorData.affiliatedHospitals += `, ${hospitalName}`;
+          }
           var newDiv = document.createElement("div");
           newDiv.className = "affiliatedHospitalEntry";
 
@@ -345,11 +562,19 @@
 
       function changeNumber(direction) {
         if (direction == 1) {
+         
           let curNumber = document.getElementById("currentNumber");
           let prevNumber = document.getElementById("previousNumber");
           let nextNumber = document.getElementById("nextNumber");
           let newDiv = document.createElement("div");
           let nextNumberValue = parseInt(nextNumber.innerHTML) + 1;
+
+          if(parseInt(nextNumber.innerHTML)<=parseInt(document.getElementById("numberDisplay").innerHTML)){
+            socket.emit("updateToken", {
+            username: doctorData.username,
+            fieldName: "currenttoken",
+            fieldValue: parseInt(nextNumber.innerHTML),
+          });
 
           prevNumber.remove();
 
@@ -372,6 +597,8 @@
             newDiv,
             curNumber.parentElement.children[3]
           );
+          }
+         
         } else {
           if (
             parseInt(document.getElementById("previousNumber").innerHTML) != 0
@@ -381,6 +608,12 @@
             let nextNumber = document.getElementById("nextNumber");
             let newDiv = document.createElement("div");
             let nextNumberValue = parseInt(prevNumber.innerHTML) - 1;
+
+            socket.emit("updateToken", {
+              username: doctorData.username,
+              fieldName: "currenttoken",
+              fieldValue: parseInt(prevNumber.innerHTML),
+            });
 
             nextNumber.remove();
 
@@ -413,9 +646,17 @@
         console.log("Entered checked");
 
         if (checkbox.checked) {
+          socket.emit("availability", {
+            username: doctorData.username,
+            fieldValue: true,
+          });
           statusText.textContent = "You are now Online";
           console.log("checked");
         } else {
+          socket.emit("availability", {
+            username: doctorData.username,
+            fieldValue: false,
+          });
           statusText.textContent = "You are now Offline";
           console.log("unchecked");
         }

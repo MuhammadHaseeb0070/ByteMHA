@@ -10,6 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Rubik&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
     <title>DocStatus</title>
   </head>
   <body>
@@ -85,7 +86,7 @@
       <li>
         <a
           class="navLink"
-          id="hospital"
+          id="hospital1"
           href="#"
           onclick="showOnlySelectedClasses('hospitalsBoard')"
           >Hospitals</a
@@ -94,7 +95,7 @@
       <li>
         <a
           class="navLink"
-          id="doctors"
+          id="doctors1"
           href="#"
           onclick="showOnlySelectedClasses('allDoctors')"
           >Doctors</a
@@ -159,60 +160,37 @@
       <h2 class="cityHospitalHeading">Hospitals in Sukkur</h2>
       <hr style="width: 100%; margin-bottom: 30px" />
       <div class="searchHospital">
-        <input type="text" placeholder="Search hospital" />
-        <button><img src="./images/search.png" alt="" /></button>
+        <input
+          id="hospitalSearchInput"
+          type="text"
+          placeholder="Search hospital"
+        />
+        <div id="hospitalsuggestion" class="hospitalsuggestion"></div>
+        <!-- <button><img src="./images/search.png" alt="" /></button> -->
       </div>
-     
     </div>
     <div class="hospitalContact" style="display: none">
       <img src="./images/close.png" onclick="closeDialogue()" alt="close" />
       <p>Contact Info</p>
       <div class="contactInfo">
         <p class="contactNumber">
-          <img src="./images/phone.png" alt="" /> 0313-3478691
+          <img src="./images/phone.png" alt="" />
+          <span id="hospitalContactNumber"></span>
         </p>
         <p class="email">
-          <img src="./images/mail.png" alt="" />MuhammadHaseeb0070@gmail.com
+          <img src="./images/mail.png" alt="" /><span id="hospitalEmail"></span>
         </p>
       </div>
     </div>
     <!--Doctor Status of HOSPITALS-->
 
-    <div class="doctorStatusBoard" style="display: flex">
+    <div class="doctorStatusBoard" style="display: none">
       <h3>Doctors in Hira Hospital</h3>
       <hr style="width: 100%" />
     </div>
 
-    <div class="allDoctors" style="display: none;">
+    <div class="allDoctors" style="display: none">
       <h3>All Doctors in City</h3>
-      <div class="doctor">
-        <img src="./images/DoctorPortrait.jpg" alt="" />
-        <div class="doctorIntro" onclick="toggleElementDisplay('docStatus')">
-          <h5>Dr. Ahmed Jamali</h5>
-          <p>Field : <span>Orthopedician</span></p>
-          <p>Timing : <span>09:00 am to 05:00 pm</span></p>
-          <p>Current Hospital : <span>Hira Hospital</span></p>
-          <div class="status">
-            <div class="indicator"></div>
-            <p>Available</p>
-          </div>
-          <p>Hospitals : <span>Hira hospital , Al-Khair hospital</span></p>
-        </div>
-      </div>
-      <div class="doctor">
-        <img src="./images/DoctorPortrait.jpg" alt="" />
-        <div class="doctorIntro" onclick="toggleElementDisplay('docStatus')">
-          <h5>Dr. Ahmed Jamali</h5>
-          <p>Field : <span>Orthopedician</span></p>
-          <p>Timing : <span>09:00 am to 05:00 pm</span></p>
-          <p>Current Hospital : <span>Hira Hospital</span></p>
-          <div class="status">
-            <div class="indicator"></div>
-            <p>Available</p>
-          </div>
-          <p>Hospitals : <span>Hira hospital , Al-Khair hospital</span></p>
-        </div>
-      </div>
     </div>
 
     <div class="userProfile" style="display: none">
@@ -222,14 +200,16 @@
         alt="edit Profile"
       />
       <div class="userProfileHeader">
-        <img src="./images/DoctorPortrait.jpg" alt="" />
-        <h3 class="userName">Afzal Chandio</h3>
+        <img id="userProfilePic" src="./images/DoctorPortrait.jpg" alt="" />
+        <h3 id="userProfileName" class="userName">Afzal Chandio</h3>
       </div>
       <div class="userData">
-        <p class="age">Age : <span>21</span></p>
-        <p class="gender">Gender : <span>Male</span></p>
-        <p class="contactNumber">Contact : <span>0313-3478691</span></p>
-        <p class="email">Email : <span>MuhammadHaseeb0070@gmail.com</span></p>
+        <p class="gender">Gender : <span id="userProfileGender"></span></p>
+        <p class="age">Age : <span id="userProfileAge"></span></p>
+        <p class="contactNumber">
+          Contact : <span id="userProfileContact"></span>
+        </p>
+        <p class="email">Email : <span id="userProfileEmail"></span></p>
       </div>
     </div>
     <div class="editProfile" style="display: none">
@@ -237,22 +217,36 @@
         <h3>Edit Profile</h3>
         <div class="uploader">
           <div class="image-preview" id="imagePreview"></div>
-          <label for="imageUpload" class="upload-button">Choose Image</label>
-          <input
-            type="file"
-            id="imageUpload"
-            class="image-upload"
-            accept="image/*"
-          />
+          <form
+            enctype="multipart/form-data"
+            action="/profilePicture"
+            id="imageUploadForm"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <label for="imageUpload" class="upload-button">Choose Image</label>
+            <input
+              type="hidden"
+              id="userTypeInput"
+              name="userType"
+              value="user"
+            />
+            <input type="hidden" id="usernameofUser" name="username" value="" />
+            <input
+              type="file"
+              id="imageUpload"
+              class="image-upload"
+              accept="image/*"
+              name="profilePic"
+            />
+          </form>
         </div>
       </div>
       <hr style="width: 100%; margin: 20px 0px 10px 0px" />
-      <form action="">
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" name="firstname" />
-
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" name="lastname" />
+      <form id="editProfileForm" action="/updateUserProfile" method="post">
+        <input id="oldUsername" name="oldUsername" type="hidden" />
+        <label for="userName">Username</label>
+        <input type="text" id="userName" name="username" />
 
         <label for="age">Age</label>
         <input type="text" id="age" name="age" />
@@ -276,7 +270,7 @@
         </button>
         <button
           class="saveButton profileEditingButton"
-          onclick="showOnlySelectedClasses('userProfile')"
+          onclick="updateProfile()"
         >
           Save
         </button>
@@ -289,34 +283,231 @@
         alt=""
       />
       <div class="head">
-        <img src="./images/DoctorPortrait.jpg" alt="" />
-        <h3>Dr Sohail Jokhio</h3>
+        <img id="docStatusImage" alt="" />
+        <h3 id="docStatusName">Dr Sohail Jokhio</h3>
       </div>
       <div class="body">
         <p class="field">
-          <img src="./images/award.png" alt="" />Field : Orthopedician
+          <img src="./images/award.png" alt="" />Field :
+          <span id="docStatusField">Orthopedician</span>
         </p>
         <p class="currentLocation">
           <img src="./images/placeholder.png" alt="" />Currently available in :
-          Hira Hospital
+          <span id="docStatusCurrent">Hira Hospital</span>
         </p>
         <p class="contact">
-          <img src="./images/phone.png" alt="" />Contact : 0313-3478691
+          <img src="./images/phone.png" alt="" />Contact :
+          <span id="docStatusContact">0313-3478691</span>
         </p>
         <p class="availablity">
-          <img src="./images/check.png" alt="" />Status : Available
+          <img id="docStatusImageLogo" src="./images/status.png" alt="" />Status
+          :
+          <span id="docStatusAvailability">Available</span>
         </p>
 
-        <p><img src="./images/token.png" alt="" />Current token Number : 5</p>
         <p>
-          <img src="./images/token.png" alt="" />Last token number sold : 23
+          <img src="./images/token.png" alt="" />Current token Number :
+          <span id="docStatusCurrentToken">1</span>
+        </p>
+        <p>
+          <img src="./images/token.png" alt="" />Last token number sold :
+          <span id="docStatusLastToken">1</span>
         </p>
       </div>
     </div>
+
     <script>
       let flexElements = [];
+      const socket = io();
 
-      function toggleElementDisplay(className) {
+      let hospitalData;
+
+      let doctorData;
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+
+      const userData = {
+        username: urlParams.get("username").trim(),
+        age: urlParams.get("age").trim(),
+        gender: urlParams.get("gender").trim(),
+        contactNumber: urlParams.get("contact").trim(),
+        email: urlParams.get("email").trim(),
+        profilePicture: urlParams.get("profilePic").trim(),
+      };
+
+      function updateSuggestion(hospitalname) {
+        const suggestion = document.createElement("p");
+        suggestion.id = "suggestion";
+        suggestion.className = "suggestion";
+        suggestion.textContent = hospitalname;
+
+        document.getElementById("hospitalsuggestion").appendChild(suggestion);
+      }
+
+      function filterHospitals(input) {
+        // Convert input to lowercase for case-insensitive matching
+        const lowerInput = input.toLowerCase();
+
+        // Filter hospitalData based on the input
+        return hospitalData.filter((hospital) =>
+          hospital.hospital_name.toLowerCase().includes(lowerInput)
+        );
+      }
+      const hospitalInput = document.getElementById("hospitalSearchInput");
+
+      hospitalInput.addEventListener("input", function () {
+        document.getElementById("hospitalsuggestion").innerHTML = "";
+        const userInput = hospitalInput.value.trim();
+        const matchedHospitals = filterHospitals(userInput);
+
+        matchedHospitals.forEach((element) => {
+          updateSuggestion(element.hospital_name);
+        });
+      });
+
+      const updatedUserData = deepCopy(userData);
+
+      initializeData();
+
+      console.log("userdata", userData);
+
+      function updateProfile() {
+        updateUserDataFromForm();
+        console.log("updated user data", updatedUserData);
+
+        document.getElementById("usernameofUser").value = userData.username;
+
+        const imageUpload = document.getElementById("imageUpload");
+        if (imageUpload.files.length > 0) {
+          compareAndSaveChanges();
+          document.getElementById("imageUploadForm").submit();
+        } else {
+          compareAndSaveChanges();
+        }
+      }
+
+      function updateUserDataFromForm() {
+        const userNameInput = document.getElementById("userName");
+        const ageInput = document.getElementById("age");
+        const genderInput = document.getElementById("gender");
+        const contactNumberInput = document.getElementById("contactNumber");
+        const mailInput = document.getElementById("mail");
+
+        updatedUserData.username = userNameInput.value;
+        updatedUserData.age = ageInput.value;
+        updatedUserData.gender = genderInput.value;
+        updatedUserData.contactNumber = contactNumberInput.value;
+        updatedUserData.email = mailInput.value;
+      }
+
+      function compareAndSaveChanges() {
+        if (
+          userData.username.trim() !== updatedUserData.username.trim() ||
+          userData.age.trim() !== updatedUserData.age.trim() ||
+          userData.contactNumber.trim() !==
+            updatedUserData.contactNumber.trim() ||
+          userData.email.trim() !== updatedUserData.email.trim() ||
+          userData.gender.trim() !== updatedUserData.gender.trim()
+        ) {
+          console.log("Changes detected. Updating data...");
+          const form = document.getElementById("editProfileForm");
+
+          form.submit();
+        } else {
+          console.log("No changes detected.");
+        }
+      }
+
+      function initializeData() {
+        document.getElementById("userProfileName").textContent =
+          userData.username;
+        document.getElementById("userProfileGender").textContent =
+          userData.gender;
+        document.getElementById("userProfileAge").textContent = userData.age;
+        document.getElementById("userProfileEmail").textContent =
+          userData.email;
+        document.getElementById("userProfileContact").textContent =
+          userData.contactNumber;
+
+        if (userData.profilePicture != "") {
+          document.getElementById("userProfilePic").src =
+            "." + userData.profilePicture.slice(3).replace(/\\/g, "/");
+        } else {
+          document.getElementById("userProfilePic").src =
+            "./images/defaultprofilepic.png";
+        }
+        initializeEditProfileFields();
+      }
+
+      function initializeEditProfileFields() {
+        const oldUserNameInput = document.getElementById("oldUsername");
+        const userNameInput = document.getElementById("userName");
+        const ageInput = document.getElementById("age");
+        const genderInput = document.getElementById("gender");
+        const contactNumberInput = document.getElementById("contactNumber");
+        const mailInput = document.getElementById("mail");
+
+        oldUserNameInput.value = userData.username;
+        userNameInput.value = userData.username;
+        ageInput.value = userData.age;
+        genderInput.value = userData.gender;
+        contactNumberInput.value = userData.contactNumber;
+        mailInput.value = userData.email;
+      }
+      function deepCopy(originalObject) {
+        let copiedObject = {};
+
+        for (let key in originalObject) {
+          if (
+            typeof originalObject[key] === "object" &&
+            originalObject[key] !== null
+          ) {
+            // Recursively copy nested objects
+            copiedObject[key] = deepCopy(originalObject[key]);
+          } else {
+            // Copy non-object properties
+            copiedObject[key] = originalObject[key];
+          }
+        }
+
+        return copiedObject;
+      }
+
+      function toggleElementDisplay(className, data) {
+        console.log(data);
+        if (data.profilepicture != "") {
+          document.getElementById("docStatusImage").src =
+            data.profilepicture.slice(4);
+        } else {
+          document.getElementById("docStatusImage").src =
+            "./images/defaultprofilepic.png";
+        }
+       
+        document.getElementById("docStatusName").textContent =
+          data.username || "none";
+        document.getElementById("docStatusField").textContent =
+          data.field || "none";
+        document.getElementById("docStatusCurrent").textContent =
+          data.cuurentlyavailablehospoital || "none";
+        document.getElementById("docStatusContact").textContent =
+          data.contactnumber || "none";
+        if (data.available) {
+          document.getElementById("docStatusImageLogo").src =
+            "./images/status.png";
+          document.getElementById("docStatusAvailability").textContent =
+            "Available";
+        } else {
+          document.getElementById("docStatusImageLogo").src =
+            "./images/status.png";
+          document.getElementById("docStatusAvailability").textContent =
+            "Not available";
+        }
+        document.getElementById("docStatusCurrentToken").textContent =
+          data.currenttoken || "none";
+        document.getElementById("docStatusLastToken").textContent =
+          data.lasttoken || "none";
+
         storeFlexElements();
         manipulateElements(className);
       }
@@ -354,109 +545,140 @@
         });
       }
 
-      var user = {
-        profileImage: "./images/profilePic.png",
-        firstName: "Afzal",
-        lastName: "Chandio",
-        gender: "Male",
-        age: 21,
-        contactNumber: "0313-3478691",
-        email: "muhammadhaseeb0070@gmail.com",
-      };
-      // Sample object representing doctor data
-      const doctorData = {
-        name: "Doctor Sohail Jokhio",
-        imageSrc: "./images/DoctorPortrait.jpg",
-        field: "Orthopedic Surgeon",
-        timing: "10:30 AM to 09:00 PM",
-        availability: true, // true for available, false for unavailable
-      };
+      function deleteElementsByClass(className) {
+        const elements = document.getElementsByClassName(className);
 
-      // Function to create and append a new doctor div
+        // Convert HTMLCollection to an array for easy iteration
+        const elementsArray = Array.from(elements);
 
-      createDoctorDivForStatusBoard(doctorData);
-      createDoctorDivForStatusBoard(doctorData);
-      createDoctorDivForStatusBoard(doctorData);
-      createDoctorDivForStatusBoard(doctorData);
-      createDoctorDivForStatusBoard(doctorData);
-      function createDoctorDivForStatusBoard(data) {
-        // Create doctor div
-        const doctorDiv = document.createElement("div");
-        doctorDiv.className = "doctor";
-
-        // Create doctor profile image
-        const doctorProfileImage = document.createElement("img");
-        doctorProfileImage.src = data.imageSrc;
-        doctorProfileImage.alt = "";
-        doctorProfileImage.className = "doctorProfileImage";
-
-        // Create doctor intro div
-        const doctorIntroDiv = document.createElement("div");
-        doctorIntroDiv.className = "doctorIntro";
-        doctorIntroDiv.name=data.name;
-        doctorIntroDiv.onclick = function () {
-          toggleElementDisplay("docStatus");
-        };
-
-        // Create doctor name
-        const doctorName = document.createElement("h4");
-        doctorName.textContent = data.name;
-
-        // Create hr element for doctor intro
-        const hrDoctorIntro = document.createElement("hr");
-        hrDoctorIntro.style = "width: 100%; margin-bottom: 1px";
-
-        // Create paragraphs for field and timing
-        const fieldParagraph = document.createElement("p");
-        fieldParagraph.innerHTML = "Field : <span>" + data.field + "</span>";
-
-        const timingParagraph = document.createElement("p");
-        timingParagraph.innerHTML = "Timing : <span>" + data.timing + "</span>";
-
-        // Create availability div
-        const availabilityDiv = document.createElement("div");
-        availabilityDiv.className = "availability";
-
-        // Create availability indicator
-        const availabilityIndicatorDiv = document.createElement("div");
-        availabilityIndicatorDiv.className = "availabilityIndicator";
-
-        // Create availability text
-        const availabilityText = document.createElement("p");
-        availabilityText.textContent = data.availability
-          ? "Available"
-          : "Unavailable";
-
-        // Append elements to their respective parent elements
-        availabilityDiv.appendChild(availabilityIndicatorDiv);
-        availabilityDiv.appendChild(availabilityText);
-
-        doctorIntroDiv.appendChild(doctorName);
-        doctorIntroDiv.appendChild(hrDoctorIntro);
-        doctorIntroDiv.appendChild(fieldParagraph);
-        doctorIntroDiv.appendChild(timingParagraph);
-        doctorIntroDiv.appendChild(availabilityDiv);
-
-        doctorDiv.appendChild(doctorProfileImage);
-        doctorDiv.appendChild(doctorIntroDiv);
-
-        // Append the new doctor div after the hr element in doctorStatusBoard div
-        const doctorStatusBoard = document.querySelector(".doctorStatusBoard");
-        const hrElement = doctorStatusBoard.querySelector("hr");
-        doctorStatusBoard.insertBefore(doctorDiv, hrElement.nextSibling);
+        // Remove each element from the DOM
+        elementsArray.forEach((element) => {
+          element.remove();
+        });
       }
 
-      // Sample object representing hospital data
-      const hospitalData = {
-        name: "New Hospital",
-        logoSrc: "./images/DoctorPortrait.jpg",
-        description: "This is a new hospital with state-of-the-art facilities.",
-        // Add more attributes as needed
-      };
+      document
+        .getElementById("doctors")
+        .addEventListener("click", () => fetchDoctors(""));
+      document
+        .getElementById("doctors1")
+        .addEventListener("click", () => fetchDoctors(""));
 
-      createHospitalDiv(hospitalData);
-      createHospitalDiv(hospitalData);
-      createHospitalDiv(hospitalData);
+      async function fetchDoctors(hospitalName) {
+        try {
+          deleteElementsByClass("doctor");
+          if (hospitalName != "") {
+            const response = await fetch(
+              `/fetchDoctorData?hospital=${encodeURIComponent(hospitalName)}`
+            );
+            if (!response.ok) {
+              throw new Error("Http error failed to bring all doctors data");
+            }
+            doctorData = await response.json();
+            console.log("Printing doctors data", doctorData);
+
+            doctorData.forEach((element) => {
+              createDoctorDiv(element);
+            });
+          } else {
+            const response = await fetch("/fetchDoctorData");
+            if (!response.ok) {
+              throw new Error("Http error failed to bring all doctors data");
+            }
+            doctorData = await response.json();
+            console.log(
+              "Printing doctor  without hospital name data",
+              doctorData
+            );
+
+            doctorData.forEach((element) => {
+              createDoctorDiv(element);
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching and creating doctor Divs:", error);
+        }
+      }
+
+      function createDoctorDiv(data) {
+        console.log("Making doctor div for ");
+        // Create a new doctor div
+        const newDoctorDiv = document.createElement("div");
+        newDoctorDiv.className = "doctor";
+
+        console.log(
+          "Printing the patch to doctorprofile : ",
+          data.profilepicture
+        );
+        const doctorImage = document.createElement("img");
+        if (data.profilepicture != "") {
+          doctorImage.src = data.profilepicture.slice(4);
+        } else {
+          doctorImage.src = "./images/defaultprofilepic.png";
+        }
+
+        doctorImage.alt = "";
+
+        const doctorIntroDiv = document.createElement("div");
+        doctorIntroDiv.className = "doctorIntro";
+        doctorIntroDiv.onclick = function () {
+          toggleElementDisplay("docStatus", data);
+        };
+
+        const doctorName = document.createElement("h5");
+        doctorName.textContent = data.username;
+
+        const fieldInfo = document.createElement("p");
+        fieldInfo.innerHTML = `Field : <span>${data.field}</span>`;
+
+        const currentHospitalInfo = document.createElement("p");
+        currentHospitalInfo.innerHTML = `Current Hospital : <span id="${data.username}CurrentHospital">${data.currentlyavailablehospoital}</span>`;
+
+        const statusDiv = document.createElement("div");
+        statusDiv.className = "status";
+        statusDiv.id = `${data.username}Status`;
+
+        const statusIndicator = document.createElement("div");
+        statusIndicator.className = "indicator";
+        statusIndicator.id = `${data.username}Indicator`;
+
+        const statusText = document.createElement("p");
+        statusText.id = `${data.username}StatusText`;
+        if (data.available) {
+          statusText.textContent = "Available";
+          statusIndicator.style.backgroundColor = "#00ff00";
+          statusIndicator.style.boxShadow = "0px 0px 10px #00ff00";
+        } else {
+          statusText.textContent = "Not Available";
+          statusIndicator.style.backgroundColor = "#ff0000";
+          statusIndicator.style.boxShadow = "0px 0px 10px #ff0000";
+        }
+
+        const hospitalsInfo = document.createElement("p");
+        hospitalsInfo.innerHTML = `Hospitals : <span>${data.affiliatedhospitals}</span>`;
+
+        // Append elements to new doctor div
+        doctorIntroDiv.appendChild(doctorName);
+        doctorIntroDiv.appendChild(fieldInfo);
+        doctorIntroDiv.appendChild(currentHospitalInfo);
+
+        statusDiv.appendChild(statusIndicator);
+        statusDiv.appendChild(statusText);
+        doctorIntroDiv.appendChild(statusDiv);
+
+        doctorIntroDiv.appendChild(hospitalsInfo);
+
+        newDoctorDiv.appendChild(doctorImage);
+        newDoctorDiv.appendChild(doctorIntroDiv);
+
+        // Append the new doctor div at the top
+        const allDoctorsDiv = document.querySelector(".allDoctors");
+        if (allDoctorsDiv.children[1]) {
+          allDoctorsDiv.insertBefore(newDoctorDiv, allDoctorsDiv.children[1]);
+        } else {
+          allDoctorsDiv.appendChild(newDoctorDiv);
+        }
+      }
       // Function to create and append a new hospital div
       function createHospitalDiv(data) {
         const hospitalDiv = document.createElement("div");
@@ -467,7 +689,11 @@
 
         const hospitalLogo = document.createElement("img");
         hospitalLogo.className = "hospitalLogo";
-        hospitalLogo.src = data.logoSrc;
+        if (data.profilePic != "") {
+          hospitalLogo.src = data.profilePic;
+        } else {
+          hospitalLogo.src = "./hospitalProfilePic/defaultlogo.png";
+        }
         hospitalLogo.alt = "";
 
         const hospitalInfoDiv = document.createElement("div");
@@ -475,7 +701,7 @@
 
         const hospitalName = document.createElement("h3");
         hospitalName.className = "hospitalName";
-        hospitalName.textContent = data.name;
+        hospitalName.textContent = data.hospital_name;
 
         const hrElement = document.createElement("hr");
         hrElement.style = "width: 100%; border: 1px solid aquamarine";
@@ -502,15 +728,16 @@
         const doctorsButton = document.createElement("button");
         doctorsButton.className = "hospitalOptionButtons";
         doctorsButton.textContent = "Doctors";
-        doctorsButton.name=data.name;
+        doctorsButton.name = data.hospital_name;
         doctorsButton.onclick = function () {
-          showOnlySelectedClasses("doctorStatusBoard");
+          showOnlySelectedClasses("allDoctors");
+          fetchDoctors(data.hospital_name);
         };
 
         const contactsButton = document.createElement("button");
         contactsButton.className = "hospitalOptionButtons lastOption";
         contactsButton.textContent = "Contacts";
-        contactsButton.name=data.name;
+        contactsButton.name = data.hospital_name;
         contactsButton.onclick = function () {
           dialogueOpen(this);
         };
@@ -529,30 +756,23 @@
       }
 
       // Call the function with the provided hospitalData object
-      
-
-      const checkbox = document.getElementById("statusButton");
 
       function logOut() {
         window.location.href = "login.html";
       }
 
-      function updateNumber(change) {
-        var numberElement = document.getElementById("numberDisplay");
-        var currentNumber = parseInt(numberElement.innerText);
-        if (currentNumber == 1 && change == -1) {
-        } else {
-          var newNumber = currentNumber + change;
-          numberElement.innerText = newNumber;
-        }
-      }
-
-      function deleteHospital(element) {
-        let parent = element.parentNode;
-        parent.remove();
-      }
       function dialogueOpen(element) {
         console.log("dialogueopen entered");
+        console.log(element.name);
+        for (let i = 0; i < hospitalData.length; i++) {
+          if (hospitalData[i].hospital_name == element.name) {
+            document.getElementById("hospitalContactNumber").textContent =
+              hospitalData[i].contact_number;
+            document.getElementById("hospitalEmail").textContent =
+              hospitalData[i].email;
+          }
+        }
+
         //    const hospitalName=element.parent.parentNode;
         document.querySelector(".hospitalContact").style.display = "flex";
         document.querySelector(".hospitalsBoard").style.opacity = 0.5;
@@ -601,8 +821,44 @@
         return file.type.startsWith("image/");
       }
 
-      var dropdownButton = document.getElementById("dropDownButton");
       var navListDropDown = document.getElementById("navList1");
+
+      document
+        .getElementById("hospital1")
+        .addEventListener("click", async () => {
+          try {
+            deleteElementsByClass("hospital");
+            const response = await fetch("/hospitalsData");
+            if (!response.ok) {
+              throw new Error("Http error failed to bring hospitals data");
+            }
+            hospitalData = await response.json();
+            console.log("Printing Hospital data", hospitalData);
+
+            hospitalData.forEach((element) => {
+              createHospitalDiv(element);
+            });
+          } catch (error) {}
+        });
+      document
+        .getElementById("hospital")
+        .addEventListener("click", async () => {
+          try {
+            deleteElementsByClass("hospital");
+            const response = await fetch("/hospitalsData");
+            if (!response.ok) {
+              throw new Error("Http error failed to bring hospitals data");
+            }
+            hospitalData = await response.json();
+            console.log("Printing Hospital data", hospitalData);
+
+            hospitalData.forEach((element) => {
+              createHospitalDiv(element);
+            });
+          } catch (error) {}
+        });
+
+      const dropdownButton = document.getElementById("dropDownButton");
 
       document.addEventListener("click", function (event) {
         // Check if the clicked element is outside the button and menu
@@ -612,9 +868,13 @@
         ) {
           hideMenu();
         }
+        if (
+          !document.getElementById("hospitalsuggestion").contains(event.target)
+        ) {
+          document.getElementById("hospitalsuggestion").innerHTML = "";
+        }
       });
       function hideMenu() {
-        dropdownButton.classList.remove("rotate"); // Use remove instead of toggle
         navListDropDown.style.display = "none";
       }
       function showMenu(element) {
@@ -628,84 +888,6 @@
           navList.style.display = "none";
         }
       }
-
-      function changeNumber(direction) {
-        if (direction == 1) {
-          let curNumber = document.getElementById("currentNumber");
-          let prevNumber = document.getElementById("previousNumber");
-          let nextNumber = document.getElementById("nextNumber");
-          let newDiv = document.createElement("div");
-          let nextNumberValue = parseInt(nextNumber.innerHTML) + 1;
-
-          prevNumber.remove();
-
-          curNumber.className = "";
-          curNumber.classList.add("tokenNumber");
-          curNumber.classList.add("previousNumber");
-          curNumber.id = "previousNumber";
-
-          nextNumber.className = "";
-          nextNumber.classList.add("currentNumber");
-          nextNumber.classList.add("tokenNumber");
-          nextNumber.id = "currentNumber";
-
-          newDiv.offsetHeight;
-          newDiv.className = "tokenNumber";
-          newDiv.classList.add("nextNumber");
-          newDiv.id = "nextNumber";
-          newDiv.innerHTML = nextNumberValue;
-          curNumber.parentElement.insertBefore(
-            newDiv,
-            curNumber.parentElement.children[3]
-          );
-        } else {
-          if (
-            parseInt(document.getElementById("previousNumber").innerHTML) != 0
-          ) {
-            let curNumber = document.getElementById("currentNumber");
-            let prevNumber = document.getElementById("previousNumber");
-            let nextNumber = document.getElementById("nextNumber");
-            let newDiv = document.createElement("div");
-            let nextNumberValue = parseInt(prevNumber.innerHTML) - 1;
-
-            nextNumber.remove();
-
-            curNumber.className = "";
-            curNumber.classList.add("tokenNumber");
-            curNumber.classList.add("nextNumber");
-            curNumber.id = "nextNumber";
-
-            prevNumber.className = "";
-            prevNumber.classList.add("currentNumber");
-            prevNumber.classList.add("tokenNumber");
-            prevNumber.id = "currentNumber";
-
-            newDiv.offsetHeight;
-            newDiv.className = "tokenNumber";
-            newDiv.classList.add("previousNumber");
-            newDiv.id = "previousNumber";
-            newDiv.innerHTML = nextNumberValue;
-            curNumber.parentElement.insertBefore(
-              newDiv,
-              curNumber.parentElement.children[1]
-            );
-          }
-        }
-      }
-
-      checkbox.addEventListener("change", function () {
-        let statusText = document.getElementById("statusText");
-        //  const statusLight = document.getElementById("statusLight");
-        console.log("Entered checked");
-
-        if (checkbox.checked) {
-          statusText.textContent = "You are now Online";
-          console.log("checked");
-        } else {
-          statusText.textContent = "You are now Offline";
-          console.log("unchecked");
-        }
-      });
 
       function showOnlySelectedClasses(...classNames) {
         // Include the default class "Navbar" if not already present
@@ -732,6 +914,77 @@
           }
         }
       }
+
+      function tokenUpdate(data) {
+        doctorData.forEach((element) => {
+          if (element.username == data.username) {
+            element[data.fieldName] = data.fieldValue;
+            if (data.fieldName == "lasttoken") {
+              document.getElementById("docStatusLastToken").textContent =
+                data.lasttoken || "none";
+            } else {
+              document.getElementById("docStatusCurrentToken").textContent =
+                data.currenttoken || "none";
+            }
+          }
+        });
+      }
+
+      function availabilityUpdate(data) {
+        doctorData.forEach((element) => {
+          if (element.username == data.username) {
+            element[data.fieldName] = data.fieldValue;
+            if (data.fieldValue) {
+              document.getElementById("docStatusImageLogo"
+              ).src = "./images/status.png";
+              
+              document.getElementById(
+                `${data.username}StatusText`
+              ).textContent = "Available";
+              document.getElementById(
+                `${data.username}Indicator`
+              ).style.backgroundColor = "#00ff00";
+              document.getElementById(
+                `${data.username}Indicator`
+              ).style.boxShadow = " 0px 0px 10px #00ff00";
+            } else {
+              document.getElementById("docStatusImageLogo"
+              ).src = "./images/status.png";
+              document.getElementById(
+                `${data.username}StatusText`
+              ).textContent = "Not available";
+              document.getElementById(
+                `${data.username}Indicator`
+              ).style.backgroundColor = "#ff0000";
+              document.getElementById(
+                `${data.username}Indicator`
+              ).style.boxShadow = " 0px 0px 10px #ff0000";
+            }
+          }
+        });
+      }
+
+      function updateCurrentHospital(data, fieldName) {
+        doctorData.forEach((element) => {
+          if (element.username == data.username) {
+            console.log("in updatecurrent hospital");
+            element[fieldName] = data.fieldValue;
+            document.getElementById(`${element.username}CurrentHospital`).textContent=data.fieldValue;
+          }
+        });
+      }
+      socket.on("updateAvailability", (data) => {
+        availabilityUpdate(data);
+        console.log("data gained at updateavailibility");
+      });
+      socket.on("currentHospitalUpdate", (data) => {
+        updateCurrentHospital(data, "currentlyavailablehospoital");
+        console.log("data recieved at current hospitalupdate socket");
+      });
+
+      socket.on("tokenUpdate", (data) => {
+        tokenUpdate(data);
+      });
     </script>
   </body>
 </html>

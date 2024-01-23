@@ -4,6 +4,7 @@ const path = require("path");
 const mysql = require("mysql2");
 const http = require("http").Server(app);
 const multer = require("multer");
+const io = require("socket.io")(http);
 const fs = require("fs");
 const port = process.env.PORT || 3000;
 
@@ -49,8 +50,49 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+//sending hospital data
+app.get("/hospitalsData", async (req, res) => {
+  try {
+    const query = "SELECT * FROM hospitals";
+    const [result] = await db.promise().query(query);
 
+    // Send the data as JSON
+    res.json(result);
+  } catch (error) {
+    console.error("Error fetching hospitals:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
+app.get("/fetchDoctorData", async (req, res) => {
+  try {
+    console.log("fetchdoctor hospital name  :", req.query.hospital);
+    if (req.query.hospital) {
+      const query = `
+      SELECT *
+      FROM doctors
+      WHERE 
+        LOWER(affiliatedhospitals) LIKE LOWER(?)
+        OR LOWER(currentlyavailablehospoital) LIKE LOWER(?);
+    `;
+
+      const hospitalSearchString = `%${req.query.hospital}%`;
+
+      const [result] = await db
+        .promise()
+        .query(query, [hospitalSearchString, hospitalSearchString]);
+
+      res.json(result);
+    } else {
+      const query = `SELECT * FROM doctors`;
+      const [result] = await db.promise().query(query);
+      res.json(result);
+    }
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 //updating profile pictures
 
@@ -95,6 +137,122 @@ app.post("/profilePicture", upload.single("profilePic"), async (req, res) => {
     res.redirect(redirectURL);
   }
 });
+
+const updateProfilePicDatabase = (data, username, imagePath) => {
+  // Assuming you have a 'doctors' and 'users' table
+  const table = data.userType === "doctor" ? "doctors" : "user";
+
+  const query = `UPDATE ${table} SET profilepicture = ? WHERE username = ?`;
+
+  db.query(query, [imagePath, username], (error, result) => {
+    if (error) {
+      console.error("Error updating profile picture:", error);
+      // Handle the error accordingly (send an error response, log, etc.)
+    } else {
+      console.log("Profile picture updated successfully.");
+      // You might want to send a success response or perform additional actions
+    }
+  });
+};
+
+//userProfileEditUpdate
+
+app.post("/updateUserProfile", async (req, res) => {
+  console.log(req.body);
+  await updateUserTable(req.body);
+
+  const Data = await bringProfileData(req.body.username, "user");
+
+  const userdata = Data[0][0];
+
+  console.log(
+    "Data bring by bring profile data after username update : ",
+    userdata
+  );
+  const redirectURL = `/userProfilePage.html?username=${userdata.username}
+    &contact=${userdata.contactnumber}
+    &email=${userdata.email}
+    &gender=${userdata.gender}
+    &age=${userdata.age}
+    &profilePic=${userdata.profilepicture}`;
+
+  res.redirect(redirectURL);
+});
+
+function usernameAvailable(username) {
+  return new Promise((resolve, reject) => {
+    const query1 = `SELECT COUNT(*) AS count FROM users where username = ?`;
+    db.query(query1, [username], (error, result) => {
+      if (error) {
+        console.log("wrong query");
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
+
+async function updateUserTable(data) {
+  try {
+    if (data.username != data.oldUsername) {
+      const available = await usernameAvailable(data.username);
+      console.log(
+        "new and old are different and new is available : ",
+        available[0].count
+      );
+
+      if (!available[0].count) {
+        try {
+          let query = `UPDATE users SET username = ? WHERE username = ?`;
+          let result = await db
+            .promise()
+            .query(query, [data.username, data.oldUsername]);
+
+          query = `UPDATE user SET username = ? WHERE username = ?`;
+          result = await db
+            .promise()
+            .query(query, [data.username, data.oldUsername]);
+        } catch (error) {
+          console.error("Error updating username:", error);
+          throw error;
+        }
+      } else {
+        // Handle the case where the new username is not available
+        console.log("New username is not available.");
+      }
+    }
+
+    // Rest of your code for updating other fields when the username is the same
+    const querynew = `
+      UPDATE user
+      SET contactnumber = ?,
+      email = ?,
+      age = ?,
+      gender = ?
+      WHERE username = ?`;
+
+    // Extract values from data
+
+    // Check for undefined values and replace them with null
+    const params = [
+      data.contactNumber || null,
+      data.mail || null,
+      data.age || null,
+      data.gender || null,
+      data.username || null,
+    ];
+
+    // Log the values being used in the query
+    console.log("Values in updateUserTable query:", params);
+
+    // Execute the query
+    const result = await db.promise().query(querynew, params);
+  } catch (error) {
+    console.error("Error updating user table:", error);
+    throw error;
+  }
+}
 
 //DoctorProfileEditUpdata
 
@@ -353,6 +511,31 @@ async function signupCredentialChecker(data) {
   }
 }
 
+io.on("connection", (socket) => {
+  console.log("A user connected");
+
+  socket.on("updateToken", (data) => {
+    updateTokens(data.username, data.fieldName, data.fieldValue);
+
+    io.emit("tokenUpdate", data);
+  });
+
+  socket.on("availability", (data) => {
+    updateTokens(data.username, "available", data.fieldValue);
+    io.emit("updateAvailability", data);
+  });
+
+
+  socket.on("currentHospital", (data) => {
+    updateTokens(data.username, "currentlyavailablehospoital", data.fieldValue);
+    console.log("update in current hospital ");
+    io.emit("currentHospitalUpdate", data);
+  });
+  
+  socket.on("doctorlogOut", (data) => {
+    doctorLogout(data);
+  });
+});
 
 
 async function doctorLogout(data) {

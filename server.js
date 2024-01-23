@@ -1,12 +1,16 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const mysql = require("mysql2");
 const http = require("http").Server(app);
+const multer = require("multer");
+const fs = require("fs");
 const port = process.env.PORT || 3000;
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "src")));
 
 // Configure MySQL connection
 const db = mysql.createConnection({
@@ -22,8 +26,156 @@ db.connect((err) => {
   }
   console.log("Connected to MySQL");
 });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    let uploadDir;
+
+    if (req.body.userType === "doctor") {
+      uploadDir = "src/profilepics/doctorprofilepics";
+    } else if (req.body.userType === "user") {
+      uploadDir = "src/profilepics/userprofilepics";
+    } else {
+    }
+
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    cb(null, req.body.username + path.extname(file.originalname));
+  },
+});
+const upload = multer({ storage: storage });
 
 
+
+
+//updating profile pictures
+
+app.post("/profilePicture", upload.single("profilePic"), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).send("No file found");
+  }
+
+  const imagePath = path.join(req.file.destination, req.file.filename);
+  const username = req.body.username;
+
+  updateProfilePicDatabase(req.body, username, imagePath);
+
+  if (req.body.userType == "doctor") {
+    const Data = await bringProfileData(req.body.username, "doctors");
+    const doctordata = Data[0][0];
+    const redirectURL = `/doctorProfilePage.html?name=${doctordata.username}
+    &field=${doctordata.field}
+    &degree=${doctordata.degree}
+    &speciality=${doctordata.speciality}
+    &subspecial=${doctordata.subspecialization}
+    &contact=${doctordata.contactnumber}
+    &email=${doctordata.email}
+    &affiliatedhospitals=${doctordata.affiliatedhospitals}
+    &currentHospital=${doctordata.currentlyavailablehospoital}
+    &availibility=${doctordata.available}
+    &currentToken=${doctordata.currenttoken}
+    &lastToken=${doctordata.lasttoken}
+    &profilePic=${doctordata.profilepicture}`;
+
+    res.redirect(redirectURL);
+  } else {
+    const data = await bringProfileData(req.body.username, "user");
+    const userdata = data[0][0];
+    const redirectURL = `/userProfilePage.html?username=${userdata.username}
+  &contact=${userdata.contactnumber}
+  &email=${userdata.email}
+  &gender=${userdata.gender}
+  &age=${userdata.age}
+  &profilePic=${userdata.profilepicture}`;
+
+    res.redirect(redirectURL);
+  }
+});
+
+//DoctorProfileEditUpdata
+
+app.post("/updateProfile", async (req, res) => {
+  console.log("Sended data", req.body);
+  await updateDoctorsTable(req.body);
+  console.log("tables updated succesfully");
+  const Data = await bringProfileData(req.body.username, "doctors");
+
+  console.log(typeof Data);
+  console.log("recieved data from bringprofiledata", Data[0][0]);
+
+  const doctordata = Data[0][0];
+  const redirectURL = `/doctorProfilePage.html?name=${doctordata.username}
+  &field=${doctordata.field}
+  &degree=${doctordata.degree}
+  &speciality=${doctordata.speciality}
+  &subspecial=${doctordata.subspecialization}
+  &contact=${doctordata.contactnumber}
+  &email=${doctordata.email}
+  &affiliatedhospitals=${doctordata.affiliatedhospitals}
+  &currentHospital=${doctordata.currentlyavailablehospoital}
+  &availibility=${doctordata.available}
+  &currentToken=${doctordata.currenttoken}
+  &lastToken=${doctordata.lasttoken}
+  &profilePic=${doctordata.profilepicture}`;
+
+  res.redirect(redirectURL);
+});
+async function updateDoctorsTable(data) {
+  try {
+    const query = `
+      UPDATE doctors
+      SET field = ?,
+          degree = ?,
+          speciality = ?,
+          subspecialization = ?,
+          contactnumber = ?,
+          email = ?,
+          affiliatedhospitals = ?
+      WHERE username = ?
+    `;
+
+    // Extract values from data
+    const {
+      fieldName,
+      degree,
+      speciality,
+      subSpeciality,
+      contactNumber,
+      mail,
+      affiliatedHospitals,
+      username,
+    } = data;
+
+    // Check for undefined values and replace them with null
+    const params = [
+      fieldName || null,
+      degree || null,
+      speciality || null,
+      subSpeciality === undefined ? null : subSpeciality,
+      contactNumber || null,
+      mail === undefined ? null : mail,
+      affiliatedHospitals || null,
+      username || null,
+    ];
+
+    // Log the values being used in the query
+    console.log("Values in updateDoctorsTable query:", params);
+
+    // Execute the query
+    const result = await db.execute(query, params);
+
+    console.log("Result value from updateDoctorsTable", result);
+
+    return result;
+  } catch (error) {
+    console.error("Error updating field:", error);
+    throw error;
+  }
+}
 async function bringProfileData(username, table) {
   try {
     console.log("entered in bringprofile data.");
@@ -202,6 +354,7 @@ async function signupCredentialChecker(data) {
 }
 
 
+
 async function doctorLogout(data) {
   try {
     const query = `UPDATE doctors SET currentlyavailablehospoital = ?  , available = ? ,currenttoken=?,lasttoken=? WHERE username = ?`;
@@ -210,7 +363,13 @@ async function doctorLogout(data) {
   } catch (error) {}
 }
 
+async function updateTokens(userName, fieldName, fieldValue) {
+  try {
+    const query = `UPDATE doctors SET ${fieldName} = ? WHERE username = ?`;
 
+    await db.execute(query, [fieldValue, userName]);
+  } catch (error) {}
+}
 
 // Start the server and listen on the specified port
 http.listen(port, () => {
